@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+execute:
+  freeze: auto
+render:
+  - "!./www/*"
+
+website:
+  title: "CRNL Cluster Guidelines"
+  navbar:
+    background: dark
+    left:
+      - text: "SSH"
+        file: help_ssh.qmd
+      - text: "SLURM"
+        menu:
+        - text: "Part 1"
+          file: Tutorial_Cluster_Part1.qmd
+        - text: "Part 2"
+          file: Tutorial_Cluster_Part2.qmd             
+  
+    right:
+      - text: "About"
+        file: about.qmd
+
+format:
+  html:
+    theme: 
+      - cerulean
+      - custom.scss
+    toc: true
