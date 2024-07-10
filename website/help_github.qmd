@@ -47,3 +47,9 @@ In this case, you can still connect your command line to your Github. The follow
 5. Finally, login into your Github account, go to the following address `https://github.com/settings/profile`and paste what you got from previous step (it should start with 'ssh-rsa' and finish with the email address you've provided at step 2).
 
 6. That's it. Now each time you need to connect to Github from your command line, just type `ssh -T git@github.com`. You'll be asked the passphrase of your SSH key (as defined at step 2). 
+
+## Leave a message
+
+Feel free to leave a message.
+
+{{< include _comment_box.qmd >}}

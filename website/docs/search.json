@@ -95,42 +95,49 @@
     "href": "help_github.html",
     "title": "Quick tutorial for Git/Github",
     "section": "",
-    "text": "If you only plan to clone public repositories, you can probably just use git clone https:// or simply download and unzip the repository of interest.\nHowever, you will need to connect your command line to your Github account in the following scenarios:\n\nto clone private repositories that you own or one which you have been added as a collaborator.\nto perform any write operation in the repository (e.g. push, pull, merge, branch, etc.)\n\n\nIf you have admin/sudo rights\n\nIf you don’t have Github, create an account.\nInstall the Github CLI utility that will allow you to connect your command line to your Github repository.\nRestart your terminal (or Visual Code), reopen it, and type gh auth login. Choose Github.com, HTTPS, Login with a web browser (or use an auth token if you prefer)\nCD to the directory where your example.md file is located and type git init in the command line. This preconfigures the folder as a Git repository.\nIn Github, create a new repository. For example, name it “example-collaborative-writing”. If you create a public repository, everyone on the web will be able to see the repository and its content. If you create a private repository, only the Github contact that you will manually add to the repository will be able to see it and its content. Most often, you’ll want to create private repositories to work with specific colleagues.\nBack to your command line, type git remote add origin https://github.com/yourGithubUsername/example-collaborative-writing.git git add ., git commit -m \"first commit\", git branch -M main, git push -u origin main. These steps are only needed for the creation of a new repository, then things will be much simpler. Refresh the web page of the newly create Github repository. You should see your example.md file appearing!\n\nNow, each time that you’ll want to start working on the file(s) contained in the folder/repository, you’ll have to type git pull in the command line (make sure that our command line points to the correct folder, if not, cd to it), make your modification and then type: git add ., git commit -m \"any message\", git push to upload your changes. You may even speed up this process further by using this trick.\nThis tutorial may be extended to cover other important aspects of Git. The two most important concepts are “branching” (see here) and “merging” (see here). A final one is “conflict management” (see here), which is relatively easy to deal with in VScode.\n\n\nIf you don’t have admin/sudo rights (e.g. on the cluster)\nIn this case, you can still connect your command line to your Github. The following is a simplified version of the information provided by Github.\n\nIf you don’t have Github, create an account.\nIn the command line of your computer, type ssh-keygen -t ed25519 -C \"your_email@example.com\" and indicate a passphrase (can be simple but not empty). This will create a new SSH key. Replace your_email@example.com by the email address you’ve used when creating your github account (it should work with other valid addresses too).\nThen, add the SSH key to your ssh client by typing: ssh-add ~/.ssh/id_ed25519 (id_ed25519 is a default name: if you specified a name for your key, adjust accordingly).\nStill in the command line, type cat ~/.ssh/id_ed25519.pub (again, adjust name if necessary) and copy paste what comes out.\nFinally, login into your Github account, go to the following address https://github.com/settings/profileand paste what you got from previous step (it should start with ‘ssh-rsa’ and finish with the email address you’ve provided at step 2).\nThat’s it. Now each time you need to connect to Github from your command line, just type ssh -T git@github.com. You’ll be asked the passphrase of your SSH key (as defined at step 2)."
+    "text": "If you only plan to clone public repositories, you can probably just use git clone https:// or simply download and unzip the repository of interest.\nHowever, you will need to connect your command line to your Github account in the following scenarios:"
+  },
+  {
+    "objectID": "help_github.html#leave-a-message",
+    "href": "help_github.html#leave-a-message",
+    "title": "Quick tutorial for Git/Github",
+    "section": "Leave a message",
+    "text": "Leave a message\nFeel free to leave a message."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "COPHY Project",
     "section": "",
-    "text": "This website provides information about the template used for new scientific projects in the COPHY team. Like the template itself, the website may change and grow over time."
+    "text": "This website provides information about the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL)."
   },
   {
-    "objectID": "about.html#idea",
-    "href": "about.html#idea",
+    "objectID": "about.html#ssh",
+    "href": "about.html#ssh",
     "title": "COPHY Project",
-    "section": "Idea",
-    "text": "Idea\nAll scientific project share similar components and they can therefore be integrated within a standard template, provided that the template is flexible enough. Templating does not only facilitate collaborative open science, it can also greatly accelerate the overall scientific process, thanks to a myriad of excellent tools such as Git, Quarto, Jupyter, etc."
+    "section": "SSH",
+    "text": "SSH\nCheck the tutorial for easy SSH access with SSH keys, to avoid having to enter passwords in the future."
   },
   {
-    "objectID": "about.html#dissociating-writing-from-rendering-content",
-    "href": "about.html#dissociating-writing-from-rendering-content",
+    "objectID": "about.html#job-submission",
+    "href": "about.html#job-submission",
     "title": "COPHY Project",
-    "section": "Dissociating writing from rendering content",
-    "text": "Dissociating writing from rendering content\nAcademics spend a lot of their time writing papers, proposals, reports and other documents. Many are happy with traditional workflows combining a commercial word processors (e.g. Word) with a bibliography software such as Zotero or Mendeley. But academic writing is often collaborative and a lot of researchers actually need to use Google Docs (with some plugins) to do so. The problem is that Google Docs offer little guarantees when it comes to privacy, and it is rather limited when it comes to templating, writing equations or simply using it offline. Moreover, Google Docs still constitute one more interface in the daily life of academics (and not the best). By reading step by step the documentation of this website, you may set up an alternative writing workflow using Markdown.\nHabits are strong and starting to use Markdown entails a little switch cost, but it should be largely compensated by all the benefits of using it in the context of the proposed template. Check the documentation of this website to know more."
+    "section": "Job submission",
+    "text": "Job submission\nCheck the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1 Part 2"
   },
   {
     "objectID": "about.html#how-to-contribute",
     "href": "about.html#how-to-contribute",
     "title": "COPHY Project",
     "section": "How to contribute",
-    "text": "How to contribute\nTo contribute to the development and conception of the template, you can leave a message below or write to romain.ligneul@inserm.fr. You’ll need a Github account. You will also have to join the Cophy Team organization."
+    "text": "How to contribute\nTo contribute to the development and conception of these guidelines, request access to the CRNL Github organization to Samuel Garcia or Romain Ligneul."
   },
   {
     "objectID": "about.html#leave-a-message",
     "href": "about.html#leave-a-message",
     "title": "COPHY Project",
     "section": "Leave a message",
-    "text": "Leave a message"
+    "text": "Leave a message\nFeel free to leave a message."
   },
   {
     "objectID": "help_ssh.html",
