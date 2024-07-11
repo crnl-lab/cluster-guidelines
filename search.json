@@ -123,35 +123,21 @@
     "href": "about.html",
     "title": "CRNL cluster guidelines",
     "section": "",
-    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL)."
+    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
   },
   {
     "objectID": "about.html#using-jupyter-lab",
     "href": "about.html#using-jupyter-lab",
     "title": "CRNL cluster guidelines",
     "section": "Using Jupyter lab",
-    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Git (optional but recommended)\n\n\nLearn to submit jobs\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1 Part 2"
+    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Github (optional but recommended)\nLearn how to connect your Github account to your terminal on the cluster here.\n\n\nLearn to submit jobs (recommended)\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1\nPart 2"
   },
   {
     "objectID": "about.html#using-vs-code",
     "href": "about.html#using-vs-code",
     "title": "CRNL cluster guidelines",
     "section": "Using VS code",
-    "text": "Using VS code"
-  },
-  {
-    "objectID": "about.html#get-git",
-    "href": "about.html#get-git",
-    "title": "CRNL cluster guidelines",
-    "section": "1- Get Git",
-    "text": "1- Get Git\nCheck the tutorial for easy SSH access with SSH keys, to avoid having to enter passwords in the future."
-  },
-  {
-    "objectID": "about.html#set-up-ssh-and-visual-code",
-    "href": "about.html#set-up-ssh-and-visual-code",
-    "title": "CRNL cluster guidelines",
-    "section": "2- Set up SSH and Visual Code",
-    "text": "2- Set up SSH and Visual Code\nCheck the tutorial for easy SSH access with SSH keys, to avoid having to enter passwords in the future."
+    "text": "Using VS code\nCheck the dedicated tutorial to use VS code correctly.\nNote that the job submission tutorial is still applicable when using VS code."
   },
   {
     "objectID": "about.html#how-to-contribute",
