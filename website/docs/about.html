@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>COPHY Project – CRNL Cluster Guidelines</title>
+<title>CRNL cluster guidelines – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">CRNL Cluster Guidelines</span>
+    <span class="navbar-title">CRNL</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -86,15 +86,26 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./help_ssh.html"> 
-<span class="menu-text">SSH</span></a>
-  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slurm" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">SLURM</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Connecting</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-slurm">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
+        <li>
+    <a class="dropdown-item" href="./help_VPN.html">
+ <span class="dropdown-text">VPN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_github.html">
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Submitting</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
  <span class="dropdown-text">Part 1</span></a>
@@ -102,6 +113,17 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
  <span class="dropdown-text">Part 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
+        <li>
+    <a class="dropdown-item" href="./help_VScode.html">
+ <span class="dropdown-text">VScode on the cluster</span></a>
   </li>  
     </ul>
   </li>
@@ -126,8 +148,15 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
   <ul>
-  <li><a href="#ssh" id="toc-ssh" class="nav-link active" data-scroll-target="#ssh">SSH</a></li>
-  <li><a href="#job-submission" id="toc-job-submission" class="nav-link" data-scroll-target="#job-submission">Job submission</a></li>
+  <li><a href="#using-jupyter-lab" id="toc-using-jupyter-lab" class="nav-link active" data-scroll-target="#using-jupyter-lab">Using Jupyter lab</a>
+  <ul class="collapse">
+  <li><a href="#obtain-vpn-access-optional" id="toc-obtain-vpn-access-optional" class="nav-link" data-scroll-target="#obtain-vpn-access-optional">Obtain VPN access (optional)</a></li>
+  <li><a href="#configure-your-git-optional-but-recommended" id="toc-configure-your-git-optional-but-recommended" class="nav-link" data-scroll-target="#configure-your-git-optional-but-recommended">Configure your Git (optional but recommended)</a></li>
+  <li><a href="#learn-to-submit-jobs" id="toc-learn-to-submit-jobs" class="nav-link" data-scroll-target="#learn-to-submit-jobs">Learn to submit jobs</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#get-git" id="toc-get-git" class="nav-link" data-scroll-target="#get-git">1- Get Git</a></li>
+  <li><a href="#set-up-ssh-and-visual-code" id="toc-set-up-ssh-and-visual-code" class="nav-link" data-scroll-target="#set-up-ssh-and-visual-code">2- Set up SSH and Visual Code</a></li>
   <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
   <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
   </ul>
@@ -139,21 +168,40 @@ ul.task-list li input[type="checkbox"] {
   round " style="height: 15em; width: 15em;">
  <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">COPHY Project</h1>
+<h1 class="title">CRNL cluster guidelines</h1>
 </div>
 <div class="quarto-title-meta">
   </div>
 </header><main class="content" id="quarto-document-content">
 
-<p>This website provides information about the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</p>
-<section id="ssh" class="level2">
-<h2 data-anchor-id="ssh">SSH</h2>
+<p>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</p>
+<section id="using-jupyter-lab" class="level2">
+<h2 data-anchor-id="using-jupyter-lab">Using Jupyter lab</h2>
+<p>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e.&nbsp;10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</p>
+<p>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</p>
+<section id="obtain-vpn-access-optional" class="level3">
+<h3 data-anchor-id="obtain-vpn-access-optional">Obtain VPN access (optional)</h3>
+<p>If you want to access the cluster remotely, check this <a href="./help_VPN">page</a>.</p>
+</section>
+<section id="configure-your-git-optional-but-recommended" class="level3">
+<h3 data-anchor-id="configure-your-git-optional-but-recommended">Configure your Git (optional but recommended)</h3>
+</section>
+<section id="learn-to-submit-jobs" class="level3">
+<h3 data-anchor-id="learn-to-submit-jobs">Learn to submit jobs</h3>
+<p>The cluster uses SLURM to manage “jobs” (i.e.&nbsp;functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</p>
+<p><a href="./Tutorial_Cluster_Part1">Part 1</a> <a href="./Tutorial_Cluster_Part2">Part 2</a></p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 data-anchor-id="section"></h2>
+</section>
+<section id="get-git" class="level2">
+<h2 data-anchor-id="get-git">1- Get Git</h2>
 <p>Check the tutorial for <a href="./help_ssh">easy SSH access</a> with SSH keys, to avoid having to enter passwords in the future.</p>
 </section>
-<section id="job-submission" class="level2">
-<h2 data-anchor-id="job-submission">Job submission</h2>
-<p>Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</p>
-<p><a href="./Tutorial_Cluster_Part1">Part 1</a> <a href="./Tutorial_Cluster_Part2">Part 2</a></p>
+<section id="set-up-ssh-and-visual-code" class="level2">
+<h2 data-anchor-id="set-up-ssh-and-visual-code">2- Set up SSH and Visual Code</h2>
+<p>Check the tutorial for <a href="./help_ssh">easy SSH access</a> with SSH keys, to avoid having to enter passwords in the future.</p>
 </section>
 <section id="how-to-contribute" class="level2">
 <h2 data-anchor-id="how-to-contribute">How to contribute</h2>

@@ -12,7 +12,7 @@ website:
     background: dark
     left:
       - text: "Connecting"
-          menu:
+        menu:
         - text: "VPN"
           file: help_VPN.qmd
         - text: "Github"

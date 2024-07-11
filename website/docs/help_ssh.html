@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Connecting to the CRNL server over SSH in Visual Code – CRNL Cluster Guidelines</title>
+<title>Connecting to the CRNL server over SSH in Visual Code – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">CRNL Cluster Guidelines</span>
+    <span class="navbar-title">CRNL</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -88,15 +88,26 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./help_ssh.html" aria-current="page"> 
-<span class="menu-text">SSH</span></a>
-  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slurm" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">SLURM</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Connecting</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-slurm">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
+        <li>
+    <a class="dropdown-item" href="./help_VPN.html">
+ <span class="dropdown-text">VPN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_github.html">
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Submitting</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
  <span class="dropdown-text">Part 1</span></a>
@@ -104,6 +115,17 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
  <span class="dropdown-text">Part 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
+        <li>
+    <a class="dropdown-item" href="./help_VScode.html">
+ <span class="dropdown-text">VScode on the cluster</span></a>
   </li>  
     </ul>
   </li>
@@ -130,7 +152,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" id="toc-set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" class="nav-link active" data-scroll-target="#set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises">Set up the VPN of INSERM (if you are outside the CRNL premises)</a></li>
-  <li><a href="#connect-with-username-and-password" id="toc-connect-with-username-and-password" class="nav-link" data-scroll-target="#connect-with-username-and-password">Connect with username and password</a></li>
+  <li><a href="#create-your-local-ssh-config-file" id="toc-create-your-local-ssh-config-file" class="nav-link" data-scroll-target="#create-your-local-ssh-config-file">Create your local SSH config file</a>
+  <ul class="collapse">
+  <li><a href="#on-linux" id="toc-on-linux" class="nav-link" data-scroll-target="#on-linux">On Linux</a></li>
+  <li><a href="#on-windows" id="toc-on-windows" class="nav-link" data-scroll-target="#on-windows">On Windows</a></li>
+  </ul></li>
   <li><a href="#create-a-pair-of-keys-and-configure-them" id="toc-create-a-pair-of-keys-and-configure-them" class="nav-link" data-scroll-target="#create-a-pair-of-keys-and-configure-them">Create a pair of keys and configure them</a></li>
   </ul>
 </nav>
@@ -163,17 +189,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Visual Code has a great <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh">Remote SSH</a> extension that can be used to connect remotely to the CRNL server, without having to constantly enter your password. Except for using Matlab (it may change soon), working on the server from VScode has only advantages, starting with <strong>speed</strong> (as compared to laggy VNC connections). Since the connection process can be a bit tedious, here are the steps to follow. You have only to follow them once. It is assumed that you use Windows, but it should be similar on other platforms.</p>
 <section id="set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises">Set up the VPN of INSERM (if you are outside the CRNL premises)</h2>
 <p>To access the CRNL servers from outside, following this tutorial.</p>
 <p><a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn" class="uri">https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn</a></p>
-<p>You need your CRNL identifiers to access this page. Essentially, besides installing the software, <strong>you have to fill the PDF “fiche”</strong> (<a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn">here</a>) and send it to <a href="pe.aguera@inserm.fr">pe.aguera@inserm.fr</a>. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.</p>
+<p>You need your CRNL identifiers to access this page. Essentially, besides installing the software, <strong>you have to fill the PDF “fiche”</strong> (<a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn">here</a>) and send it to <a href="thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.</p>
 <p>If you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL).</p>
 </section>
-<section id="connect-with-username-and-password" class="level2">
-<h2 class="anchored" data-anchor-id="connect-with-username-and-password">Connect with username and password</h2>
-<p>In Visual Code, first click on the bottom left icon of the Remote SSH extension.</p>
+<section id="create-your-local-ssh-config-file" class="level2">
+<h2 class="anchored" data-anchor-id="create-your-local-ssh-config-file">Create your local SSH config file</h2>
+<section id="on-linux" class="level3">
+<h3 class="anchored" data-anchor-id="on-linux">On Linux</h3>
+<p>Open a terminal</p>
+<p><code>cd ~/.ssh</code></p>
+<p><code>ssh-keygen</code></p>
+<p>Follow the instructions. When asked for a password, just press enter.</p>
+</section>
+<section id="on-windows" class="level3">
+<h3 class="anchored" data-anchor-id="on-windows">On Windows</h3>
+<p>Open a terminal</p>
+<p><code>cd ~/.ssh</code></p>
+<p><code>ssh-keygen</code></p>
+<p>Follow the instructions. When asked for a password, just press enter.</p>
 <p><img src="images/paste-1.png" class="img-fluid"></p>
 <ul>
 <li><p>Type, connect to host and enter: <code>ssh yourusername@10.69.168.62</code></p></li>
@@ -183,6 +220,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Open this file</p></li>
 </ul>
 <p>Leave open this Visual Code session that we will call the <em>server session</em>, to open and create the pair of keys.</p>
+</section>
 </section>
 <section id="create-a-pair-of-keys-and-configure-them" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-pair-of-keys-and-configure-them">Create a pair of keys and configure them</h2>
