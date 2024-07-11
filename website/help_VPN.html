@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Connecting to the CRNL server over SSH in Visual Code – CRNL</title>
+<title>VPN access – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -196,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Connecting to the CRNL server over SSH in Visual Code</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">VPN access</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -219,61 +219,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</p>
-</div>
-</div>
-<p>Find your <strong>local</strong> .ssh folder (local always refer to the computer you are using).</p>
-<p>On Linux, you can probably find it at <code>~/.ssh/</code> or <code>/home/username/.ssh/</code>.</p>
-<p>On Window, you can probably find at at <code>C:\Users\username\.ssh\</code>.</p>
-<p>If you don’t find it, just create it and <code>cd</code> in it. Then type:</p>
-<p><code>ssh-keygen -f crnlcluster</code></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If ssh-keygen is not found, you may need to install <a href="https://www.putty.org/">Putty</a>, restart your terminal and perform these steps again.</p>
-</div>
-</div>
-<p>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <code>type crnlcluster.pub</code></p>
-<p>You public key will appear in the terminal. Keep it open.</p>
-<p>Now, type:</p>
-<p><code>ssh cluster_username@10.69.168.93</code></p>
-<p><strong>Change</strong> cluster_username to match your username on the cluster (typically, firstname.lastname)</p>
-<p>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</p>
-<p>Now, you are logged in the cluster! Type:</p>
-<p><code>cd ~/.ssh/</code></p>
-<p><code>touch authorized_keys</code></p>
-<p><code>vi authorized_keys</code></p>
-<p>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <code>type crnlcluster.pub</code>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <code>:wq</code> in it.</p>
-<p>Close the terminal.</p>
-<p>Now, the cluster knows your ssh key and you won’t need to use the password anymore (only the ssh key passphrase if you entered one). But let’s make an extra-step to further automatize the process.</p>
-<p>In your local .ssh folder, create a file named <code>config</code> and add the following lines to it:</p>
-<pre><code>Host CRNLcluster
-  HostName 10.69.168.93
-  User cluster_username
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  IdentityFile "path/to/your/sshkey/crnlcluster"</code></pre>
-<p>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</p>
-<p>Now, each time you want to reach the command line of the cluster, open a terminal and type:</p>
-<p><code>ssh cluster_username@CRNLcluster</code></p>
-<p>You are already into the cluster!</p>
+<p>If you only want to use the cluster when you are at the lab, you don’t need the VPN.</p>
+<p>The VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.</p>
+<p><a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn" class="uri">https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn</a></p>
+<p>You need your CRNL identifiers to access this internal page. Essentially, besides installing the software, <strong>you will have to fill the PDF “<a href="https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:informatique:inscription_service_vpn.pdf">fiche</a>”</strong> (<a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn">here</a>) and send it to <a href="thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.</p>
+<p>If you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL).</p>
 
 
 <!-- -->
@@ -423,7 +373,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/crnl-lab\.github\.io\/cluster-guidelines\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -751,78 +701,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Connecting to the CRNL server over SSH in Visual Code</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster.</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Find your **local** .ssh folder (local always refer to the computer you are using).</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>On Linux, you can probably find it at <span class="in">`~/.ssh/`</span> or <span class="in">`/home/username/.ssh/`</span>.</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>On Window, you can probably find at at <span class="in">`C:\Users\username\.ssh\`</span>.</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>If you don't find it, just create it and <span class="in">`cd`</span> in it. Then type:</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh-keygen -f crnlcluster`</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>If ssh-keygen is not found, you may need to install <span class="co">[</span><span class="ot">Putty</span><span class="co">](https://www.putty.org/)</span>, restart your terminal and perform these steps again.</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <span class="in">`type crnlcluster.pub`</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>You public key will appear in the terminal. Keep it open.</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Now, type:</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@10.69.168.93`</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>**Change** cluster_username to match your username on the cluster (typically, firstname.lastname)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>Now, you are logged in the cluster! Type:</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="in">`cd ~/.ssh/`</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="in">`touch authorized_keys`</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="in">`vi authorized_keys`</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <span class="in">`type crnlcluster.pub`</span>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <span class="in">`:wq`</span> in it.</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>Close the terminal.</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>Now, the cluster knows your ssh key and you won't need to use the password anymore (only the ssh key passphrase if you entered one). But let's make an extra-step to further automatize the process.</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>In your local .ssh folder, create a file named <span class="in">`config`</span> and add the following lines to it:</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="in">Host CRNLcluster</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="in">  HostName 10.69.168.93</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="in">  User cluster_username</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11 yes</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11Trusted yes</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="in">  IdentityFile "path/to/your/sshkey/crnlcluster"</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>Now, each time you want to reach the command line of the cluster, open a terminal and type:</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@CRNLcluster`</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>You are already into the cluster! </span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> VPN access</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>If you only want to use the cluster when you are at the lab, you don't need the VPN. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>You need your CRNL identifiers to access this internal page. Essentially, besides</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>installing the software, **you  will have to fill the PDF "[fiche](https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:informatique:inscription_service_vpn.pdf)"**</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">here</span><span class="co">](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn)</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>and send it to <span class="co">[</span><span class="ot">thibaut.woog@inserm.fr</span><span class="co">](thibaut.woog@inserm.fr)</span>. Then, it</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>will be a matter of days before you can access the CRNL infrastructure</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>remotely. You'll be noticed by email.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you don't have an INSERM email, you can ask one if you work at CRNL</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>(even if you are affiliated to CNRS or UCBL).</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
