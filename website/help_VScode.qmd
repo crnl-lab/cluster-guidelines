@@ -5,6 +5,7 @@ toc: true
 execute: 
   echo: true
   freeze: true
+  eval: false
 ---
 
 [VScode](https://code.visualstudio.com/) is a very potent IDE that is used by many people, including at the CRNL.
