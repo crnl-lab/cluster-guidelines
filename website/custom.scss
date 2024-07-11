@@ -47,7 +47,7 @@ $dropdown-link-hover-bg:        $primary !default;
 $navbar-dark-color:             rgba($white, .8) !default;
 $navbar-dark-hover-color:       $white !default;
 
-$body-color: #468 !default;
+$body-color: #222 !default;
 $body-bg: #fff !default;
 $primary: #468 !default;
 $secondary: #999 !default;
@@ -80,7 +80,9 @@ $text-shadow: 0 1px 0 rgba(0, 0, 0, .05) !default;
 }
 
 // Navbar
-
+.navbar {
+  background-color: $primary
+}
 .navbar {
   @each $color, $value in $theme-colors {
     &.bg-#{$color} {
