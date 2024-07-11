@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Quick tutorial for Git/Github – CRNL</title>
+<title>Connecting to the CRNL server over SSH in Visual Code – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -152,14 +152,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./help_VScode.html"> 
+<span class="menu-text">VScode on the cluster</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">More</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="./help_VScode.html">
- <span class="dropdown-text">VScode on the cluster</span></a>
+    <a class="dropdown-item" href="./help_ssh.html">
+ <span class="dropdown-text">Simplifying SSH</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_filezilla.html">
+ <span class="dropdown-text">Transferring files</span></a>
   </li>  
     </ul>
   </li>
@@ -180,22 +188,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#using-github-with-the-cluster-e.g.-on-the-cluster" id="toc-using-github-with-the-cluster-e.g.-on-the-cluster" class="nav-link active" data-scroll-target="#using-github-with-the-cluster-e.g.-on-the-cluster">Using Github with the cluster (e.g.&nbsp;on the cluster)</a></li>
-  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Quick tutorial for Git/Github</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Connecting to the CRNL server over SSH in Visual Code</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -218,35 +219,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>If you only plan to clone public repositories, you can probably just use <code>git clone https://</code> or simply download and unzip the repository of interest.</p>
-<p>However, you will need to connect your command line to your Github account in the following scenarios:</p>
-<ul>
-<li><p>to clone private repositories that you own or one which you have been added as a collaborator.</p></li>
-<li><p>to perform any write operation in the repository (e.g.&nbsp;push, pull, merge, branch, etc.)</p></li>
-</ul>
-<section id="using-github-with-the-cluster-e.g.-on-the-cluster" class="level3">
-<h3 class="anchored" data-anchor-id="using-github-with-the-cluster-e.g.-on-the-cluster">Using Github with the cluster (e.g.&nbsp;on the cluster)</h3>
-<p>The cluster already has git installed. However, you may still want to link it to your Github account to do the operations mentionned above.</p>
-<p>In this case, performn the following steps, which constitute a simplified version of the information provided by <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Github</a>.</p>
-<ol type="1">
-<li><p>If you don’t have Github already, create an account.</p></li>
-<li><p>Open a terminal on the cluster (either within Jupyter lab after connecting through SSH).</p></li>
-<li><p>In the command line of your , type <code>ssh-keygen -t ed25519 -C "your_email@example.com"</code> and indicate a passphrase (optional, you can skip it ). This will create a new SSH key. Replace <code>your_email@example.com</code> by the email address you’ve used when creating your github account (it should work with other valid addresses too).</p></li>
-<li><p>Still in the command line, type <code>cat ~/.ssh/id_ed25519.pub</code> (id_ed25519 is a default name: if you specified a name for your key, adjust accordingly) and copy paste what comes out.</p></li>
-<li><p>Finally, login into your Github account, go to the following address <code>https://github.com/settings/profile</code>and paste what you got from previous step (it should start with ‘ssh-rsa’ and finish with the email address you’ve provided at step 2).</p></li>
-<li><p>To connect Github to your command line, just type <code>ssh -T git@github.com</code>. You’ll be asked the passphrase of your SSH key (if you defined one at step 2). In principle, you will only have to do this once. If git commands start to complain that private repositories “do not exist”, you might have to redo this last operation.</p></li>
-</ol>
-</section>
-<section id="leave-a-message" class="level2">
-<h2 class="anchored" data-anchor-id="leave-a-message">Leave a message</h2>
-<p>Feel free to leave a message.</p>
-<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
-</script>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</p>
+</div>
+</div>
+<p>Find your <strong>local</strong> .ssh folder (local always refer to the computer you are using).</p>
+<p>On Linux, you can probably find it at <code>~/.ssh/</code> or <code>/home/username/.ssh/</code>.</p>
+<p>On Window, you can probably find at at <code>C:\Users\username\.ssh\</code>.</p>
+<p>If you don’t find it, just create it and <code>cd</code> in it. Then type:</p>
+<p><code>ssh-keygen -f crnlcluster</code></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If ssh-keygen is not found, you may need to install <a href="https://www.putty.org/">Putty</a>, restart your terminal and perform these steps again.</p>
+</div>
+</div>
+<p>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <code>type crnlcluster.pub</code></p>
+<p>You public key will appear in the terminal. Keep it open.</p>
+<p>Now, type:</p>
+<p><code>ssh cluster_username@10.69.168.93</code></p>
+<p><strong>Change</strong> cluster_username to match your username on the cluster (typically, firstname.lastname)</p>
+<p>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</p>
+<p>Now, you are logged in the cluster! Type:</p>
+<p><code>cd ~/.ssh/</code></p>
+<p><code>touch authorized_keys</code></p>
+<p><code>vi authorized_keys</code></p>
+<p>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <code>type crnlcluster.pub</code>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <code>:wq</code> in it.</p>
+<p>Close the terminal.</p>
+<p>Now, the cluster knows your ssh key and you won’t need to use the password anymore (only the ssh key passphrase if you entered one). But let’s make an extra-step to further automatize the process.</p>
+<p>In your local .ssh folder, create a file named <code>config</code> and add the following lines to it:</p>
+<pre><code>Host CRNLcluster
+  HostName 10.69.168.93
+  User cluster_username
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  IdentityFile "path/to/your/sshkey/crnlcluster"</code></pre>
+<p>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</p>
+<p>Now, each time you want to reach the command line of the cluster, open a terminal and type:</p>
+<p><code>ssh cluster_username@CRNLcluster</code></p>
+<p>You are already into the cluster!</p>
 
 
 <!-- -->
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -720,46 +751,78 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Quick tutorial for Git/Github</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>If you only plan to clone public repositories, you can probably just use <span class="in">`git clone https://`</span> or simply download and unzip the repository of interest.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>However, you will need to connect your command line to your Github account in the following scenarios:</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>to clone private repositories that you own or one which you have been added as a collaborator.</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>to perform any write operation in the repository (e.g. push, pull, merge, branch, etc.)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using Github with the cluster (e.g. on the cluster)</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>The cluster already has git installed. However, you may still want to link it to your Github account to do the operations mentionned above.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>In this case, performn the following steps, which constitute a simplified version of the information provided by <span class="co">[</span><span class="ot">Github</span><span class="co">](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)</span>.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>If you don't have Github already, create an account.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Open a terminal on the cluster (either within Jupyter lab after connecting through SSH). </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>In the command line of your , type <span class="in">`ssh-keygen -t ed25519 -C "your_email@example.com"`</span> and indicate a passphrase (optional, you can skip it ). This will create a new SSH key. Replace <span class="in">`your_email@example.com`</span> by the email address you've used when creating your github account (it should work with other valid addresses too).</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Still in the command line, type <span class="in">`cat ~/.ssh/id_ed25519.pub`</span> (id_ed25519 is a default name: if you specified a name for your key, adjust accordingly) and copy paste what comes out.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Finally, login into your Github account, go to the following address <span class="in">`https://github.com/settings/profile`</span>and paste what you got from previous step (it should start with 'ssh-rsa' and finish with the email address you've provided at step 2).</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>To connect Github to your command line, just type <span class="in">`ssh -T git@github.com`</span>. You'll be asked the passphrase of your SSH key (if you defined one at step 2). In principle, you will only have to do this once. If git commands start to complain that private repositories "do not exist", you might have to redo this last operation.</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Leave a message</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>Feel free to leave a message.</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Connecting to the CRNL server over SSH in Visual Code</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Find your **local** .ssh folder (local always refer to the computer you are using).</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>On Linux, you can probably find it at <span class="in">`~/.ssh/`</span> or <span class="in">`/home/username/.ssh/`</span>.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>On Window, you can probably find at at <span class="in">`C:\Users\username\.ssh\`</span>.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>If you don't find it, just create it and <span class="in">`cd`</span> in it. Then type:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh-keygen -f crnlcluster`</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>If ssh-keygen is not found, you may need to install <span class="co">[</span><span class="ot">Putty</span><span class="co">](https://www.putty.org/)</span>, restart your terminal and perform these steps again.</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <span class="in">`type crnlcluster.pub`</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>You public key will appear in the terminal. Keep it open.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Now, type:</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@10.69.168.93`</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>**Change** cluster_username to match your username on the cluster (typically, firstname.lastname)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>Now, you are logged in the cluster! Type:</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="in">`cd ~/.ssh/`</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="in">`touch authorized_keys`</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="in">`vi authorized_keys`</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <span class="in">`type crnlcluster.pub`</span>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <span class="in">`:wq`</span> in it.</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>Close the terminal.</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>Now, the cluster knows your ssh key and you won't need to use the password anymore (only the ssh key passphrase if you entered one). But let's make an extra-step to further automatize the process.</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>In your local .ssh folder, create a file named <span class="in">`config`</span> and add the following lines to it:</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="in">Host CRNLcluster</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="in">  HostName 10.69.168.93</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="in">  User cluster_username</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11 yes</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11Trusted yes</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="in">  IdentityFile "path/to/your/sshkey/crnlcluster"</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>Now, each time you want to reach the command line of the cluster, open a terminal and type:</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@CRNLcluster`</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>You are already into the cluster! </span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
