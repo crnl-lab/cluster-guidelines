@@ -40,3 +40,7 @@ format:
       - cerulean
       - custom.scss
     toc: true
+    code-fold: true
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: true
