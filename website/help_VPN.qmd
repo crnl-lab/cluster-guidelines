@@ -22,3 +22,5 @@ remotely. You'll be noticed by email.
 
 If you don't have an INSERM email, you can ask one if you work at CRNL
 (even if you are affiliated to CNRS or UCBL).
+
+{{< include _comment_box.qmd >}}

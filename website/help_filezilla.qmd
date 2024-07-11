@@ -42,8 +42,4 @@ When using the cluster, you might sometimes struggle with Files and Folders auth
 
 Another good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check "View -\> Directory Listing Filters".
 
-## Leave a message
-
-Feel free to leave a message.
-
 {{< include _comment_box.qmd >}}

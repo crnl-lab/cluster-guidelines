@@ -97,8 +97,4 @@ You are now running VS code on a compute node with dedicated ressource. You can 
 When you stop using VS code, quit or kill the process initiated by vscode_cluster_tunnel (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
 :::
 
-## Leave a message
-
-Feel free to leave a message.
-
 {{< include _comment_box.qmd >}}

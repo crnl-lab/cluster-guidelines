@@ -221,8 +221,4 @@ Otherwise, use an approach similar to that implemented by `clean_jobs_live=True`
 
 [Click here to go to Part 2](./Tutorial_Cluster_Part2.html)
 
-## Comments, questions?
-
-Feel free to comment below to signal a bug, ask a question, etc.
-
 {{< include _comment_box.qmd >}}

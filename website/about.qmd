@@ -44,8 +44,4 @@ Note that the job submission tutorial is still applicable when using VS code.
 
 To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to [Samuel Garcia](samuel.garcia@cnrs.fr) or [Romain Ligneul](romain.ligneul@inserm.fr).
 
-## Leave a message
-
-Feel free to leave a message.
-
 {{< include _comment_box.qmd >}}

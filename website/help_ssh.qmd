@@ -70,3 +70,5 @@ Now, each time you want to reach the command line of the cluster, open a termina
 `ssh cluster_username@CRNLcluster`
 
 You are already into the cluster! 
+
+{{< include _comment_box.qmd >}}

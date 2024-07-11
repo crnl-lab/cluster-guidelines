@@ -33,8 +33,4 @@ In this case, performn the following steps, which constitute a simplified versio
 
 5. To connect Github to your command line, just type `ssh -T git@github.com`. You'll be asked the passphrase of your SSH key (if you defined one at step 2). In principle, you will only have to do this once. If git commands start to complain that private repositories "do not exist", you might have to redo this last operation.
 
-## Leave a message
-
-Feel free to leave a message.
-
 {{< include _comment_box.qmd >}}

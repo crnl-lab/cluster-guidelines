@@ -1,3 +1,8 @@
+## Leave a message
+
+Feel free to comment, make a question, report a bug, etc.
+If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia).
+
 <script src="https://giscus.app/client.js"
         data-repo="crnl-lab/cluster-guidelines"
         data-repo-id="R_kgDOMUrgpg"
