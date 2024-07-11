@@ -23,14 +23,14 @@ website:
           file: Tutorial_Cluster_Part1.qmd
         - text: "Part 2"
           file: Tutorial_Cluster_Part2.qmd
-      - text: "VScode on the cluster"
-        file: help_VScode.qmd
       - text: "More"
         menu:
         - text: "Simplifying SSH"
           file: help_ssh.qmd        
         - text: "Transferring files"
-          file: help_filezilla.qmd              
+          file: help_filezilla.qmd
+      - text: "VS Code "
+        file: help_VScode.qmd          
 
   
     right:
