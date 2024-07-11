@@ -1,0 +1,24 @@
+---
+title: VPN access
+author: Romain Ligneul
+toc: true
+execute: 
+  echo: true
+  freeze: true
+---
+
+If you only want to use the cluster when you are at the lab, you don't need the VPN. 
+
+The VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.
+
+<https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn>
+
+You need your CRNL identifiers to access this internal page. Essentially, besides
+installing the software, **you  will have to fill the PDF "[fiche](https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:informatique:inscription_service_vpn.pdf)"**
+([here](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn))
+and send it to [thibaut.woog@inserm.fr](thibaut.woog@inserm.fr). Then, it
+will be a matter of days before you can access the CRNL infrastructure
+remotely. You'll be noticed by email.
+
+If you don't have an INSERM email, you can ask one if you work at CRNL
+(even if you are affiliated to CNRS or UCBL).

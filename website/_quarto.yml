@@ -7,18 +7,28 @@ render:
   - "!./www/*"
 
 website:
-  title: "CRNL Cluster Guidelines"
+  title: "CRNL"
   navbar:
     background: dark
     left:
-      - text: "SSH"
-        file: help_ssh.qmd
-      - text: "SLURM"
+      - text: "Connecting"
+          menu:
+        - text: "VPN"
+          file: help_VPN.qmd
+        - text: "Github"
+          file: help_github.qmd 
+      - text: "Submitting"
         menu:
         - text: "Part 1"
           file: Tutorial_Cluster_Part1.qmd
         - text: "Part 2"
-          file: Tutorial_Cluster_Part2.qmd             
+          file: Tutorial_Cluster_Part2.qmd
+      - text: "More"
+        menu:
+        - text: "VScode on the cluster"
+          file: help_VScode.qmd
+        
+
   
     right:
       - text: "About"

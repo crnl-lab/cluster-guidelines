@@ -7,17 +7,6 @@ execute:
   freeze: true
 ---
 
-Visual Code has a great [Remote
-SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
-extension that can be used to connect remotely to the CRNL server,
-without having to constantly enter your password. Except for using
-Matlab (it may change soon), working on the server from VScode has only
-advantages, starting with **speed** (as compared to laggy VNC
-connections). Since the connection process can be a bit tedious, here
-are the steps to follow. You have only to follow them once. It is
-assumed that you use Windows, but it should be similar on other
-platforms.
-
 ## Set up the VPN of INSERM (if you are outside the CRNL premises)
 
 To access the CRNL servers from outside, following this tutorial.
@@ -27,17 +16,37 @@ To access the CRNL servers from outside, following this tutorial.
 You need your CRNL identifiers to access this page. Essentially, besides
 installing the software, **you have to fill the PDF "fiche"**
 ([here](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn))
-and send it to [pe.aguera\@inserm.fr](pe.aguera@inserm.fr). Then, it
+and send it to [thibaut.woog@inserm.fr](thibaut.woog@inserm.fr). Then, it
 will be a matter of days before you can access the CRNL infrastructure
 remotely. You'll be noticed by email.
 
 If you don't have an INSERM email, you can ask one if you work at CRNL
 (even if you are affiliated to CNRS or UCBL).
 
-## Connect with username and password
+## Create your local SSH config file
 
-In Visual Code, first click on the bottom left icon of the Remote SSH
-extension.
+### On Linux
+
+Open a terminal
+
+`cd ~/.ssh`
+
+`ssh-keygen`
+
+Follow the instructions. When asked for a password, just press enter.
+
+### On Windows
+
+Open a terminal
+
+`cd ~/.ssh`
+
+`ssh-keygen`
+
+Follow the instructions. When asked for a password, just press enter.
+
+
+
 
 ![](images/paste-1.png)
 
