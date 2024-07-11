@@ -67,7 +67,7 @@ remote_hostname="CRNLcluster"
 ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --time=08:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
-Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time, you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time based on your needs.
+Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time based on your needs.
 
 Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)
 
@@ -75,7 +75,7 @@ Consider using Github as a tunnel provider rather than Microsoft.
 
 ### 5. Connect to the tunnel from your local VS code (each time)
 
-Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file).
+Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github.
 
 Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:
 
