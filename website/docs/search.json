@@ -123,7 +123,7 @@
     "href": "about.html",
     "title": "CRNL cluster guidelines",
     "section": "",
-    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL)."
+    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
   },
   {
     "objectID": "about.html#using-jupyter-lab",

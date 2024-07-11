@@ -10,10 +10,11 @@ aliases:
 
 This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).
 
+It is managed and it has been configured by Thibaut Woog ([thibaut.woog\@inserm.fr](mailto:thibaut.woog@inserm.fr)).
+
 ## Using Jupyter lab
 
-Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93).
-Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).
+Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).
 
 Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.
 
@@ -27,11 +28,9 @@ If you want to access the cluster remotely, check this [page](./help_VPN).
 
 The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).
 
-[Part 1](./Tutorial_Cluster_Part1)
-[Part 2](./Tutorial_Cluster_Part2)
+[Part 1](./Tutorial_Cluster_Part1) [Part 2](./Tutorial_Cluster_Part2)
 
 ## Using VS code
-
 
 ## 1- Get Git
 
@@ -40,9 +39,6 @@ Check the tutorial for [easy SSH access](./help_ssh) with SSH keys, to avoid hav
 ## 2- Set up SSH and Visual Code
 
 Check the tutorial for [easy SSH access](./help_ssh) with SSH keys, to avoid having to enter passwords in the future.
-
-
-
 
 ## How to contribute
 
