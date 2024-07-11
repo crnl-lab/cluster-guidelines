@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Quick tutorial for Git/Github – CRNL Cluster Guidelines</title>
+<title>Quick tutorial for Git/Github – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">CRNL Cluster Guidelines</span>
+    <span class="navbar-title">CRNL</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -88,15 +88,26 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./help_ssh.html"> 
-<span class="menu-text">SSH</span></a>
-  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slurm" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">SLURM</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Connecting</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-slurm">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
+        <li>
+    <a class="dropdown-item" href="./help_VPN.html">
+ <span class="dropdown-text">VPN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_github.html">
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Submitting</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
  <span class="dropdown-text">Part 1</span></a>
@@ -104,6 +115,17 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
  <span class="dropdown-text">Part 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
+        <li>
+    <a class="dropdown-item" href="./help_VScode.html">
+ <span class="dropdown-text">VScode on the cluster</span></a>
   </li>  
     </ul>
   </li>
@@ -129,8 +151,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#if-you-have-adminsudo-rights" id="toc-if-you-have-adminsudo-rights" class="nav-link active" data-scroll-target="#if-you-have-adminsudo-rights">If you have admin/sudo rights</a></li>
-  <li><a href="#if-you-dont-have-adminsudo-rights-e.g.-on-the-cluster" id="toc-if-you-dont-have-adminsudo-rights-e.g.-on-the-cluster" class="nav-link" data-scroll-target="#if-you-dont-have-adminsudo-rights-e.g.-on-the-cluster">If you don’t have admin/sudo rights (e.g.&nbsp;on the cluster)</a></li>
+  <li><a href="#using-github-with-the-cluster-e.g.-on-the-cluster" id="toc-using-github-with-the-cluster-e.g.-on-the-cluster" class="nav-link active" data-scroll-target="#using-github-with-the-cluster-e.g.-on-the-cluster">Using Github with the cluster (e.g.&nbsp;on the cluster)</a></li>
   <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
   </ul>
 </nav>
@@ -169,29 +190,17 @@ ul.task-list li input[type="checkbox"] {
 <li><p>to clone private repositories that you own or one which you have been added as a collaborator.</p></li>
 <li><p>to perform any write operation in the repository (e.g.&nbsp;push, pull, merge, branch, etc.)</p></li>
 </ul>
-<section id="if-you-have-adminsudo-rights" class="level3">
-<h3 class="anchored" data-anchor-id="if-you-have-adminsudo-rights">If you have admin/sudo rights</h3>
+<section id="using-github-with-the-cluster-e.g.-on-the-cluster" class="level3">
+<h3 class="anchored" data-anchor-id="using-github-with-the-cluster-e.g.-on-the-cluster">Using Github with the cluster (e.g.&nbsp;on the cluster)</h3>
+<p>The cluster already has git installed. However, you may still want to link it to your Github account to do the operations mentionned above.</p>
+<p>In this case, performn the following steps, which constitute a simplified version of the information provided by <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Github</a>.</p>
 <ol type="1">
-<li><p>If you don’t have Github, create an account.</p></li>
-<li><p>Install the <a href="https://cli.github.com/">Github CLI</a> utility that will allow you to connect your command line to your Github repository.</p></li>
-<li><p>Restart your terminal (or Visual Code), reopen it, and type <code>gh auth login</code>. Choose Github.com, HTTPS, Login with a web browser (or use an auth token if you prefer)</p></li>
-<li><p>CD to the directory where your <em>example.md</em> file is located and type <code>git init</code> in the command line. This preconfigures the folder as a Git repository.</p></li>
-<li><p>In Github, create a new repository. For example, name it “example-collaborative-writing”. If you create a public repository, everyone on the web will be able to see the repository and its content. If you create a private repository, only the Github contact that you will manually add to the repository will be able to see it and its content. Most often, you’ll want to create private repositories to work with specific colleagues.</p></li>
-<li><p>Back to your command line, type <code>git remote add origin https://github.com/yourGithubUsername/example-collaborative-writing.git</code> <code>git add .</code>, <code>git commit -m "first commit"</code>, <code>git branch -M main</code>, <code>git push -u origin main</code>. These steps are only needed for the creation of a new repository, then things will be much simpler. Refresh the web page of the newly create Github repository. You should see your <em>example.md</em> file appearing!</p></li>
-</ol>
-<p>Now, each time that you’ll want to start working on the file(s) contained in the folder/repository, you’ll have to type <code>git pull</code> in the command line (make sure that our command line points to the correct folder, if not, <code>cd</code> to it), make your modification and then type: <code>git add .</code>, <code>git commit -m "any message"</code>, <code>git push</code> to upload your changes. You may even speed up this process further by using <a href="#speed-up-the-saving-process-with-git">this trick</a>.</p>
-<p>This tutorial may be extended to cover other important aspects of Git. The two most important concepts are “branching” (<a href="https://www.atlassian.com/git/tutorials/using-branches">see here</a>) and “merging” (<a href="https://www.atlassian.com/git/tutorials/using-branches/git-merge">see here</a>). A final one is “conflict management” (<a href="https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts">see here</a>), which is relatively easy to deal with in VScode.</p>
-</section>
-<section id="if-you-dont-have-adminsudo-rights-e.g.-on-the-cluster" class="level3">
-<h3 class="anchored" data-anchor-id="if-you-dont-have-adminsudo-rights-e.g.-on-the-cluster">If you don’t have admin/sudo rights (e.g.&nbsp;on the cluster)</h3>
-<p>In this case, you can still connect your command line to your Github. The following is a simplified version of the information provided by <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Github</a>.</p>
-<ol type="1">
-<li><p>If you don’t have Github, create an account.</p></li>
-<li><p>In the command line of your computer, type <code>ssh-keygen -t ed25519 -C "your_email@example.com"</code> and indicate a passphrase (can be simple but not empty). This will create a new SSH key. Replace <code>your_email@example.com</code> by the email address you’ve used when creating your github account (it should work with other valid addresses too).</p></li>
-<li><p>Then, add the SSH key to your ssh client by typing: <code>ssh-add ~/.ssh/id_ed25519</code> (id_ed25519 is a default name: if you specified a name for your key, adjust accordingly).</p></li>
-<li><p>Still in the command line, type <code>cat ~/.ssh/id_ed25519.pub</code> (again, adjust name if necessary) and copy paste what comes out.</p></li>
+<li><p>If you don’t have Github already, create an account.</p></li>
+<li><p>Open a terminal on the cluster (either within Jupyter lab after connecting through SSH).</p></li>
+<li><p>In the command line of your , type <code>ssh-keygen -t ed25519 -C "your_email@example.com"</code> and indicate a passphrase (optional, you can skip it ). This will create a new SSH key. Replace <code>your_email@example.com</code> by the email address you’ve used when creating your github account (it should work with other valid addresses too).</p></li>
+<li><p>Still in the command line, type <code>cat ~/.ssh/id_ed25519.pub</code> (id_ed25519 is a default name: if you specified a name for your key, adjust accordingly) and copy paste what comes out.</p></li>
 <li><p>Finally, login into your Github account, go to the following address <code>https://github.com/settings/profile</code>and paste what you got from previous step (it should start with ‘ssh-rsa’ and finish with the email address you’ve provided at step 2).</p></li>
-<li><p>That’s it. Now each time you need to connect to Github from your command line, just type <code>ssh -T git@github.com</code>. You’ll be asked the passphrase of your SSH key (as defined at step 2).</p></li>
+<li><p>To connect Github to your command line, just type <code>ssh -T git@github.com</code>. You’ll be asked the passphrase of your SSH key (if you defined one at step 2). In principle, you will only have to do this once. If git commands start to complain that private repositories “do not exist”, you might have to redo this last operation.</p></li>
 </ol>
 </section>
 <section id="leave-a-message" class="level2">
