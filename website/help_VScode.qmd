@@ -4,7 +4,7 @@ author: Romain Ligneul
 toc: true
 execute: 
   echo: true
-  freeze: true
+  freeze: false
   eval: false
 ---
 
