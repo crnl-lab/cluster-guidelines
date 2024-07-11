@@ -2,7 +2,7 @@
 title: "CRNL cluster guidelines"
 about:
   template: jolla
-  image: ./images/CRNLlogo.png
+  image: ./images/CRNLlogo_green.png
 aliases:
   - ./index.html
   - ./
