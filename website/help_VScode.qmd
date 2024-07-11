@@ -30,11 +30,12 @@ On your local computer (either at home or in the lab), install the [Remote - Tun
 
 Using SSH, log into the terminal of the cluster with the following:
 
-`ssh cluster_username@CRNLcluster` if you performed the SSH [tutorial](./help_ssh){target="_blank"}.
+`ssh cluster_username@CRNLcluster`.
 
-or
-
-`ssh cluster_username@10.69.168.93` if you did not (in which case, you will have to enter your credentials each time you connect).
+:::{.callout-note}
+Adjust "cluster_username" to match your credentials.
+If you did not complete the SSH [tutorial](./help_ssh){target="_blank"}, replace CRNLcluster by: 10.69.168.93
+:::
 
 Then, run the following lines:
 
@@ -66,14 +67,10 @@ remote_username="cluster_username"
 remote_hostname="CRNLcluster"
 ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
-:::{.callout-note}
 
-Adjust cluster_username to match your credentials.
-If you did not complete the SSH tutorial, replace CRNLcluster
+Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time, you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. 
 
-:::
-
-Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time, you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. Name it as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your browser, open the link and copy paste the authorization code)
+Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)
 
 Consider using Github as a tunnel provider rather than Microsoft.
 
@@ -94,7 +91,7 @@ That's it!
 You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!
 
 ::: callout-tip
-When you stop using VS code, quit or kill the process initiated by vscode_cluster_tunnel (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
+When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
 :::
 
 {{< include _comment_box.qmd >}}
