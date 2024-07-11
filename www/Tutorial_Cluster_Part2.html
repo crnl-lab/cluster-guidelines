@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Part 2: Good practices</h1>
+<div class="quarto-title-block"><div><h1 class="title">Part 2: Good practices</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
@@ -251,6 +251,8 @@ Note
 <h3 class="anchored" data-anchor-id="anticipating-time-memory-consumption">Anticipating time &amp; memory consumption</h3>
 <p>Hereafter, we use memory_usage() which has a slighty unusual way of passing arguments to its target function. All positional arguments (those without an = sign in the <em>def</em>) are passed together, and all non-positional arguments (also called key-value pairs) are passed together. For example, we could try:<br> <code>mem_usage=memory_usage((somefunc,(0.1,4,0.88), {'file' : 'whatever.csv','index' : 0 }))</code> <br> If we had a function defined like this: <br> <code>somefunc(a,b,c, file=None, index=-1)</code></p>
 <div id="cell-1" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">###### simple memory/time check</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> memory_profiler <span class="im">import</span> memory_usage</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -284,6 +286,7 @@ Note
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Do you notice the difference in time and memory due to the change in duplication size?'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="evaluating-cpu-count-needs" class="level3">
@@ -291,6 +294,8 @@ Note
 <p>How to evaluate whether our job will benefit from having more CPU available to them? If you don’t know whether your function use parallelization or not, because you relies on high-level toolboxes, then you can evaluate that empirically by looking at the time your jobs take depending on the number of CPUs you allow.</p>
 <p>Let’s try first with our last function. It should take about 10s to run.</p>
 <div id="cell-3" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> submitit</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -331,9 +336,12 @@ Note
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Now let’s redo exactly the same thing, with a numpy function that may benefit from multiple CPUs (i.e.&nbsp;np.dot).</p>
 <div id="cell-5" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -392,6 +400,7 @@ Note
 <span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="scaling-up-responsibly" class="level3">
@@ -400,6 +409,8 @@ Note
 <p><strong>Number of CPUs</strong>: you can get this information by running <code>sinfo -o%C</code> in your terminal, or <code>!sinfo -o%C</code> in the notebook. The CPU partitions have about 350 cores available at the time of writing <strong>Amount of memory</strong>: you can see this by running <code>sinfo -o "%P %n %m"</code> in your terminal (or with a ! in the notebook). The CPU partitions have about 2.3TB of memory at the time of writing.</p>
 <p>If it is a sunday and nobody is using the cluster, it is probably fine to increase <code>maxjobs</code> to 100 or more (note that if you require 4 cpu per task, it means that you are actually requiring 400 cpus overall!). But if it is 10.30pm on a tuesday, using this parameter might be the same as walking to the coffee machine and taking all the coffee reserves to your office! So, take the habit of setting your <code>maxjobs</code>-like parameter on a daily basis after checking <code>sinfo -o%C</code>.</p>
 <div id="cell-7" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check node and CPU information</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### Node counts: </span><span class="ch">\n</span><span class="st">A: currently in use \B available"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>A</span>
@@ -409,6 +420,7 @@ Note
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># check some stats of our last job</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### CPU time and MaxRSS of our last job (about 1000Mb should be added to your MaxRSS (Mb) in order to cover safely the memory needs of the python runtime)###'</span>)</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>os.system(<span class="ss">f'sacct -j </span><span class="sc">{</span>job<span class="sc">.</span>job_id<span class="sc">}</span><span class="ss"> --format="CPUTime,MaxRSS"'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="a-more-compact-approach" class="level3">
@@ -416,6 +428,8 @@ Note
 <p>In the above examples, we have decomposed most operations using <code>for</code> loops in order to illustrate the different concepts. But with more advanced methods we can compact a lot the code used.</p>
 <p>The example below (adapted from <a href="https://github.com/facebookincubator/submitit/blob/main/docs/examples.md">submitit documentation</a>) allows getting rid of the job submission loop and directly map our input arrays to job submissions, using executor.map_array and some asynchronous operations. Note that such compact approach might be more difficult to debug.</p>
 <div id="cell-9" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c and wait for b seconds</span></span>
@@ -454,6 +468,7 @@ Note
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># it essential do something similar to what we were doing after </span></span>
 <span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># "# wait for job completion", but in a much more compact way</span></span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># however, the reordering of outputs wrt to inputs is not implemented</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="submitting-and-going-home" class="level3">
@@ -462,6 +477,8 @@ Note
 <p>In this case, we <strong>should not</strong> expect our notebook to be still alive when we come back. Instead, we should adopt the more standard approach of writing down our results and load them in a new jupyter session afterwards!</p>
 <p>This is what we illustrate in the final example below.</p>
 <div id="cell-11" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write in job_output within our directory</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>job_output_folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_output/'</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -504,6 +521,7 @@ Note
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># wait a little and kill manually the kernel process</span></span>
 <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="dv">3</span>)</span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'kill '</span> <span class="op">+</span> <span class="bu">str</span>(os.getpid()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>It is a good practice to run <code>os.system('kill ' + str(os.getpid()))</code> if you don’t need to use the notebook anymore. Simply closing it may not interrupt the process and free the resources for the other users.</p>
 </section>
@@ -611,6 +629,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
