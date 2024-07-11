@@ -30,7 +30,7 @@ On your local computer (either at home or in the lab), install the [Remote - Tun
 
 Using SSH, log into the terminal of the cluster with the following:
 
-`ssh cluster_username@CRNLcluster`.
+`ssh cluster_username@CRNLcluster`
 
 :::{.callout-note}
 Adjust "cluster_username" to match your credentials.
