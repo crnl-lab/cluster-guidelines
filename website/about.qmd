@@ -22,23 +22,23 @@ Yet, you will still need to learn how to create virtual environments (especially
 
 If you want to access the cluster remotely, check this [page](./help_VPN).
 
-### Configure your Git (optional but recommended)
+### Configure your Github (optional but recommended)
 
-### Learn to submit jobs
+Learn how to connect your Github account to your terminal on the cluster [here](./help_github).
+
+### Learn to submit jobs (recommended)
 
 The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).
 
-[Part 1](./Tutorial_Cluster_Part1) [Part 2](./Tutorial_Cluster_Part2)
+[Part 1](./Tutorial_Cluster_Part1)
+
+[Part 2](./Tutorial_Cluster_Part2)
 
 ## Using VS code
 
-## 1- Get Git
+Check the [dedicated tutorial](./help_VScode) to use VS code correctly.
 
-Check the tutorial for [easy SSH access](./help_ssh) with SSH keys, to avoid having to enter passwords in the future.
-
-## 2- Set up SSH and Visual Code
-
-Check the tutorial for [easy SSH access](./help_ssh) with SSH keys, to avoid having to enter passwords in the future.
+Note that the job submission tutorial is still applicable when using VS code.
 
 ## How to contribute
 

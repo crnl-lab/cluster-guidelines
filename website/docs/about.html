@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.1">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.6.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
-<meta name="author" content="Romain Ligneul" />
-
-<title>Connecting to the CRNL server over SSH in Visual Code – CRNL</title>
+<title>CRNL cluster guidelines – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,7 +56,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -91,78 +103,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body>
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="/index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">CRNL</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
-  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Connecting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
         <li>
-    <a class="dropdown-item" href="/help_VPN.html">
+    <a class="dropdown-item" href="./help_VPN.html">
  <span class="dropdown-text">VPN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/help_github.html">
+    <a class="dropdown-item" href="./help_github.html">
  <span class="dropdown-text">Github</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Submitting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
         <li>
-    <a class="dropdown-item" href="/Tutorial_Cluster_Part1.html">
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
  <span class="dropdown-text">Part 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Tutorial_Cluster_Part2.html">
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
  <span class="dropdown-text">Part 2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">More</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="/help_ssh.html">
+    <a class="dropdown-item" href="./help_ssh.html">
  <span class="dropdown-text">Simplifying SSH</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/help_filezilla.html">
+    <a class="dropdown-item" href="./help_filezilla.html">
  <span class="dropdown-text">Transferring files</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/help_VScode.html"> 
-<span class="menu-text">VS Code </span></a>
+    <a class="nav-link" href="./help_VScode.html"> 
+<span class="menu-text">VS Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="/about.html"> 
+    <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -177,175 +187,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+  <ul>
+  <li><a href="#using-jupyter-lab" id="toc-using-jupyter-lab" class="nav-link active" data-scroll-target="#using-jupyter-lab">Using Jupyter lab</a>
+  <ul class="collapse">
+  <li><a href="#obtain-vpn-access-optional" id="toc-obtain-vpn-access-optional" class="nav-link" data-scroll-target="#obtain-vpn-access-optional">Obtain VPN access (optional)</a></li>
+  <li><a href="#configure-your-github-optional-but-recommended" id="toc-configure-your-github-optional-but-recommended" class="nav-link" data-scroll-target="#configure-your-github-optional-but-recommended">Configure your Github (optional but recommended)</a></li>
+  <li><a href="#learn-to-submit-jobs-recommended" id="toc-learn-to-submit-jobs-recommended" class="nav-link" data-scroll-target="#learn-to-submit-jobs-recommended">Learn to submit jobs (recommended)</a></li>
+  </ul></li>
+  <li><a href="#using-vs-code" id="toc-using-vs-code" class="nav-link" data-scroll-target="#using-vs-code">Using VS code</a></li>
+  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
+  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-jolla">
+  <img src="./images/CRNLlogo_green.png" class="about-image
+  round " style="height: 15em; width: 15em;">
+ <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Connecting to the CRNL server over SSH in Visual Code</h1>
+<div class="quarto-title-block"><div><h1 class="title">CRNL cluster guidelines</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Romain Ligneul </p>
-          </div>
   </div>
-    
-  
-    
-  </div>
-  
+</header><main class="content" id="quarto-document-content">
+
+<p>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</p>
+<p>It is managed and it has been configured by Thibaut Woog (<a href="mailto:thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>).</p>
+<section id="using-jupyter-lab" class="level2">
+<h2 data-anchor-id="using-jupyter-lab">Using Jupyter lab</h2>
+<p>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e.&nbsp;10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</p>
+<p>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</p>
+<section id="obtain-vpn-access-optional" class="level3">
+<h3 data-anchor-id="obtain-vpn-access-optional">Obtain VPN access (optional)</h3>
+<p>If you want to access the cluster remotely, check this <a href="./help_VPN">page</a>.</p>
+</section>
+<section id="configure-your-github-optional-but-recommended" class="level3">
+<h3 data-anchor-id="configure-your-github-optional-but-recommended">Configure your Github (optional but recommended)</h3>
+<p>Learn how to connect your Github account to your terminal on the cluster <a href="./help_github">here</a>.</p>
+</section>
+<section id="learn-to-submit-jobs-recommended" class="level3">
+<h3 data-anchor-id="learn-to-submit-jobs-recommended">Learn to submit jobs (recommended)</h3>
+<p>The cluster uses SLURM to manage “jobs” (i.e.&nbsp;functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</p>
+<p><a href="./Tutorial_Cluster_Part1">Part 1</a></p>
+<p><a href="./Tutorial_Cluster_Part2">Part 2</a></p>
+</section>
+</section>
+<section id="using-vs-code" class="level2">
+<h2 data-anchor-id="using-vs-code">Using VS code</h2>
+<p>Check the <a href="./help_VScode">dedicated tutorial</a> to use VS code correctly.</p>
+<p>Note that the job submission tutorial is still applicable when using VS code.</p>
+</section>
+<section id="how-to-contribute" class="level2">
+<h2 data-anchor-id="how-to-contribute">How to contribute</h2>
+<p>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <a href="samuel.garcia@cnrs.fr">Samuel Garcia</a> or <a href="romain.ligneul@inserm.fr">Romain Ligneul</a>.</p>
+</section>
+<section id="leave-a-message" class="level2">
+<h2 data-anchor-id="leave-a-message">Leave a message</h2>
+<p>Feel free to leave a message.</p>
+<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
 
 
-</header>
-
-
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class='callout-icon'></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</p>
-</div>
-</div>
-<p>Find your <strong>local</strong> .ssh folder (local always refer to the computer you are using).</p>
-<p>On Linux, you can probably find it at <code>~/.ssh/</code> or <code>/home/username/.ssh/</code>.</p>
-<p>On Window, you can probably find at at <code>C:\Users\username\.ssh\</code>.</p>
-<p>If you don’t find it, just create it and <code>cd</code> in it. Then type:</p>
-<p><code>ssh-keygen -f crnlcluster</code></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class='callout-icon'></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If ssh-keygen is not found, you may need to install <a href="https://www.putty.org/">Putty</a>, restart your terminal and perform these steps again.</p>
-</div>
-</div>
-<p>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <code>type crnlcluster.pub</code></p>
-<p>You public key will appear in the terminal. Keep it open.</p>
-<p>Now, type:</p>
-<p><code>ssh cluster_username@10.69.168.93</code></p>
-<p><strong>Change</strong> cluster_username to match your username on the cluster (typically, firstname.lastname)</p>
-<p>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</p>
-<p>Now, you are logged in the cluster! Type:</p>
-<p><code>cd ~/.ssh/</code></p>
-<p><code>touch authorized_keys</code></p>
-<p><code>vi authorized_keys</code></p>
-<p>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <code>type crnlcluster.pub</code>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <code>:wq</code> in it.</p>
-<p>Close the terminal.</p>
-<p>Now, the cluster knows your ssh key and you won’t need to use the password anymore (only the ssh key passphrase if you entered one). But let’s make an extra-step to further automatize the process.</p>
-<p>In your local .ssh folder, create a file named <code>config</code> and add the following lines to it:</p>
-<pre><code>Host CRNLcluster
-  HostName 10.69.168.93
-  User cluster_username
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  IdentityFile &quot;path/to/your/sshkey/crnlcluster&quot;</code></pre>
-<p>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</p>
-<p>Now, each time you want to reach the command line of the cluster, open a terminal and type:</p>
-<p><code>ssh cluster_username@CRNLcluster</code></p>
-<p>You are already into the cluster!</p>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar-title">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar-title">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Connecting">Connecting</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:VPN">VPN</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_VPN.html">/help_VPN.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Github">Github</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_github.html">/help_github.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Submitting">Submitting</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Part 1">Part 1</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/Tutorial_Cluster_Part1.html">/Tutorial_Cluster_Part1.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Part 2">Part 2</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/Tutorial_Cluster_Part2.html">/Tutorial_Cluster_Part2.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:More">More</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Simplifying SSH">Simplifying SSH</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_ssh.html">/help_ssh.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Transferring files">Transferring files</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_filezilla.html">/help_filezilla.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:VS Code">VS Code</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_VScode.html">/help_VScode.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:About">About</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/about.html">/about.html</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metatitle">Connecting to the CRNL server over SSH in Visual Code – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercardtitle">Connecting to the CRNL server over SSH in Visual Code – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardtitle">Connecting to the CRNL server over SSH in Visual Code – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metasitename">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercarddesc"></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
 <!-- -->
-<div class="quarto-embedded-source-code">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Connecting to the CRNL server over SSH in Visual Code</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster.</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Find your **local** .ssh folder (local always refer to the computer you are using).</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>On Linux, you can probably find it at <span class="in">`~/.ssh/`</span> or <span class="in">`/home/username/.ssh/`</span>.</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>On Window, you can probably find at at <span class="in">`C:\Users\username\.ssh\`</span>.</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>If you don&#39;t find it, just create it and <span class="in">`cd`</span> in it. Then type:</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh-keygen -f crnlcluster`</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>If ssh-keygen is not found, you may need to install <span class="co">[</span><span class="ot">Putty</span><span class="co">](https://www.putty.org/)</span>, restart your terminal and perform these steps again.</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: <span class="in">`type crnlcluster.pub`</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>You public key will appear in the terminal. Keep it open.</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Now, type:</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@10.69.168.93`</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>**Change** cluster_username to match your username on the cluster (typically, firstname.lastname)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>Now, you are logged in the cluster! Type:</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="in">`cd ~/.ssh/`</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="in">`touch authorized_keys`</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="in">`vi authorized_keys`</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after <span class="in">`type crnlcluster.pub`</span>). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type <span class="in">`:wq`</span> in it.</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>Close the terminal.</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>Now, the cluster knows your ssh key and you won&#39;t need to use the password anymore (only the ssh key passphrase if you entered one). But let&#39;s make an extra-step to further automatize the process.</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>In your local .ssh folder, create a file named <span class="in">`config`</span> and add the following lines to it:</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="in">Host CRNLcluster</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="in">  HostName 10.69.168.93</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="in">  User cluster_username</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11 yes</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11Trusted yes</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="in">  IdentityFile &quot;path/to/your/sshkey/crnlcluster&quot;</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>Now, each time you want to reach the command line of the cluster, open a terminal and type:</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@CRNLcluster`</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>You are already into the cluster! </span></code></pre></div>
+</section>
+</main>  
 </div>
-
-</main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+ <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -365,13 +276,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -815,9 +719,62 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "CRNL cluster guidelines"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">about:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  template: jolla</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  image: ./images/CRNLlogo_green.png</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">aliases:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - ./index.html</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  - ./</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>It is managed and it has been configured by Thibaut Woog (<span class="co">[</span><span class="ot">thibaut.woog\@inserm.fr</span><span class="co">](mailto:thibaut.woog@inserm.fr)</span>).</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using Jupyter lab</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Obtain VPN access (optional)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you want to access the cluster remotely, check this <span class="co">[</span><span class="ot">page</span><span class="co">](./help_VPN)</span>.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configure your Github (optional but recommended)</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Learn how to connect your Github account to your terminal on the cluster <span class="co">[</span><span class="ot">here</span><span class="co">](./help_github)</span>.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learn to submit jobs (recommended)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 1</span><span class="co">](./Tutorial_Cluster_Part1)</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 2</span><span class="co">](./Tutorial_Cluster_Part2)</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using VS code</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Check the <span class="co">[</span><span class="ot">dedicated tutorial</span><span class="co">](./help_VScode)</span> to use VS code correctly.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Note that the job submission tutorial is still applicable when using VS code.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to contribute</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <span class="co">[</span><span class="ot">Samuel Garcia</span><span class="co">](samuel.garcia@cnrs.fr)</span> or <span class="co">[</span><span class="ot">Romain Ligneul</span><span class="co">](romain.ligneul@inserm.fr)</span>.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Leave a message</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>Feel free to leave a message.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>

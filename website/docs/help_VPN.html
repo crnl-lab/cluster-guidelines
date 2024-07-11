@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Using Interactive Jupyter over SSH – CRNL</title>
+<title>VPN access – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -188,28 +188,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#extend-your-.bashrc-file" id="toc-extend-your-.bashrc-file" class="nav-link active" data-scroll-target="#extend-your-.bashrc-file">Extend your .bashrc file</a></li>
-  <li><a href="#launch-the-jupyter-session" id="toc-launch-the-jupyter-session" class="nav-link" data-scroll-target="#launch-the-jupyter-session">Launch the Jupyter session</a></li>
-  <li><a href="#set-up-the-ssh-tunnel" id="toc-set-up-the-ssh-tunnel" class="nav-link" data-scroll-target="#set-up-the-ssh-tunnel">Set up the SSH tunnel</a>
-  <ul class="collapse">
-  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
-  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
-  </ul></li>
-  <li><a href="#credits" id="toc-credits" class="nav-link" data-scroll-target="#credits">Credits</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Using Interactive Jupyter over SSH</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">VPN access</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -232,100 +219,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Visual Code over SSH is great but it is limited in its ability to run interactive Jupyter notebooks unless X11 forwarding is properly configured. Another way to go is to run a persistent Jupyter lab session on your remote SSH server and forward it through a tunnel.</p>
-<section id="extend-your-.bashrc-file" class="level2">
-<h2 class="anchored" data-anchor-id="extend-your-.bashrc-file">Extend your .bashrc file</h2>
-<p>To do so, we need to edit our .bashrc file (in /home/username/.bashrc) and add the following lines at the end.</p>
-<pre class="{bash}"><code># &gt;&gt;&gt; Jupyterlab Remote &gt;&gt;&gt;
-function jlremote {
-    echo $(hostname) &gt; ~/.jupyternode.txt
-    cd /crnldata/cophy/
-    XDG_RUNTIME_DIR= jupyter lab --no-browser --port=9753 --ip=$(hostname)
-}
-# &lt;&lt;&lt; Jupyterlab end config &lt;&lt;&lt;</code></pre>
-<p>Note that the –port variable can be changed to your preference.</p>
-<p>Thanks to this piece of code, each time a terminal will open, the function jlremote will be added to the path.</p>
-</section>
-<section id="launch-the-jupyter-session" class="level2">
-<h2 class="anchored" data-anchor-id="launch-the-jupyter-session">Launch the Jupyter session</h2>
-<p>Most remote linux servers will offer the opportunity to run tmux, that allows opening a persistent shell session.</p>
-<p>In your remote terminal, type <code>tmux</code>. The tmux session will open. That is where we wll run our Jupyter notebook.</p>
-<p>Then, type <code>srun --mem=4G --pty bash</code>. This will associate your tmux session with a compute node on the remote server. You can adjust the memory you need for your notebooks.</p>
-<p>Then, type <code>jlremote</code>. This will launch your Jupyter lab session. It might take a bit of time before displaying a message like this one</p>
-<pre class="{bash}"><code>    Copy/paste this URL into your browser when you connect for the first time,
-    to login with a token:
-        http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-</code></pre>
-<p>Copy the token value (after = sign) and keep it somewhere.</p>
-</section>
-<section id="set-up-the-ssh-tunnel" class="level2">
-<h2 class="anchored" data-anchor-id="set-up-the-ssh-tunnel">Set up the SSH tunnel</h2>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p>On your local Windows compute, create a .bat file</p>
-<pre class="{bat}"><code>@echo off
-setlocal
-:: the port you've chosen in the function jlremote 
-set port=9753
-:: your username on the remote server
-set remote_username=firstname.lastname
-:: your machine IP
-set remote_hostname=10.69.168.62 
-
-for /f "tokens=* usebackq" %%i in (`powershell -command "ssh %remote_username%@%remote_hostname% 'tail -1 ~/.jupyternode.txt'"`) do set node=%%i
-
-:: Read the node from the temporary file
-set /p node=&lt;node.txt
-
-set url=http://localhost:%port%
-
-:: Construct and run the SSH command
-set cmd=ssh -CNL 8888:%node%:%port% %remote_username%@%remote_hostname%
-echo Running '%cmd%'
-
-:: Delete the temporary file
-del node.txt
-
-%cmd%
-
-endlocal</code></pre>
-<p>Run (or double click on) the .bat file.</p>
-<p>You should be able to use your notebook by using the address provided earlier.</p>
-<p><code>http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code></p>
-<p>You may also just use <code>http://localhost:8888/</code> and add the token manually.</p>
-<p>You may set a simple password to access the notebook without the token in the future.</p>
-</section>
-<section id="linux" class="level3">
-<h3 class="anchored" data-anchor-id="linux">Linux</h3>
-<p>On your local Windows compute, create a .bat file</p>
-<pre class="{bash}"><code>function jllocal {
-    port=9753
-    remote_username=USERNAME
-    remote_hostname=HOSTNAME
-    node=$(ssh $remote_username@$remote_hostname 'tail -1 ~/.jupyternode.txt')
-    url="http://localhost:$port"
-    echo "Opening $url"
-    open "$url"
-    cmd="ssh -CNL "8888":"$node":"$port" $remote_username@$remote_hostname"
-    echo "Running '$cmd'"
-    eval "$cmd"
-}</code></pre>
-<p>Run (or double click on) the .bat file.</p>
-<p>You should be able to use your notebook by using the address provided earlier.</p>
-<p><code>http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code></p>
-<p>You may also just use <code>http://localhost:8888/</code> and add the token manually .</p>
-<p>You may set a simple password to access the notebook without the token in the future.</p>
-</section>
-</section>
-<section id="credits" class="level2">
-<h2 class="anchored" data-anchor-id="credits">Credits</h2>
-<p>This tutorial was largely inspired by this one:</p>
-<p>https://benjlindsay.com/posts/running-jupyter-lab-remotely/</p>
+<p>If you only want to use the cluster when you are at the lab, you don’t need the VPN.</p>
+<p>The VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.</p>
+<p><a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn" class="uri">https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn</a></p>
+<p>You need your CRNL identifiers to access this internal page. Essentially, besides installing the software, <strong>you will have to fill the PDF “<a href="https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:informatique:inscription_service_vpn.pdf">fiche</a>”</strong> (<a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn">here</a>) and send it to <a href="thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.</p>
+<p>If you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL).</p>
 
 
 <!-- -->
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -471,7 +373,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/crnl-lab\.github\.io\/cluster-guidelines\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -799,139 +701,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Using Interactive Jupyter over SSH</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: false</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>Visual Code over SSH is great but it is limited in its ability to run interactive Jupyter notebooks unless X11 forwarding is properly configured.</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>Another way to go is to run a persistent Jupyter lab session on your remote SSH server and forward it through a tunnel.</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extend your .bashrc file</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>To do so, we need to edit our .bashrc file (in /home/username/.bashrc) and add the following lines at the end.</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt;&gt;&gt; Jupyterlab Remote &gt;&gt;&gt;</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span><span class="fu"> jlremote</span> <span class="kw">{</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span> <span class="op">&gt;</span> ~/.jupyternode.txt</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> /crnldata/cophy/</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">XDG_RUNTIME_DIR</span><span class="op">=</span> <span class="ex">jupyter</span> lab <span class="at">--no-browser</span> <span class="at">--port</span><span class="op">=</span>9753 <span class="at">--ip</span><span class="op">=</span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;&lt;&lt; Jupyterlab end config &lt;&lt;&lt;</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="kw">```</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ex">Note</span> that the <span class="at">--port</span> variable can be changed to your preference.</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="ex">Thanks</span> to this piece of code, each time a terminal will open, the function jlremote will be added to the path.</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">## Launch the Jupyter session</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="ex">Most</span> remote linux servers will offer the opportunity to run tmux, that allows opening a persistent shell session.</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ex">In</span> your remote terminal, type <span class="kw">`</span>tmux<span class="kw">`</span><span class="bu">.</span> The tmux session will open. That is where we wll run our Jupyter notebook.</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="ex">Then,</span> type <span class="kw">`</span>srun <span class="at">--mem</span><span class="op">=</span>4G <span class="at">--pty</span> bash<span class="kw">`</span><span class="bu">.</span> This will associate your tmux session with a compute node on the remote server.</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> can adjust the memory you need for your notebooks.</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="ex">Then,</span> type <span class="kw">`</span>jlremote<span class="kw">`</span><span class="bu">.</span> This will launch your Jupyter lab session. It might take a bit of time before displaying a message like this one</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Copy/paste</span> this URL into your browser when you connect for the first time,</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="ex">to</span> login with a token:</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="ex">http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="kw">```</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span> the token value <span class="er">(</span><span class="ex">after</span> = sign<span class="kw">)</span> <span class="ex">and</span> keep it somewhere.</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up the SSH tunnel</span></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">### Windows</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> your local Windows compute, create a .bat file</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{bat}</span></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="ex">@echo</span> off</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="ex">setlocal</span></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="ex">::</span> the port you<span class="st">'ve chosen in the function jlremote </span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="st">set port=9753</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="st">:: your username on the remote server</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="st">set remote_username=firstname.lastname</span></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="st">:: your machine IP</span></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="st">set remote_hostname=10.69.168.62 </span></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="st">for /f "tokens=* usebackq" %%i in (`powershell -command "ssh %remote_username%@%remote_hostname% '</span>tail <span class="at">-1</span> ~/.jupyternode.txt<span class="st">'"`) do set node=%%i</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="st">:: Read the node from the temporary file</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="st">set /p node=&lt;node.txt</span></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="st">set url=http://localhost:%port%</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="st">:: Construct and run the SSH command</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="st">set cmd=ssh -CNL 8888:%node%:%port% %remote_username%@%remote_hostname%</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="st">echo Running '</span>%cmd%<span class="st">'</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="st">:: Delete the temporary file</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="st">del node.txt</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="st">%cmd%</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="st">endlocal</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="st">Run (or double click on) the .bat file.</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="st">You should be able to use your notebook by using the address provided earlier.</span></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="st">`http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`</span></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="st">You may also just use `http://localhost:8888/` and add the token manually. </span></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="st">You may set a simple password to access the notebook without the token in the future.</span></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="st">### Linux</span></span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="st">On your local Windows compute, create a .bat file</span></span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="st">function jllocal {</span></span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="st">    port=9753</span></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="st">    remote_username=USERNAME</span></span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="st">    remote_hostname=HOSTNAME</span></span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="st">    node=$(ssh $remote_username@$remote_hostname '</span>tail <span class="at">-1</span> ~/.jupyternode.txt<span class="st">')</span></span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="st">    url="http://localhost:$port"</span></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "Opening $url"</span></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="st">    open "$url"</span></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="st">    cmd="ssh -CNL "8888":"$node":"$port" $remote_username@$remote_hostname"</span></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "Running '</span><span class="va">$cmd</span><span class="st">'"</span></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="st">    eval "$cmd"</span></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="st">Run (or double click on) the .bat file.</span></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="st">You should be able to use your notebook by using the address provided earlier.</span></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="st">`http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`</span></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a><span class="st">You may also just use `http://localhost:8888/` and add the token manually .</span></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="st">You may set a simple password to access the notebook without the token in the future.</span></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="st">## Credits</span></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="st">This tutorial was largely inspired by this one:</span></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="st">https://benjlindsay.com/posts/running-jupyter-lab-remotely/</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> VPN access</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>If you only want to use the cluster when you are at the lab, you don't need the VPN. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>You need your CRNL identifiers to access this internal page. Essentially, besides</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>installing the software, **you  will have to fill the PDF "[fiche](https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:informatique:inscription_service_vpn.pdf)"**</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">here</span><span class="co">](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn)</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>and send it to <span class="co">[</span><span class="ot">thibaut.woog@inserm.fr</span><span class="co">](thibaut.woog@inserm.fr)</span>. Then, it</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>will be a matter of days before you can access the CRNL infrastructure</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>remotely. You'll be noticed by email.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you don't have an INSERM email, you can ask one if you work at CRNL</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>(even if you are affiliated to CNRS or UCBL).</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
