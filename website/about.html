@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Romain Ligneul">
 
-<title>Connecting to the CRNL server over SSH in Visual Code – CRNL</title>
+<title>CRNL cluster guidelines – CRNL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -166,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -183,107 +181,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
-   
   <ul>
-  <li><a href="#set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" id="toc-set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" class="nav-link active" data-scroll-target="#set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises">Set up the VPN of INSERM (if you are outside the CRNL premises)</a></li>
-  <li><a href="#create-your-local-ssh-config-file" id="toc-create-your-local-ssh-config-file" class="nav-link" data-scroll-target="#create-your-local-ssh-config-file">Create your local SSH config file</a>
+  <li><a href="#using-jupyter-lab" id="toc-using-jupyter-lab" class="nav-link active" data-scroll-target="#using-jupyter-lab">Using Jupyter lab</a>
   <ul class="collapse">
-  <li><a href="#on-linux" id="toc-on-linux" class="nav-link" data-scroll-target="#on-linux">On Linux</a></li>
-  <li><a href="#on-windows" id="toc-on-windows" class="nav-link" data-scroll-target="#on-windows">On Windows</a></li>
+  <li><a href="#obtain-vpn-access-optional" id="toc-obtain-vpn-access-optional" class="nav-link" data-scroll-target="#obtain-vpn-access-optional">Obtain VPN access (optional)</a></li>
+  <li><a href="#configure-your-git-optional-but-recommended" id="toc-configure-your-git-optional-but-recommended" class="nav-link" data-scroll-target="#configure-your-git-optional-but-recommended">Configure your Git (optional but recommended)</a></li>
+  <li><a href="#learn-to-submit-jobs" id="toc-learn-to-submit-jobs" class="nav-link" data-scroll-target="#learn-to-submit-jobs">Learn to submit jobs</a></li>
   </ul></li>
-  <li><a href="#create-a-pair-of-keys-and-configure-them" id="toc-create-a-pair-of-keys-and-configure-them" class="nav-link" data-scroll-target="#create-a-pair-of-keys-and-configure-them">Create a pair of keys and configure them</a></li>
+  <li><a href="#using-vs-code" id="toc-using-vs-code" class="nav-link" data-scroll-target="#using-vs-code">Using VS code</a></li>
+  <li><a href="#get-git" id="toc-get-git" class="nav-link" data-scroll-target="#get-git">1- Get Git</a></li>
+  <li><a href="#set-up-ssh-and-visual-code" id="toc-set-up-ssh-and-visual-code" class="nav-link" data-scroll-target="#set-up-ssh-and-visual-code">2- Set up SSH and Visual Code</a></li>
+  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
+  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-jolla">
+  <img src="./images/CRNLlogo_green.png" class="about-image
+  round " style="height: 15em; width: 15em;">
+ <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Connecting to the CRNL server over SSH in Visual Code</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">CRNL cluster guidelines</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Romain Ligneul </p>
-          </div>
   </div>
-    
-  
-    
-  </div>
-  
+</header><main class="content" id="quarto-document-content">
 
-
-</header>
-
-
-<section id="set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises" class="level2">
-<h2 class="anchored" data-anchor-id="set-up-the-vpn-of-inserm-if-you-are-outside-the-crnl-premises">Set up the VPN of INSERM (if you are outside the CRNL premises)</h2>
-<p>To access the CRNL servers from outside, following this tutorial.</p>
-<p><a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn" class="uri">https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn</a></p>
-<p>You need your CRNL identifiers to access this page. Essentially, besides installing the software, <strong>you have to fill the PDF “fiche”</strong> (<a href="https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn">here</a>) and send it to <a href="thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.</p>
-<p>If you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL).</p>
+<p>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</p>
+<section id="using-jupyter-lab" class="level2">
+<h2 data-anchor-id="using-jupyter-lab">Using Jupyter lab</h2>
+<p>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e.&nbsp;10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</p>
+<p>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</p>
+<section id="obtain-vpn-access-optional" class="level3">
+<h3 data-anchor-id="obtain-vpn-access-optional">Obtain VPN access (optional)</h3>
+<p>If you want to access the cluster remotely, check this <a href="./help_VPN">page</a>.</p>
 </section>
-<section id="create-your-local-ssh-config-file" class="level2">
-<h2 class="anchored" data-anchor-id="create-your-local-ssh-config-file">Create your local SSH config file</h2>
-<section id="on-linux" class="level3">
-<h3 class="anchored" data-anchor-id="on-linux">On Linux</h3>
-<p>Open a terminal</p>
-<p><code>cd ~/.ssh</code></p>
-<p><code>ssh-keygen</code></p>
-<p>Follow the instructions. When asked for a password, just press enter.</p>
+<section id="configure-your-git-optional-but-recommended" class="level3">
+<h3 data-anchor-id="configure-your-git-optional-but-recommended">Configure your Git (optional but recommended)</h3>
 </section>
-<section id="on-windows" class="level3">
-<h3 class="anchored" data-anchor-id="on-windows">On Windows</h3>
-<p>Open a terminal</p>
-<p><code>cd ~/.ssh</code></p>
-<p><code>ssh-keygen</code></p>
-<p>Follow the instructions. When asked for a password, just press enter.</p>
-<p><img src="images/paste-1.png" class="img-fluid"></p>
-<ul>
-<li><p>Type, connect to host and enter: <code>ssh yourusername@10.69.168.62</code></p></li>
-<li><p>Then, you’ll be asked to enter your password.</p></li>
-<li><p>Open your <em>/home/yourusername</em> folder (it will ask your password a 2nd time)</p></li>
-<li><p>Create a .ssh folder (<em>/home/yourusername/.ssh</em>) and inside that folder, create a file named <em>authorized_keys</em> (without any extension)</p></li>
-<li><p>Open this file</p></li>
-</ul>
-<p>Leave open this Visual Code session that we will call the <em>server session</em>, to open and create the pair of keys.</p>
+<section id="learn-to-submit-jobs" class="level3">
+<h3 data-anchor-id="learn-to-submit-jobs">Learn to submit jobs</h3>
+<p>The cluster uses SLURM to manage “jobs” (i.e.&nbsp;functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</p>
+<p><a href="./Tutorial_Cluster_Part1">Part 1</a> <a href="./Tutorial_Cluster_Part2">Part 2</a></p>
 </section>
 </section>
-<section id="create-a-pair-of-keys-and-configure-them" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-pair-of-keys-and-configure-them">Create a pair of keys and configure them</h2>
-<ol type="1">
-<li>Open VS code a second time on your local computer. We will call this one the <em>local session</em></li>
-<li>Open a terminal in this local session.</li>
-<li><code>cd</code> to the folder of your choice (that’s where the SSH keys will be stored, so there should be <strong>no space</strong> in the path)</li>
-<li>Type <code>ssh-keygen -t ed25519</code> and chose whatever name you like for the key. You don’t have to set a password. If ssh-keygen is throwing an error, see <a href="https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui#install-openssh-for-windows">here</a>.</li>
-<li>Two files are created, open the file ending with a .pub extension using VS code or any text editor.</li>
-<li>Copy its content and paste it in the <em>authorized_keys</em> file that should be opened in your VS code <em>server session</em> (the one we used first)</li>
-<li>Now, return to your <em>local session</em> and click again on the blue icon of the Remote SSH extension (bottom left).</li>
-<li>Click <em>Connect to host</em></li>
-<li>Click <em>Configure SSH Hosts</em></li>
-<li>Click on the line displaying C:\Users\UserName\.ssh\config and make sure it looks as follow:</li>
-</ol>
-<pre><code>Host 10.69.168.62
-  HostName 10.69.168.62
-  ForwardX11 yes
-  User firstname.lastname
-  IdentityFile C:\pathofyourkeyfile\yourkeyfile</code></pre>
-<p>Of course, change the User and IdentityFile fields for your own username and path to the key (do not include the .pub extension)</p>
-<p>That’s it. In principle, the next time you click on <em>Connect to host</em> in Visual Code, you won’t have to enter any password.</p>
+<section id="using-vs-code" class="level2">
+<h2 data-anchor-id="using-vs-code">Using VS code</h2>
+</section>
+<section id="get-git" class="level2">
+<h2 data-anchor-id="get-git">1- Get Git</h2>
+<p>Check the tutorial for <a href="./help_ssh">easy SSH access</a> with SSH keys, to avoid having to enter passwords in the future.</p>
+</section>
+<section id="set-up-ssh-and-visual-code" class="level2">
+<h2 data-anchor-id="set-up-ssh-and-visual-code">2- Set up SSH and Visual Code</h2>
+<p>Check the tutorial for <a href="./help_ssh">easy SSH access</a> with SSH keys, to avoid having to enter passwords in the future.</p>
+</section>
+<section id="how-to-contribute" class="level2">
+<h2 data-anchor-id="how-to-contribute">How to contribute</h2>
+<p>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <a href="samuel.garcia@cnrs.fr">Samuel Garcia</a> or <a href="romain.ligneul@inserm.fr">Romain Ligneul</a>.</p>
+</section>
+<section id="leave-a-message" class="level2">
+<h2 data-anchor-id="leave-a-message">Leave a message</h2>
+<p>Feel free to leave a message.</p>
+<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
 
 
 <!-- -->
-
 </section>
-
-</main> <!-- /main -->
+</main>  
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -304,13 +273,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -755,110 +717,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Connecting to the CRNL server over SSH in Visual Code</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Set up the VPN of INSERM (if you are outside the CRNL premises)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>To access the CRNL servers from outside, following this tutorial.</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>You need your CRNL identifiers to access this page. Essentially, besides</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>installing the software, **you have to fill the PDF "fiche"**</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">here</span><span class="co">](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn)</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>and send it to <span class="co">[</span><span class="ot">thibaut.woog@inserm.fr</span><span class="co">](thibaut.woog@inserm.fr)</span>. Then, it</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>will be a matter of days before you can access the CRNL infrastructure</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>remotely. You'll be noticed by email.</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>If you don't have an INSERM email, you can ask one if you work at CRNL</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>(even if you are affiliated to CNRS or UCBL).</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Create your local SSH config file</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### On Linux</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>Open a terminal</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="in">`cd ~/.ssh`</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh-keygen`</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>Follow the instructions. When asked for a password, just press enter.</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### On Windows</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Open a terminal</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="in">`cd ~/.ssh`</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh-keygen`</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>Follow the instructions. When asked for a password, just press enter.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-1.png)</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Type, connect to host and enter: <span class="in">`ssh yourusername@10.69.168.62`</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Then, you'll be asked to enter your password.</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Open your */home/yourusername* folder (it will ask your password a</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    2nd time)</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Create a .ssh folder (*/home/yourusername/.ssh*) and inside that</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    folder, create a file named *authorized_keys* (without any</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    extension)</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Open this file</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Leave open this Visual Code session that we will call the *server</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>session*, to open and create the pair of keys.</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Create a pair of keys and configure them</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Open VS code a second time on your local computer. We will call this</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    one the *local session*</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Open a terminal in this local session.</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span><span class="in">`cd`</span> to the folder of your choice (that's where the SSH keys will be</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    stored, so there should be **no space** in the path)</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Type <span class="in">`ssh-keygen -t ed25519`</span> and chose whatever name you like for</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    the key. You don't have to set a password. If ssh-keygen is throwing</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    an error, see</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">here</span><span class="co">](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui#install-openssh-for-windows)</span>.</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Two files are created, open the file ending with a .pub extension</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    using VS code or any text editor.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Copy its content and paste it in the *authorized_keys* file that</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    should be opened in your VS code *server session* (the one we used</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    first)</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Now, return to your *local session* and click again on the blue icon</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    of the Remote SSH extension (bottom left).</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Click *Connect to host*</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Click *Configure SSH Hosts*</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Click on the line displaying C:<span class="sc">\\</span>Users<span class="sc">\\</span>UserName<span class="sc">\\</span>.ssh<span class="sc">\\</span>config and</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    make sure it looks as follow:</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="in">Host 10.69.168.62</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="in">  HostName 10.69.168.62</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="in">  ForwardX11 yes</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="in">  User firstname.lastname</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="in">  IdentityFile C:\pathofyourkeyfile\yourkeyfile</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>Of course, change the User and IdentityFile fields for your own username</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>and path to the key (do not include the .pub extension)</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>That's it. In principle, the next time you click on *Connect to host* in</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>Visual Code, you won't have to enter any password.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "CRNL cluster guidelines"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">about:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  template: jolla</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  image: ./images/CRNLlogo_green.png</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">aliases:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - ./index.html</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  - ./</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using Jupyter lab</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93).</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### Obtain VPN access (optional)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>If you want to access the cluster remotely, check this <span class="co">[</span><span class="ot">page</span><span class="co">](./help_VPN)</span>.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configure your Git (optional but recommended)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learn to submit jobs</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 1</span><span class="co">](./Tutorial_Cluster_Part1)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 2</span><span class="co">](./Tutorial_Cluster_Part2)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using VS code</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1- Get Git</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>Check the tutorial for <span class="co">[</span><span class="ot">easy SSH access</span><span class="co">](./help_ssh)</span> with SSH keys, to avoid having to enter passwords in the future.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2- Set up SSH and Visual Code</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Check the tutorial for <span class="co">[</span><span class="ot">easy SSH access</span><span class="co">](./help_ssh)</span> with SSH keys, to avoid having to enter passwords in the future.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to contribute</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <span class="co">[</span><span class="ot">Samuel Garcia</span><span class="co">](samuel.garcia@cnrs.fr)</span> or <span class="co">[</span><span class="ot">Romain Ligneul</span><span class="co">](romain.ligneul@inserm.fr)</span>.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Leave a message</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>Feel free to leave a message.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

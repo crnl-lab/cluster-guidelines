@@ -7,98 +7,66 @@ execute:
   freeze: true
 ---
 
-## Set up the VPN of INSERM (if you are outside the CRNL premises)
+:::{.callout-note}
+The steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster.
+In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.
+:::
 
-To access the CRNL servers from outside, following this tutorial.
+Find your **local** .ssh folder (local always refer to the computer you are using).
 
-<https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn>
+On Linux, you can probably find it at `~/.ssh/` or `/home/username/.ssh/`.
 
-You need your CRNL identifiers to access this page. Essentially, besides
-installing the software, **you have to fill the PDF "fiche"**
-([here](https://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn))
-and send it to [thibaut.woog@inserm.fr](thibaut.woog@inserm.fr). Then, it
-will be a matter of days before you can access the CRNL infrastructure
-remotely. You'll be noticed by email.
+On Window, you can probably find at at `C:\Users\username\.ssh\`.
 
-If you don't have an INSERM email, you can ask one if you work at CRNL
-(even if you are affiliated to CNRS or UCBL).
+If you don't find it, just create it and `cd` in it. Then type:
 
-## Create your local SSH config file
+`ssh-keygen -f crnlcluster`
 
-### On Linux
+::: callout-note
+If ssh-keygen is not found, you may need to install [Putty](https://www.putty.org/), restart your terminal and perform these steps again.
+:::
 
-Open a terminal
+Follow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: `type crnlcluster.pub`
 
-`cd ~/.ssh`
+You public key will appear in the terminal. Keep it open.
 
-`ssh-keygen`
+Now, type:
 
-Follow the instructions. When asked for a password, just press enter.
+`ssh cluster_username@10.69.168.93`
 
-### On Windows
+**Change** cluster_username to match your username on the cluster (typically, firstname.lastname)
 
-Open a terminal
+You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)
 
-`cd ~/.ssh`
+Now, you are logged in the cluster! Type:
 
-`ssh-keygen`
+`cd ~/.ssh/`
 
-Follow the instructions. When asked for a password, just press enter.
+`touch authorized_keys`
 
+`vi authorized_keys`
 
+This last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after `type crnlcluster.pub`). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type `:wq` in it.
 
+Close the terminal.
 
-![](images/paste-1.png)
+Now, the cluster knows your ssh key and you won't need to use the password anymore (only the ssh key passphrase if you entered one). But let's make an extra-step to further automatize the process.
 
--   Type, connect to host and enter: `ssh yourusername@10.69.168.62`
-
--   Then, you'll be asked to enter your password.
-
--   Open your */home/yourusername* folder (it will ask your password a
-    2nd time)
-
--   Create a .ssh folder (*/home/yourusername/.ssh*) and inside that
-    folder, create a file named *authorized_keys* (without any
-    extension)
-
--   Open this file
-
-Leave open this Visual Code session that we will call the *server
-session*, to open and create the pair of keys.
-
-## Create a pair of keys and configure them
-
-1.  Open VS code a second time on your local computer. We will call this
-    one the *local session*
-2.  Open a terminal in this local session.
-3.  `cd` to the folder of your choice (that's where the SSH keys will be
-    stored, so there should be **no space** in the path)
-4.  Type `ssh-keygen -t ed25519` and chose whatever name you like for
-    the key. You don't have to set a password. If ssh-keygen is throwing
-    an error, see
-    [here](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui#install-openssh-for-windows).
-5.  Two files are created, open the file ending with a .pub extension
-    using VS code or any text editor.
-6.  Copy its content and paste it in the *authorized_keys* file that
-    should be opened in your VS code *server session* (the one we used
-    first)
-7.  Now, return to your *local session* and click again on the blue icon
-    of the Remote SSH extension (bottom left).
-8.  Click *Connect to host*
-9.  Click *Configure SSH Hosts*
-10. Click on the line displaying C:\\Users\\UserName\\.ssh\\config and
-    make sure it looks as follow:
+In your local .ssh folder, create a file named `config` and add the following lines to it:
 
 ```         
-Host 10.69.168.62
-  HostName 10.69.168.62
+Host CRNLcluster
+  HostName 10.69.168.93
+  User cluster_username
   ForwardX11 yes
-  User firstname.lastname
-  IdentityFile C:\pathofyourkeyfile\yourkeyfile
+  ForwardX11Trusted yes
+  IdentityFile "path/to/your/sshkey/crnlcluster"
 ```
 
-Of course, change the User and IdentityFile fields for your own username
-and path to the key (do not include the .pub extension)
+Adjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.
 
-That's it. In principle, the next time you click on *Connect to host* in
-Visual Code, you won't have to enter any password.
+Now, each time you want to reach the command line of the cluster, open a terminal and type:
+
+`ssh cluster_username@CRNLcluster`
+
+You are already into the cluster! 
