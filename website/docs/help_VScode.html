@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -68,35 +102,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -164,7 +169,7 @@ window.Quarto = {
   </li>
   <li class="nav-item">
     <a class="nav-link active" href="./help_VScode.html" aria-current="page"> 
-<span class="menu-text">VS Code </span></a>
+<span class="menu-text">VS Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -192,7 +197,8 @@ window.Quarto = {
   <li><a href="#install-the-remote-tunnel-extension-only-once" id="toc-install-the-remote-tunnel-extension-only-once" class="nav-link" data-scroll-target="#install-the-remote-tunnel-extension-only-once">2. Install the remote tunnel extension (only once)</a></li>
   <li><a href="#download-vs-code-on-the-cluster-only-once" id="toc-download-vs-code-on-the-cluster-only-once" class="nav-link" data-scroll-target="#download-vs-code-on-the-cluster-only-once">3. Download VS code on the cluster (only once)</a></li>
   <li><a href="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once" id="toc-create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once" class="nav-link" data-scroll-target="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once">4. Create a tunnel to VS code on the cluster from your local computer (only once)</a></li>
-  <li><a href="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once-1" id="toc-create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once-1" class="nav-link" data-scroll-target="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once-1">4. Create a tunnel to VS code on the cluster from your local computer (only once)</a></li>
+  <li><a href="#connect-to-the-tunnel-from-your-local-vs-code-each-time" id="toc-connect-to-the-tunnel-from-your-local-vs-code-each-time" class="nav-link" data-scroll-target="#connect-to-the-tunnel-from-your-local-vs-code-each-time">5. Connect to the tunnel from your local VS code (each time)</a></li>
+  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
   </ul>
 </nav>
     </div>
@@ -265,197 +271,49 @@ tar -xzf vscode.tar.gz</code></pre>
 <pre><code>@echo off
 set "remote_username=cluster_username"
 set "remote_hostname=CRNLcluster"
-ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=08:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```
-
-Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)
-
-**Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following
-</code></pre>
-<p>#!/bin/bash remote_username=“cluster_username” remote_hostname=“CRNLcluster” ssh -t “<span class="math inline">\({remote_username}@\)</span>{remote_hostname}” “srun –mem=16G –cpus-per-task=8 –time=480 –pty $SHELL -c ‘~/VSCode-linux-x64/bin/code tunnel’; bash”</p>
-<pre><code>
-Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.
-
-Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)
-
-Consider using Github as a tunnel provider rather than Microsoft.
-
-### 5. Connect to the tunnel from your local VS code (each time)
-
-Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github.
-
-Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:
-
-![](images/paste-1.png)
-
-And click "Connect to Tunnel"
-
-Then, select Github and the tunnel name that you have defined just before.
-
-That's it!
-
-You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!
-
-::: callout-tip
-When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
-:::
-
-## Leave a message
-
-Feel free to comment, make a question, report a bug, etc.
-If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia).
-
-&lt;script src="https://giscus.app/client.js"
-        data-repo="crnl-lab/cluster-guidelines"
-        data-repo-id="R_kgDOMUrgpg"
-        data-category="SiteComments"
-        data-category-id="DIC_kwDOMUrgps4CgtKj"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async&gt;
-&lt;/script&gt;
-
-
-
-
-
-:::{#quarto-navigation-envelope .hidden}
-[CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-sidebar-title"}
-[CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar-title"}
-[Connecting]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Connecting"}
-[VPN]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:VPN"}
-[/help_VPN.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/help_VPN.html"}
-[Github]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Github"}
-[/help_github.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/help_github.html"}
-[Submitting]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Submitting"}
-[Part 1]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Part 1"}
-[/Tutorial_Cluster_Part1.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/Tutorial_Cluster_Part1.html"}
-[Part 2]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Part 2"}
-[/Tutorial_Cluster_Part2.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/Tutorial_Cluster_Part2.html"}
-[More]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:More"}
-[Simplifying SSH]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Simplifying SSH"}
-[/help_ssh.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/help_ssh.html"}
-[Transferring files]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:Transferring files"}
-[/help_filezilla.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/help_filezilla.html"}
-[VS Code ]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:VS Code"}
-[/help_VScode.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/help_VScode.html"}
-[About]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:About"}
-[/about.html]{.hidden .quarto-markdown-envelope-contents render-id="quarto-int-navbar:/about.html"}
-:::
-
-
-
-:::{#quarto-meta-markdown .hidden}
-[VScode on the cluster – CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-metatitle"}
-[VScode on the cluster – CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-twittercardtitle"}
-[VScode on the cluster – CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-ogcardtitle"}
-[CRNL]{.hidden .quarto-markdown-envelope-contents render-id="quarto-metasitename"}
-[]{.hidden .quarto-markdown-envelope-contents render-id="quarto-twittercarddesc"}
-[]{.hidden .quarto-markdown-envelope-contents render-id="quarto-ogcardddesc"}
-:::
-
-
-
-
-&lt;!-- --&gt;
-
-::: {.quarto-embedded-source-code}
-```````````````````{.markdown shortcodes="false"}
----
-title: VScode on the cluster
-author: Romain Ligneul
-toc: true
-execute: 
-  echo: true
-  freeze: false
-  eval: false
----
-
-[VScode](https://code.visualstudio.com/) is a very potent IDE that is used by many people, including at the CRNL.
-
-However, the straightforward usage of VScode on the cluster poses a **big collective problem**. Indeed, when you open a SSH session with VScode, you arrive in the so-called "login node" (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.
-
-Even if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the "login node". This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time...
-
-💥
-
-Fortunately, a simple solution exists and this tutorial will guide you through it.
-
-### 1. Connect to the cluster through SSH and add a SSH key (only once)
-
-Follow the instructions of the dedicated [tutorial](./help_ssh){target="_blank"} to avoid having to constantly enter your CRNL password when using VS code.
-
-### 2. Install the remote tunnel extension (only once)
-
-On your local computer (either at home or in the lab), install the [Remote - Tunnel](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server) extension of VS code.
-
-### 3. Download VS code on the cluster (only once)
-
-Using SSH, log into the terminal of the cluster with the following:
-
-`ssh cluster_username@CRNLcluster`
-
-:::{.callout-note}
-Adjust "cluster_username" to match your credentials.
-If you did not complete the SSH [tutorial](./help_ssh){target="_blank"}, replace CRNLcluster by: 10.69.168.93
-:::
-
-Then, run the following lines:
-
-quarto-executable-code-5450563D
-
-```bash
-wget --user-agent=Mozilla --content-disposition -E -c "https://code.visualstudio.com/sha/download?build=stable&amp;os=linux-x64" -O vscode.tar.gz
-tar -xzf vscode.tar.gz</code></pre>
-<p>VScode is now available in our home directory.</p>
+ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=480 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```</code></pre>
+<p>Note, if you use the Notepad to create the file, make your to select the option ‘All files’ in “Save as type”. Otherwise, you won’t be able to have a .bat extension (it would be .bat.txt, which does not work!)</p>
+<p><strong>Linux users</strong> On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following</p>
+<pre><code>#!/bin/bash
+remote_username="cluster_username"
+remote_hostname="CRNLcluster"
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
+<p>Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.</p>
+<p>Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)</p>
+<p>Consider using Github as a tunnel provider rather than Microsoft.</p>
 </section>
-<section id="create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once-1" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once-1">4. Create a tunnel to VS code on the cluster from your local computer (only once)</h3>
-<p><strong>Windows users</strong> On your local computer, create a file named vscode_cluster_tunnel.bat in a convenient place and copy paste the following lines:</p>
-<pre><code>@echo off
-set "remote_username=cluster_username"
-set "remote_hostname=CRNLcluster"
-ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=08:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```
+<section id="connect-to-the-tunnel-from-your-local-vs-code-each-time" class="level3">
+<h3 class="anchored" data-anchor-id="connect-to-the-tunnel-from-your-local-vs-code-each-time">5. Connect to the tunnel from your local VS code (each time)</h3>
+<p>Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github.</p>
+<p>Then, in VS code, either press Ctrl+Shift+P and type “tunnel connect” to select the function “Remote Tunnels: Connect to Tunnel”, or click on the bottom left icon that look like this:</p>
+<p><img src="images/paste-1.png" class="img-fluid"></p>
+<p>And click “Connect to Tunnel”</p>
+<p>Then, select Github and the tunnel name that you have defined just before.</p>
+<p>That’s it!</p>
+<p>You are now running VS code on a compute node with dedicated ressource. You can mess around, it won’t interfere with the happiness of other users!</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you stop using VS code, <strong>quit or kill the process initiated by vscode_cluster_tunnel</strong> (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!</p>
+</div>
+</div>
+</section>
+<section id="leave-a-message" class="level2">
+<h2 class="anchored" data-anchor-id="leave-a-message">Leave a message</h2>
+<p>Feel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g.&nbsp;to get a faster response), you may include their Github handle in your message (e.g. <span class="citation" data-cites="romainligneul">@romainligneul</span> or <span class="citation" data-cites="samuelgarcia">@samuelgarcia</span>).</p>
+<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
 
-Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)
 
-**Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following
-</code></pre>
-<p>#!/bin/bash remote_username=“cluster_username” remote_hostname=“CRNLcluster” ssh -t “<span class="math inline">\({remote_username}@\)</span>{remote_hostname}” “srun –mem=16G –cpus-per-task=8 –time=480 –pty $SHELL -c ‘~/VSCode-linux-x64/bin/code tunnel’; bash”</p>
-<pre><code>
-Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.
+<!-- -->
 
-Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)
-
-Consider using Github as a tunnel provider rather than Microsoft.
-
-### 5. Connect to the tunnel from your local VS code (each time)
-
-Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github.
-
-Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:
-
-![](images/paste-1.png)
-
-And click "Connect to Tunnel"
-
-Then, select Github and the tunnel name that you have defined just before.
-
-That's it!
-
-You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!
-
-::: callout-tip
-When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
-:::
-
-{{&lt; include _comment_box.qmd &gt;}}</code></pre>
-<p>:::</p>
 </section>
 
 </main> <!-- /main -->
@@ -929,7 +787,106 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> VScode on the cluster</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: false</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">VScode</span><span class="co">](https://code.visualstudio.com/)</span> is a very potent IDE that is used by many people, including at the CRNL.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>However, the straightforward usage of VScode on the cluster poses a **big collective problem**. Indeed, when you open a SSH session with VScode, you arrive in the so-called "login node" (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Even if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the "login node". This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time...</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>💥</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>Fortunately, a simple solution exists and this tutorial will guide you through it.</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Connect to the cluster through SSH and add a SSH key (only once)</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>Follow the instructions of the dedicated <span class="co">[</span><span class="ot">tutorial</span><span class="co">](./help_ssh)</span>{target="_blank"} to avoid having to constantly enter your CRNL password when using VS code.</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Install the remote tunnel extension (only once)</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>On your local computer (either at home or in the lab), install the <span class="co">[</span><span class="ot">Remote - Tunnel</span><span class="co">](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server)</span> extension of VS code.</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Download VS code on the cluster (only once)</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>Using SSH, log into the terminal of the cluster with the following:</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="in">`ssh cluster_username@CRNLcluster`</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>Adjust "cluster_username" to match your credentials.</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>If you did not complete the SSH <span class="co">[</span><span class="ot">tutorial</span><span class="co">](./help_ssh)</span>{target="_blank"}, replace CRNLcluster by: 10.69.168.93</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>Then, run the following lines:</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">--user-agent</span><span class="op">=</span>Mozilla <span class="at">--content-disposition</span> <span class="at">-E</span> <span class="at">-c</span> <span class="st">"https://code.visualstudio.com/sha/download?build=stable&amp;os=linux-x64"</span> <span class="at">-O</span> vscode.tar.gz</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzf</span> vscode.tar.gz</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>VScode is now available in our home directory.</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Create a tunnel to VS code on the cluster from your local computer (only once)</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>**Windows users** On your local computer, create a file named vscode_cluster_tunnel.bat in a convenient place and copy paste the following lines:</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=cluster_username"</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=480 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>**Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="cluster_username"</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file. But the first time you will run this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft) and to give it a name. You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>Name the tunnel as you prefer (for example: vscode_cluster_tunnel). Follow the instructions (make sure you are connected to Github in your web browser, open the link and copy paste the authorization code)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>Consider using Github as a tunnel provider rather than Microsoft.</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Connect to the tunnel from your local VS code (each time)</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github.</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-1.png)</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>And click "Connect to Tunnel"</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>Then, select Github and the tunnel name that you have defined just before.</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>That's it!</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
