@@ -1,0 +1,12 @@
+---
+title: VScode on the cluster
+author: Romain Ligneul
+toc: true
+execute: 
+  echo: true
+  freeze: false
+  eval: false
+---
+
+
+{{< include _comment_box.qmd >}}

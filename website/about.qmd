@@ -12,9 +12,16 @@ This website provides guidelines to use the cluster of the Centre de Recherche e
 
 It is managed and it has been configured by Thibaut Woog ([thibaut.woog\@inserm.fr](mailto:thibaut.woog@inserm.fr)).
 
+:::{.callout-tip}
+If you encounter problems with the tutorials or methods described on this website or if you have solutions/tips/tricks to share, please tell us using the Giscus comment section below each page, or write to [romain.ligneul](romain.ligneul@inserm.fr)
+:::
+
 ## Using Jupyter lab
 
-Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).
+Our new cluster has a **built-in Jupyterhub system that will greatly facilitate the life of most users** (and ITs!), as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).
+
+The Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN):
+[http://10.69.168.24:8000/](http://10.69.168.24:8000/)
 
 Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.
 
@@ -36,12 +43,12 @@ The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in paral
 
 ## Using VS code
 
-Check the [dedicated tutorial](./help_VScode) to use VS code correctly.
+Check the [dedicated tutorial](./help_VScode) to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).
 
 Note that the job submission tutorial is still applicable when using VS code.
 
 ## How to contribute
 
-To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to [Samuel Garcia](samuel.garcia@cnrs.fr) or [Romain Ligneul](romain.ligneul@inserm.fr).
+To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to [Samuel Garcia](samuel.garcia@cnrs.fr).
 
 {{< include _comment_box.qmd >}}

@@ -254,8 +254,7 @@ jobs = executor.map_array(simple_function, a, b, c)  # just a list of jobs
 for aws in asyncio.as_completed([j.awaitable().result() for j in jobs]):
     result = await aws
     print("result of computation: " + str(result))
-    arameter "slurm_array_parallelism" tells submitit to limit the number of concurrent jobs
-executor.
+
 # note that we use here an asynchronous method based on asyncio
 # it essential do something similar to what we were doing after 
 # "# wait for job completion", but in a much more compact way

@@ -12,11 +12,16 @@ The steps in this tutorial are not strictly mandatory. They are mainly meant to 
 In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.
 :::
 
+
 Find your **local** .ssh folder (local always refer to the computer you are using).
 
 On Linux, you can probably find it at `~/.ssh/` or `/home/username/.ssh/`.
 
 On Window, you can probably find at at `C:\Users\username\.ssh\`.
+
+:::{.callout-warning}
+For some reason, the automated ssh pipeline might to pose problems on MacOS. Comment at the bottom of this page if you have this problem too, or if you found a solution.
+:::
 
 If you don't find it, just create it and `cd` in it. Then type:
 

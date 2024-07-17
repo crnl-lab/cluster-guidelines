@@ -107,6 +107,10 @@ print('Maximum memory usage (in GB): %s' % (max(mem_usage)/1000))
 print('Time taken (in s): %s' % (end_time-start_time))
 ```
 
+:::{.callout-caution}
+Unfortunately, profiling memory usage of multi-threaded code (e.g. code that use several CPUs in parallel, etc) can be more difficult, and memory_usage will throw a warning if it detects multithreaded operations.
+:::
+
 ```{python}
 #### Set some environment variables for our jobs
 ### for some reason, some default values are set on the cluster, which do not match 
