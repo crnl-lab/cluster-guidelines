@@ -12,8 +12,8 @@ This website provides guidelines to use the cluster of the Centre de Recherche e
 
 It is managed and it has been configured by Thibaut Woog ([thibaut.woog\@inserm.fr](mailto:thibaut.woog@inserm.fr)).
 
-:::{.callout-tip}
-If you encounter problems with the tutorials or methods described on this website or if you have solutions/tips/tricks to share, please tell us using the Giscus comment section below each page, or write to [romain.ligneul](romain.ligneul@inserm.fr)
+:::{.callout-note}
+If you encounter problems with the tutorials or methods described on this website or if you have solutions/tips/tricks to share, please tell us using the Giscus comment section below each page, or write to [romain.ligneul@inserm.fr](romain.ligneul@inserm.fr)
 :::
 
 ## Using Jupyter lab
