@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.1">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.6.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-
-<meta name="author" content="Romain Ligneul" />
+<meta name="author" content="Romain Ligneul">
 
 <title>Managing files on the cluster (Filezilla) – CRNL</title>
 <style>
@@ -59,7 +57,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -91,78 +105,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body>
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="/index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">CRNL</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
-  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Connecting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
         <li>
-    <a class="dropdown-item" href="/help_VPN.html">
+    <a class="dropdown-item" href="./help_VPN.html">
  <span class="dropdown-text">VPN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/help_github.html">
+    <a class="dropdown-item" href="./help_github.html">
  <span class="dropdown-text">Github</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Submitting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
         <li>
-    <a class="dropdown-item" href="/Tutorial_Cluster_Part1.html">
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
  <span class="dropdown-text">Part 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Tutorial_Cluster_Part2.html">
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
  <span class="dropdown-text">Part 2</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">More</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="/help_ssh.html">
+    <a class="dropdown-item" href="./help_ssh.html">
  <span class="dropdown-text">Simplifying SSH</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/help_filezilla.html">
+    <a class="dropdown-item" href="./help_filezilla.html">
  <span class="dropdown-text">Transferring files</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/help_VScode.html"> 
-<span class="menu-text">VS Code </span></a>
+    <a class="nav-link" href="./help_VScode.html"> 
+<span class="menu-text">VS Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="/about.html"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -177,14 +189,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#option-1" id="toc-option-1" class="nav-link active" data-scroll-target="#option-1">Option 1</a></li>
+  <li><a href="#option-2" id="toc-option-2" class="nav-link" data-scroll-target="#option-2">Option 2</a></li>
+  <li><a href="#good-sides-of-filezilla" id="toc-good-sides-of-filezilla" class="nav-link" data-scroll-target="#good-sides-of-filezilla">Good sides of Filezilla</a></li>
+  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Managing files on the cluster (Filezilla)</h1>
+<div class="quarto-title-block"><div><h1 class="title">Managing files on the cluster (Filezilla)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -206,20 +227,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#option-1" id="toc-option-1">Option 1</a></li>
-  <li><a href="#option-2" id="toc-option-2">Option 2</a></li>
-  <li><a href="#good-sides-of-filezilla" id="toc-good-sides-of-filezilla">Good sides of Filezilla</a></li>
-  <li><a href="#leave-a-message" id="toc-leave-a-message">Leave a message</a></li>
-  </ul>
-</nav>
+
 <p>To transfer and manage folders/files on the cluster, you can use <a href="https://filezilla-project.org/">Filezilla</a>.</p>
 <p>Simply install it. Then, in Site Manager, create a new site (give it the name CRNLcluster, for example) and set the following:</p>
 <section id="option-1" class="level3">
-<h3>Option 1</h3>
+<h3 class="anchored" data-anchor-id="option-1">Option 1</h3>
 <ul>
 <li>Host: 10.69.168.93</li>
 <li>Protocol: SFTP</li>
@@ -228,101 +240,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="option-2" class="level3">
-<h3>Option 2</h3>
+<h3 class="anchored" data-anchor-id="option-2">Option 2</h3>
 <p>If you completed the SSH <a href="./help_ssh" target="_blank">tutorial</a>.</p>
 <ul>
 <li>Host: 10.69.168.93</li>
 <li>Protocol: SFTP</li>
 <li>Logon type: “Keyfile”</li>
 <li>User: your cluster username (probably firstname.lastname)</li>
-<li>Key file: path to the private SSH key created during the tutorial (e.g. crnlcluster)</li>
+<li>Key file: path to the private SSH key created during the tutorial (e.g.&nbsp;crnlcluster)</li>
 </ul>
-<p><img src="images/paste-3.png" class="img-fluid" /></p>
+<p><img src="images/paste-3.png" class="img-fluid"></p>
 <p>Note that, by default, Filezilla might force you to select a .ppk file. To select your private key that has no extension, you will need to change the .ppk file filter to “All files”.</p>
-<p><img src="images/paste-2.png" class="img-fluid" /></p>
+<p><img src="images/paste-2.png" class="img-fluid"></p>
 </section>
 <section id="good-sides-of-filezilla" class="level2">
-<h2>Good sides of Filezilla</h2>
+<h2 class="anchored" data-anchor-id="good-sides-of-filezilla">Good sides of Filezilla</h2>
 <p>When using the cluster, you might sometimes struggle with Files and Folders authorizations. Those can be set in the command line with <code>chmod</code>, but Filezilla can do it for you in a more intuitive way. Just right click on any folder and select “File permissions…”</p>
-<p><img src="images/paste-5.png" class="img-fluid" /></p>
+<p><img src="images/paste-5.png" class="img-fluid"></p>
 <p>Another good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check “View -&gt; Directory Listing Filters”.</p>
 </section>
 <section id="leave-a-message" class="level2">
-<h2>Leave a message</h2>
-<p>Feel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. <span class="citation" data-cites="romainligneul">@romainligneul</span> or <span class="citation" data-cites="samuelgarcia">@samuelgarcia</span>).</p>
-<script src="https://giscus.app/client.js"
-        data-repo="crnl-lab/cluster-guidelines"
-        data-repo-id="R_kgDOMUrgpg"
-        data-category="SiteComments"
-        data-category-id="DIC_kwDOMUrgps4CgtKj"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
+<h2 class="anchored" data-anchor-id="leave-a-message">Leave a message</h2>
+<p>Feel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g.&nbsp;to get a faster response), you may include their Github handle in your message (e.g. <span class="citation" data-cites="romainligneul">@romainligneul</span> or <span class="citation" data-cites="samuelgarcia">@samuelgarcia</span>).</p>
+<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
 </script>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar-title">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar-title">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Connecting">Connecting</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:VPN">VPN</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_VPN.html">/help_VPN.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Github">Github</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_github.html">/help_github.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Submitting">Submitting</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Part 1">Part 1</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/Tutorial_Cluster_Part1.html">/Tutorial_Cluster_Part1.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Part 2">Part 2</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/Tutorial_Cluster_Part2.html">/Tutorial_Cluster_Part2.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:More">More</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Simplifying SSH">Simplifying SSH</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_ssh.html">/help_ssh.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:Transferring files">Transferring files</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_filezilla.html">/help_filezilla.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:VS Code">VS Code</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/help_VScode.html">/help_VScode.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:About">About</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar:/about.html">/about.html</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metatitle">Managing files on the cluster (Filezilla) – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercardtitle">Managing files on the cluster (Filezilla) – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardtitle">Managing files on the cluster (Filezilla) – CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metasitename">CRNL</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercarddesc"></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
+
+
 <!-- -->
-<div class="quarto-embedded-source-code">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Managing files on the cluster (Filezilla)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>To transfer and manage folders/files on the cluster, you can use <span class="co">[</span><span class="ot">Filezilla</span><span class="co">](https://filezilla-project.org/)</span>.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Simply install it. Then, in Site Manager, create a new site (give it the name CRNLcluster, for example) and set the following:</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 1</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Host: 10.69.168.93</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Protocol: SFTP</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Logon type: &quot;Ask for password&quot;</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>User: your cluster username (probably firstname.lastname)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 2</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you completed the SSH <span class="co">[</span><span class="ot">tutorial</span><span class="co">](./help_ssh)</span>{target=&quot;_blank&quot;}.</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Host: 10.69.168.93</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Protocol: SFTP</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Logon type: &quot;Keyfile&quot;</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>User: your cluster username (probably firstname.lastname)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Key file: path to the private SSH key created during the tutorial (e.g. crnlcluster)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-3.png)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Note that, by default, Filezilla might force you to select a .ppk file. To select your private key that has no extension, you will need to change the .ppk file filter to &quot;All files&quot;.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-2.png)</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Good sides of Filezilla</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>When using the cluster, you might sometimes struggle with Files and Folders authorizations. Those can be set in the command line with <span class="in">`chmod`</span>, but Filezilla can do it for you in a more intuitive way. Just right click on any folder and select &quot;File permissions...&quot;</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-5.png)</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Another good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check &quot;View -<span class="sc">\&gt;</span> Directory Listing Filters&quot;.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code></pre></div>
-</div>
+
 </section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -792,9 +741,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Managing files on the cluster (Filezilla)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>To transfer and manage folders/files on the cluster, you can use <span class="co">[</span><span class="ot">Filezilla</span><span class="co">](https://filezilla-project.org/)</span>.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Simply install it. Then, in Site Manager, create a new site (give it the name CRNLcluster, for example) and set the following:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 1</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Host: 10.69.168.93</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Protocol: SFTP</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Logon type: "Ask for password"</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>User: your cluster username (probably firstname.lastname)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 2</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you completed the SSH <span class="co">[</span><span class="ot">tutorial</span><span class="co">](./help_ssh)</span>{target="_blank"}.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Host: 10.69.168.93</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Protocol: SFTP</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Logon type: "Keyfile"</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>User: your cluster username (probably firstname.lastname)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Key file: path to the private SSH key created during the tutorial (e.g. crnlcluster)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-3.png)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Note that, by default, Filezilla might force you to select a .ppk file. To select your private key that has no extension, you will need to change the .ppk file filter to "All files".</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-2.png)</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Good sides of Filezilla</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>When using the cluster, you might sometimes struggle with Files and Folders authorizations. Those can be set in the command line with <span class="in">`chmod`</span>, but Filezilla can do it for you in a more intuitive way. Just right click on any folder and select "File permissions..."</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-5.png)</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Another good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check "View -<span class="sc">\&gt;</span> Directory Listing Filters".</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>
