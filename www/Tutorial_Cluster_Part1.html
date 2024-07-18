@@ -197,11 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-your-first-conda-environment" id="toc-create-your-first-conda-environment" class="nav-link" data-scroll-target="#create-your-first-conda-environment">Create your first conda environment</a></li>
   <li><a href="#make-your-conda-environment-visible-to-jupyter-lab" id="toc-make-your-conda-environment-visible-to-jupyter-lab" class="nav-link" data-scroll-target="#make-your-conda-environment-visible-to-jupyter-lab">Make your conda environment visible to Jupyter lab</a></li>
   <li><a href="#populate-your-conda-environment-kernel-with-essential-tools" id="toc-populate-your-conda-environment-kernel-with-essential-tools" class="nav-link" data-scroll-target="#populate-your-conda-environment-kernel-with-essential-tools">Populate your conda environment / kernel with essential tools</a></li>
-  <li><a href="#lets-start-computing" id="toc-lets-start-computing" class="nav-link" data-scroll-target="#lets-start-computing">Let’s start computing</a>
-  <ul class="collapse">
-  <li><a href="#next-part" id="toc-next-part" class="nav-link" data-scroll-target="#next-part">Next part</a></li>
-  </ul></li>
-  <li><a href="#comments-questions" id="toc-comments-questions" class="nav-link" data-scroll-target="#comments-questions">Comments, questions?</a></li>
+  <li><a href="#lets-start-computing" id="toc-lets-start-computing" class="nav-link" data-scroll-target="#lets-start-computing">Let’s start computing</a></li>
   </ul>
 </nav>
     </div>
@@ -323,7 +319,20 @@ Note
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in GB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">max</span>(mem_usage)<span class="op">/</span><span class="dv">1000</span>))</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell">
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unfortunately, profiling memory usage of multi-threaded code (e.g.&nbsp;code that use several CPUs in parallel, etc) can be more difficult, and memory_usage will throw a warning if it detects multithreaded operations.</p>
+</div>
+</div>
+<div id="cell-5" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### Set some environment variables for our jobs</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">### for some reason, some default values are set on the cluster, which do not match </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">### each other and submitit will complain (this cell might not be needed in the future or on other infrastructures)</span></span>
@@ -331,7 +340,7 @@ Note
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="st">'1'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell">
+<div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### define some array for which each item will be associated with an independent job on the cluster</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### when you execute these cells, the jobs are sent to the cluster </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -438,14 +447,6 @@ Warning
 <p>If you do not clean your jobs on the fly, then you might saturate the memory of your notebook with <code>clean_jobs_live=False</code> because all the job results will be present in the job objects of joblist. Only use this approach if the objects returned by your jobs are light and can be loaded in your limited notebook memory. Otherwise, use an approach similar to that implemented by <code>clean_jobs_live=True</code>.</p>
 </div>
 </div>
-<section id="next-part" class="level3">
-<h3 class="anchored" data-anchor-id="next-part">Next part</h3>
-<p><a href="./Tutorial_Cluster_Part2.html">Click here to go to Part 2</a></p>
-</section>
-</section>
-<section id="comments-questions" class="level2">
-<h2 class="anchored" data-anchor-id="comments-questions">Comments, questions?</h2>
-<p>Feel free to comment below to signal a bug, ask a question, etc.</p>
 
 
 </section>

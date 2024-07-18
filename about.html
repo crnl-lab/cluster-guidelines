@@ -216,9 +216,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).</p>
 <p>It is managed and it has been configured by Thibaut Woog (<a href="mailto:thibaut.woog@inserm.fr">thibaut.woog@inserm.fr</a>).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you encounter problems with the tutorials or methods described on this website or if you have solutions/tips/tricks to share, please tell us using the Giscus comment section below each page, or write to <a href="romain.ligneul@inserm.fr">romain.ligneul</a></p>
+</div>
+</div>
 <section id="using-jupyter-lab" class="level2">
 <h2 data-anchor-id="using-jupyter-lab">Using Jupyter lab</h2>
-<p>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the “entry point” server (i.e.&nbsp;10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</p>
+<p>Our new cluster has a <strong>built-in Jupyterhub system that will greatly facilitate the life of most users</strong> (and ITs!), as it helps managing the load on the “entry point” server (i.e.&nbsp;10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</p>
+<p>The Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN): <a href="http://10.69.168.24:8000/">http://10.69.168.24:8000/</a></p>
 <p>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</p>
 <section id="obtain-vpn-access-optional" class="level3">
 <h3 data-anchor-id="obtain-vpn-access-optional">Obtain VPN access (optional)</h3>
@@ -237,12 +251,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="using-vs-code" class="level2">
 <h2 data-anchor-id="using-vs-code">Using VS code</h2>
-<p>Check the <a href="./help_VScode">dedicated tutorial</a> to use VS code correctly.</p>
+<p>Check the <a href="./help_VScode">dedicated tutorial</a> to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).</p>
 <p>Note that the job submission tutorial is still applicable when using VS code.</p>
 </section>
 <section id="how-to-contribute" class="level2">
 <h2 data-anchor-id="how-to-contribute">How to contribute</h2>
-<p>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <a href="samuel.garcia@cnrs.fr">Samuel Garcia</a> or <a href="romain.ligneul@inserm.fr">Romain Ligneul</a>.</p>
+<p>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <a href="samuel.garcia@cnrs.fr">Samuel Garcia</a>.</p>
 </section>
 <section id="leave-a-message" class="level2">
 <h2 data-anchor-id="leave-a-message">Leave a message</h2>
@@ -734,39 +748,46 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>It is managed and it has been configured by Thibaut Woog (<span class="co">[</span><span class="ot">thibaut.woog\@inserm.fr</span><span class="co">](mailto:thibaut.woog@inserm.fr)</span>).</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using Jupyter lab</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Our new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users and ITs, as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>If you encounter problems with the tutorials or methods described on this website or if you have solutions/tips/tricks to share, please tell us using the Giscus comment section below each page, or write to <span class="co">[</span><span class="ot">romain.ligneul</span><span class="co">](romain.ligneul@inserm.fr)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using Jupyter lab</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Obtain VPN access (optional)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Our new cluster has a **built-in Jupyterhub system that will greatly facilitate the life of most users** (and ITs!), as it helps managing the load on the "entry point" server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>If you want to access the cluster remotely, check this <span class="co">[</span><span class="ot">page</span><span class="co">](./help_VPN)</span>.</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configure your Github (optional but recommended)</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Learn how to connect your Github account to your terminal on the cluster <span class="co">[</span><span class="ot">here</span><span class="co">](./help_github)</span>.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learn to submit jobs (recommended)</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 1</span><span class="co">](./Tutorial_Cluster_Part1)</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 2</span><span class="co">](./Tutorial_Cluster_Part2)</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using VS code</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Check the <span class="co">[</span><span class="ot">dedicated tutorial</span><span class="co">](./help_VScode)</span> to use VS code correctly.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Note that the job submission tutorial is still applicable when using VS code.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to contribute</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <span class="co">[</span><span class="ot">Samuel Garcia</span><span class="co">](samuel.garcia@cnrs.fr)</span> or <span class="co">[</span><span class="ot">Romain Ligneul</span><span class="co">](romain.ligneul@inserm.fr)</span>.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>The Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN):</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">http://10.69.168.24:8000/</span><span class="co">](http://10.69.168.24:8000/)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Yet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Obtain VPN access (optional)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>If you want to access the cluster remotely, check this <span class="co">[</span><span class="ot">page</span><span class="co">](./help_VPN)</span>.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configure your Github (optional but recommended)</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>Learn how to connect your Github account to your terminal on the cluster <span class="co">[</span><span class="ot">here</span><span class="co">](./help_github)</span>.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learn to submit jobs (recommended)</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>The cluster uses SLURM to manage "jobs" (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 1</span><span class="co">](./Tutorial_Cluster_Part1)</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Part 2</span><span class="co">](./Tutorial_Cluster_Part2)</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using VS code</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Check the <span class="co">[</span><span class="ot">dedicated tutorial</span><span class="co">](./help_VScode)</span> to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>Note that the job submission tutorial is still applicable when using VS code.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to contribute</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to <span class="co">[</span><span class="ot">Samuel Garcia</span><span class="co">](samuel.garcia@cnrs.fr)</span>.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

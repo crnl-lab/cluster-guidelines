@@ -202,7 +202,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#submitting-and-going-home" id="toc-submitting-and-going-home" class="nav-link" data-scroll-target="#submitting-and-going-home">Submitting and going home</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#comments-questions" id="toc-comments-questions" class="nav-link" data-scroll-target="#comments-questions">Comments, questions?</a></li>
   </ul>
 </nav>
     </div>
@@ -456,12 +455,11 @@ Note
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> aws <span class="kw">in</span> asyncio.as_completed([j.awaitable().result() <span class="cf">for</span> j <span class="kw">in</span> jobs]):</span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="cf">await</span> aws</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"result of computation: "</span> <span class="op">+</span> <span class="bu">str</span>(result))</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    arameter <span class="st">"slurm_array_parallelism"</span> tells submitit to limit the number of concurrent jobs</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>executor.</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we use here an asynchronous method based on asyncio</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># it essential do something similar to what we were doing after </span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># "# wait for job completion", but in a much more compact way</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># however, the reordering of outputs wrt to inputs is not implemented</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we use here an asynchronous method based on asyncio</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># it essential do something similar to what we were doing after </span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># "# wait for job completion", but in a much more compact way</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># however, the reordering of outputs wrt to inputs is not implemented</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="submitting-and-going-home" class="level3">
@@ -521,10 +519,6 @@ Note
 <p>Whether you need several CPUs, and how to set memory and timeout parameters depend on the functions you use.</p>
 <p>If you are not sure, look in the documentation of your packages or test for a performance improvement as we just did!</p>
 <p>In any case, it is a good idea to run <code>os.system('kill ' + str(os.getpid()))</code></p>
-</section>
-<section id="comments-questions" class="level2">
-<h2 class="anchored" data-anchor-id="comments-questions">Comments, questions?</h2>
-<p>Feel free to comment, ask questions or report bugs below.</p>
 
 
 </section>
