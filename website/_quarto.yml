@@ -30,7 +30,11 @@ website:
         - text: "Transferring files"
           file: help_filezilla.qmd
       - text: "VS Code "
-        file: help_VScode.qmd          
+        file: help_VScode.qmd
+      - text: "Others"
+        menu:
+        - text: "Presentation Git/hub/lab"
+          file: git_presentation.qmd  
 
   
     right:

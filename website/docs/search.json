@@ -119,6 +119,69 @@
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
+    "objectID": "git_presentation.html",
+    "href": "git_presentation.html",
+    "title": "Version control and track changes",
+    "section": "",
+    "text": "An introduction to version control, easy to share/reproduce code, and more!\nYou can find it as a scrollable RevealJS presentation here.\nBy: L. Darmet and JJ. Torre\n\n\nAre you in this picture?\n\n\n\n\n\nOr in this one ?"
+  },
+  {
+    "objectID": "git_presentation.html#git-github-gitlab",
+    "href": "git_presentation.html#git-github-gitlab",
+    "title": "Version control and track changes",
+    "section": "",
+    "text": "An introduction to version control, easy to share/reproduce code, and more!\nYou can find it as a scrollable RevealJS presentation here.\nBy: L. Darmet and JJ. Torre\n\n\nAre you in this picture?\n\n\n\n\n\nOr in this one ?"
+  },
+  {
+    "objectID": "git_presentation.html#use-cases",
+    "href": "git_presentation.html#use-cases",
+    "title": "Version control and track changes",
+    "section": "Use cases",
+    "text": "Use cases\n\nKeep track of file changes (also with Matlab..!) 🖥️\nSynchronize changes among team members 🤝\nShare the code along your publication: open science and open data 📡\n\nYes you are ashamed to share your code but it would put a strain on you for better code (cleaner, clearer, etc) 🥲\nSharing only data is sometimes harsh if you don’t provide an example on how to use them 🙏\n\nMaintain a code library 📚 to share existing code with new interns, PhD, collaborators,…\n\nAvoid developing again and again the same tools for experimental protocol, pre-processing, data visualization…\nStandard pipelines\nWe have created a COPHY organization on GitHub to centralize code\n\n\n\n\nManage and maintain the \\(\\LaTeX\\) code of your thesis 🤓\nOverleaf supports direct sync with GitHub to import existing repos or create one based on current project. &gt; This direct sync also allows to backup your Overleaf projects"
+  },
+  {
+    "objectID": "git_presentation.html#what-are-the-differences-between-the-two",
+    "href": "git_presentation.html#what-are-the-differences-between-the-two",
+    "title": "Version control and track changes",
+    "section": "What are the differences between the two ?",
+    "text": "What are the differences between the two ?\n\n\n\n\n\nGit is an open-source distributed version control tool\nIt follows the evolution of a set of files in your computer, called a repository or repo\nCreated by Linus Torvalds (creator of Linux and Android) in 2005 and maintaned by the Linux Foundation\n\n\n\nGithub is an online hosting service for git repos\nStartup created in 2008, acquired by Microsoft in 2018\nThe repos can be either private or public\nAdditionnal features:\n\nFeatures requests, issues and pull request: ask for new functionnality and merge new functionnality to the exisiting code after review by the owner\nA wiki for each project\nContinuous integration tools (run automatic tests to check if additions in the code don’t alter the expected outputs)\nHost your personnal website\n\nCute cat/octopus mascot\nFollow people and explore their code database"
+  },
+  {
+    "objectID": "git_presentation.html#personnal-static-website",
+    "href": "git_presentation.html#personnal-static-website",
+    "title": "Version control and track changes",
+    "section": "Personnal static website",
+    "text": "Personnal static website\n\n\nThere exists other online hosting services such as Bitbucket (also private company) or Gitlab (open-source).\nWe have a self-hosted Gitlab in CRNL..! 💫"
+  },
+  {
+    "objectID": "git_presentation.html#install-git-on-your-machine",
+    "href": "git_presentation.html#install-git-on-your-machine",
+    "title": "Version control and track changes",
+    "section": "Install Git on your machine",
+    "text": "Install Git on your machine\n\nOn Linux from a terminal:\n\nsudo apt update\nsudo apt install git-all\n\nOn Windows:\n\nDownload it from https://git-scm.com/download/win\nRun the installer"
+  },
+  {
+    "objectID": "git_presentation.html#create-a-local-repo-from-scratch",
+    "href": "git_presentation.html#create-a-local-repo-from-scratch",
+    "title": "Version control and track changes",
+    "section": "Create a local repo from scratch",
+    "text": "Create a local repo from scratch\n\nEnter commands in GitBash for Windows and on terminal for Linux\n\nmkdir mynewrepo && cd mynewrepo\ngit init \nECHO &gt;&gt; README.md\ngit add README.md\ngit commit -m \"Add README\""
+  },
+  {
+    "objectID": "git_presentation.html#connect-your-machine-with-github",
+    "href": "git_presentation.html#connect-your-machine-with-github",
+    "title": "Version control and track changes",
+    "section": "Connect your machine with GitHub",
+    "text": "Connect your machine with GitHub\n\nFirst you need to create an account on https://github.com\nThen we will need SSH key to have a secure and authentified connection\n\n\nIn terminal or GitBash, generate SSH keys:\n\n\nssh-keygen -t rsa -C \"your_email@example.com\"\nUse same email as registred on GitHub. Then press Enter two times (no need to set a password).\n\nThen open the generated (public) key to share it with GitHub:\n\nnotepad ~/.ssh/id_rsa.pub\n\nOn GitHub website go to: Settings &gt; SSH and GPG Keys. Click on New SSH key and enter a title.\nIn the field Key paste all the contents of the file id_rsa.pub that you have just opened, beginning at ssh-ras ... up to your email (including it). You can copy with a terminal utility (such as xclip) if copying by hand does not work\nClick Add SSH key"
+  },
+  {
+    "objectID": "git_presentation.html#connect-your-local-repo-to-github",
+    "href": "git_presentation.html#connect-your-local-repo-to-github",
+    "title": "Version control and track changes",
+    "section": "Connect your local repo to GitHub",
+    "text": "Connect your local repo to GitHub\n\nAs you have setup a secured SSH key, no need for password\n\nGo back to you terminal where you have initialized your local repo:\ngit remote add origin git@github.com:username/new_repo\ngit push -u origin master"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "CRNL cluster guidelines",
