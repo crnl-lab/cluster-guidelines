@@ -16,22 +16,22 @@ You can find it as a scrollable RevealJS presentation [here](www/git_presentatio
 
 By: L. Darmet and JJ. Torre
 
-<img src="./img/banner.png" alt="drawing" width="500">
+<img src="./www/img/banner.png" alt="drawing" width="500">
 
 
 <center>Are you in this picture?</center>
 <center>
-<img src="./img/final.png" alt="drawing" style="margin:auto" width='500' height='500'>
+<img src="./www/img/final.png" alt="drawing" style="margin:auto" width='500' height='500'>
 </center>
 
 <center>Or in this one ?</center>
 <center>
-<img src="./img/ctrlz.png" alt="drawing" style="margin:auto" width='500' height='500'>
+<img src="./www/img/ctrlz.png" alt="drawing" style="margin:auto" width='500' height='500'>
 </center>
 
 <center>
     <h1> Version control can be a solution ! </h1>
-<img src="./img/git_flow.png" alt="drawing" style="margin:auto" width='300' height='300'>
+<img src="./www/img/git_flow.png" alt="drawing" style="margin:auto" width='300' height='300'>
 
 </center>
 
@@ -47,7 +47,7 @@ By: L. Darmet and JJ. Torre
     - Standard pipelines
     - We have created a **[COPHY](https://github.com/cophyteam/) organization** on GitHub to centralize code
 <center>
-<img src="./img/expprotocol.jpg" alt="drawing" style=left width='300' height='300'>
+<img src="./www/img/expprotocol.jpg" alt="drawing" style=left width='300' height='300'>
 </center>
 
 * Manage and maintain the $\LaTeX$ code of your thesis 🤓
@@ -58,16 +58,16 @@ By: L. Darmet and JJ. Torre
 
 ## What are the differences between the two ?  {.scrollable}
 <center>
-<img src="./img/git_github.jpg" alt="drawing" margin='left' width='350' height='350'>
+<img src="./www/img/git_github.jpg" alt="drawing" margin='left' width='350' height='350'>
 </center>
 
-<img src="./img/git_logo.png" alt="drawing" margin='left' width='100' height='100'>
+<img src="./www/img/git_logo.png" alt="drawing" margin='left' width='100' height='100'>
 
 - Git is an **open-source distributed version control tool**
 - It follows the evolution of a set of files in your computer, called a **repository** or **repo**
 - Created by Linus Torvalds (creator of Linux and Android) in 2005 and maintaned by the Linux Foundation
 
-<img src="./img/github_logo.png" alt="drawing" style=left width='75' height='75'>
+<img src="./www/img/github_logo.png" alt="drawing" style=left width='75' height='75'>
 
 * Github is an **online hosting service for git repos**
 * Startup created in 2008, acquired by **Microsoft** in 2018
@@ -81,7 +81,7 @@ By: L. Darmet and JJ. Torre
 * **Follow** people and explore their code database
 
 ## Personnal static website  {.scrollable}
-<img src="./img/website.png" alt="drawing" style=left width='950' height='950'>
+<img src="./www/img/website.png" alt="drawing" style=left width='950' height='950'>
 
 - There exists other online hosting services such as **Bitbucket** (also private company) or **Gitlab** (open-source).
 - We have a **self-hosted Gitlab in CRNL**..! 💫
@@ -89,10 +89,10 @@ By: L. Darmet and JJ. Torre
 <center>
 <div class="row">
   <div class="row">
-    <img src="./img/bitbucket-logo.png" alt="drawing" style=left width='150' height='150'>
+    <img src="./www/img/bitbucket-logo.png" alt="drawing" style=left width='150' height='150'>
   </div>
   <div class="column">
-    <img src="./img/gitlab.png" alt="drawing" style=left width='250' height='250'>
+    <img src="./www/img/gitlab.png" alt="drawing" style=left width='250' height='250'>
   </div>
 </div>   
 </center>
@@ -106,7 +106,7 @@ Apply here:
 https://education.github.com/benefits
 
 <center>
-<img src="./img/githubstudent.jpg" alt="drawing" style=left width='350' height='350'>
+<img src="./www/img/githubstudent.jpg" alt="drawing" style=left width='350' height='350'>
 </center>
 
 # Or use the Gitlab of CRNL 🤯  {.scrollable}
@@ -115,7 +115,7 @@ https://education.github.com/benefits
 2. Sign in and connect in: [http://10.69.168.17/users/sign_in](http://10.69.168.17/users/sign_in)
 
 <center>
-<img src="./img/gitlabisae.jpg" alt="drawing" style=left width='450' height='450'>
+<img src="./www/img/gitlabisae.jpg" alt="drawing" style=left width='450' height='450'>
 </center>
 
 # Terminology  {.scrollable}
@@ -127,7 +127,7 @@ https://education.github.com/benefits
 - Use **branch** to develop features in parallel
 
  <center>
- <img src="./img/commits.png" alt="drawing" style=left width='900' height='900'>
+ <img src="./www/img/commits.png" alt="drawing" style=left width='900' height='900'>
  </center>
 
 # Code example to start using Gitub 👩‍💻  {.scrollable}
@@ -190,12 +190,12 @@ git push -u origin master
 - Gitkraken: the most comprehensive (requires GitHub Pro)
 
 <center>
-<img src="./img/gitkraken.jpeg" alt="drawing" style=left width='550' height='550'>
+<img src="./www/img/gitkraken.jpeg" alt="drawing" style=left width='550' height='550'>
 </center>
 
 > They also handle the SSH keys for you
 
-<img src="./img/gitkrakenGUI.png" alt="drawing" style=left width='1050' height='1050'>
+<img src="./www/img/gitkrakenGUI.png" alt="drawing" style=left width='1050' height='1050'>
 
 <center>
     <font size="5">Thank you for your attention! </font>   
@@ -209,6 +209,6 @@ git push -u origin master
 
 
 <center>
-<img src="./img/perfectworld.jpg" alt="drawing" style=left width='800' height='800'>
+<img src="./www/img/perfectworld.jpg" alt="drawing" style=left width='800' height='800'>
 </center>
 
