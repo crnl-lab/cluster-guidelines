@@ -119,6 +119,55 @@
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
+    "objectID": "help_filepermissions.html",
+    "href": "help_filepermissions.html",
+    "title": "File permissions",
+    "section": "",
+    "text": "The cluster being a shared system, it implements a restrictive default policy with respect to file permissions. This default policy might change depending on how new files are created, but in general, new files will not be “executable” or “writable” by any other person that their owner.\nIt might even happen that you create a file on your personal computer (if it uses MacOS or Linux, in particular) and that, once transferred to the cluster, this file is not recognized as yours!\nSo, you will need to understand the basics of file permissions in Linux to work efficiently on the cluster, especially if you want to collaborate with other CNRL members (and you want it, right? 😏)."
+  },
+  {
+    "objectID": "help_filepermissions.html#leave-a-message",
+    "href": "help_filepermissions.html#leave-a-message",
+    "title": "File permissions",
+    "section": "Leave a message",
+    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "CRNL cluster guidelines",
+    "section": "",
+    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
+  },
+  {
+    "objectID": "about.html#using-jupyter-lab",
+    "href": "about.html#using-jupyter-lab",
+    "title": "CRNL cluster guidelines",
+    "section": "Using Jupyter lab",
+    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users (and ITs!), as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nThe Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN): http://10.69.168.24:8000/\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Github (optional but recommended)\nLearn how to connect your Github account to your terminal on the cluster here.\n\n\nLearn to submit jobs (recommended)\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1\nPart 2"
+  },
+  {
+    "objectID": "about.html#using-vs-code",
+    "href": "about.html#using-vs-code",
+    "title": "CRNL cluster guidelines",
+    "section": "Using VS code",
+    "text": "Using VS code\nCheck the dedicated tutorial to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).\nNote that the job submission tutorial is still applicable when using VS code."
+  },
+  {
+    "objectID": "about.html#how-to-contribute",
+    "href": "about.html#how-to-contribute",
+    "title": "CRNL cluster guidelines",
+    "section": "How to contribute",
+    "text": "How to contribute\nTo contribute to the development and conception of these guidelines, request access to the CRNL Github organization to Samuel Garcia."
+  },
+  {
+    "objectID": "about.html#leave-a-message",
+    "href": "about.html#leave-a-message",
+    "title": "CRNL cluster guidelines",
+    "section": "Leave a message",
+    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
+  },
+  {
     "objectID": "git_presentation.html",
     "href": "git_presentation.html",
     "title": "Version control and track changes",
@@ -182,41 +231,6 @@
     "text": "Connect your local repo to GitHub\n\nAs you have setup a secured SSH key, no need for password\n\nGo back to you terminal where you have initialized your local repo:\ngit remote add origin git@github.com:username/new_repo\ngit push -u origin master"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "CRNL cluster guidelines",
-    "section": "",
-    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
-  },
-  {
-    "objectID": "about.html#using-jupyter-lab",
-    "href": "about.html#using-jupyter-lab",
-    "title": "CRNL cluster guidelines",
-    "section": "Using Jupyter lab",
-    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users (and ITs!), as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nThe Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN): http://10.69.168.24:8000/\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Github (optional but recommended)\nLearn how to connect your Github account to your terminal on the cluster here.\n\n\nLearn to submit jobs (recommended)\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1\nPart 2"
-  },
-  {
-    "objectID": "about.html#using-vs-code",
-    "href": "about.html#using-vs-code",
-    "title": "CRNL cluster guidelines",
-    "section": "Using VS code",
-    "text": "Using VS code\nCheck the dedicated tutorial to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).\nNote that the job submission tutorial is still applicable when using VS code."
-  },
-  {
-    "objectID": "about.html#how-to-contribute",
-    "href": "about.html#how-to-contribute",
-    "title": "CRNL cluster guidelines",
-    "section": "How to contribute",
-    "text": "How to contribute\nTo contribute to the development and conception of these guidelines, request access to the CRNL Github organization to Samuel Garcia."
-  },
-  {
-    "objectID": "about.html#leave-a-message",
-    "href": "about.html#leave-a-message",
-    "title": "CRNL cluster guidelines",
-    "section": "Leave a message",
-    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
-  },
-  {
     "objectID": "help_filezilla.html",
     "href": "help_filezilla.html",
     "title": "Managing files on the cluster (Filezilla)",
@@ -242,7 +256,7 @@
     "href": "help_ssh.html",
     "title": "Connecting to the CRNL server over SSH in Visual Code",
     "section": "",
-    "text": "Note\n\n\n\nThe steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.\nFind your local .ssh folder (local always refer to the computer you are using).\nOn Linux, you can probably find it at ~/.ssh/ or /home/username/.ssh/.\nOn Window, you can probably find at at C:\\Users\\username\\.ssh\\.\nIf you don’t find it, just create it and cd in it. Then type:\nssh-keygen -f crnlcluster\nFollow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: type crnlcluster.pub\nYou public key will appear in the terminal. Keep it open.\nNow, type:\nssh cluster_username@10.69.168.93\nChange cluster_username to match your username on the cluster (typically, firstname.lastname)\nYou will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)\nNow, you are logged in the cluster! Type:\ncd ~/.ssh/\ntouch authorized_keys\nvi authorized_keys\nThis last command will open a blank file, unless you already registered some SSH keys in the past. In any case, make sure your pointer is at the end of the document and copy paste what had appeared in your local terminal (after type crnlcluster.pub). To paste, you only need to make a right-click. To save and close the authorized_keys file, just type :wq in it.\nClose the terminal.\nNow, the cluster knows your ssh key and you won’t need to use the password anymore (only the ssh key passphrase if you entered one). But let’s make an extra-step to further automatize the process.\nIn your local .ssh folder, create a file named config and add the following lines to it:\nAdjust cluster_username and do not add the .pub extension to your IdentityFile/sshkey.\nNow, each time you want to reach the command line of the cluster, open a terminal and type:\nssh cluster_username@CRNLcluster\nYou are already into the cluster!"
+    "text": "Note\n\n\n\nThe steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.\nFind your local .ssh folder (local always refer to the computer you are using).\nOn Linux, you can probably find it at ~/.ssh/ or /home/username/.ssh/.\nOn Window, you can probably find at at C:\\Users\\username\\.ssh\\.\nIf you don’t find it, just create it and cd in it. Then type:\nssh-keygen -f crnlcluster\nFollow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: type crnlcluster.pub\nYou public key will appear in the terminal. Keep it open.\nNow, type:\nssh cluster_username@10.69.168.93\nChange cluster_username to match your username on the cluster (typically, firstname.lastname)\nYou will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions).\nNow, you are logged in the cluster!\nThe next step is to make your public SSH key file know from the cluster. To do so, you can either use the cluster command line (a bit tricky), use Filezilla or VS code."
   },
   {
     "objectID": "help_ssh.html#leave-a-message",
