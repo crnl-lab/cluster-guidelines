@@ -154,6 +154,13 @@
     "text": "Using VS code\nCheck the dedicated tutorial to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).\nNote that the job submission tutorial is still applicable when using VS code."
   },
   {
+    "objectID": "about.html#other-resources",
+    "href": "about.html#other-resources",
+    "title": "CRNL cluster guidelines",
+    "section": "Other resources",
+    "text": "Other resources\nIf you can access wiki.crnl.fr, then you may also check the following:\n\nhttps://wiki.crnl.fr/doku.php?id=en:wiki:informatique:services:computing_cluster_crnl\nhttps://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:services_et_groupes:club_neuro_imageurs:commonusecrnl.pdf"
+  },
+  {
     "objectID": "about.html#how-to-contribute",
     "href": "about.html#how-to-contribute",
     "title": "CRNL cluster guidelines",
