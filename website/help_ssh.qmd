@@ -41,9 +41,15 @@ Now, type:
 
 **Change** cluster_username to match your username on the cluster (typically, firstname.lastname)
 
-You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions)
+You will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions).
 
-Now, you are logged in the cluster! Type:
+Now, you are logged in the cluster!
+
+The next step is to make your public SSH key file know from the cluster. To do so, you can either use the cluster command line (a bit tricky), use Filezilla or VS code.
+
+### Manual command line method:
+
+Type:
 
 `cd ~/.ssh/`
 
@@ -55,6 +61,19 @@ This last command will open a blank file, unless you already registered some SSH
 
 Close the terminal.
 
+### Filezilla method
+
+1. Install Filezilla as instructed [here](./help_filezilla).
+2. Create an authorized_keys file (without any extension!) somewhere on your local computer and copy-paste the content of your `crnlcluster.pub` file into it.
+3. Use Filezilla to transfer the authorized_keys file to your `/home/cluster_username/.ssh/` folder.
+
+### VS code method
+
+Check the comment by @ICUandNS below :).
+
+<hr>
+
+Note that if you are a MacOS user, you might have to change the permissions of the authorized_keys file using chmod ([file permissions / chmod page](./help_filepermissions))
 Now, the cluster knows your ssh key and you won't need to use the password anymore (only the ssh key passphrase if you entered one). But let's make an extra-step to further automatize the process.
 
 In your local .ssh folder, create a file named `config` and add the following lines to it:
