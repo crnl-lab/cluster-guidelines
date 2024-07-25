@@ -35,7 +35,8 @@ website:
         menu:
         - text: "Presentation Git/hub/lab"
           file: git_presentation.qmd  
-
+        - text: "File permissions/ownership"
+          file: help_filepermissions.qmd  
   
     right:
       - text: "About"
