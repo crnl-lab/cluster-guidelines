@@ -47,6 +47,13 @@ Check the [dedicated tutorial](./help_VScode) to use VS code within contained SL
 
 Note that the job submission tutorial is still applicable when using VS code.
 
+## Other resources
+
+If you can access [wiki.crnl.fr](https://wiki.crnl.fr), then you may also check the following:
+
+-   https://wiki.crnl.fr/doku.php?id=en:wiki:informatique:services:computing_cluster_crnl
+-   https://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:services_et_groupes:club_neuro_imageurs:commonusecrnl.pdf
+
 ## How to contribute
 
 To contribute to the development and conception of these guidelines, request access to the CRNL Github organization to [Samuel Garcia](samuel.garcia@cnrs.fr).
