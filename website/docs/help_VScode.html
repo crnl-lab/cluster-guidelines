@@ -342,12 +342,12 @@ Tip
 <pre><code>@echo off
 set "remote_username=cluster_username"
 set "remote_hostname=CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
 <p><em>Linux</em></p>
 <pre><code>#!/bin/bash
 remote_username="cluster_username"
 remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
 <p>Of course, you still need to set the tunnel as explained above.</p>
 </section>
 <section id="leave-a-message" class="level2">
@@ -944,7 +944,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
 <span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=cluster_username"</span></span>
 <span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
 <span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>*Linux*</span>
@@ -952,7 +952,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
 <span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="cluster_username"</span></span>
 <span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
 <span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>Of course, you still need to set the tunnel as explained above.</span>

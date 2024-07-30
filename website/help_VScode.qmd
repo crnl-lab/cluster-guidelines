@@ -109,7 +109,7 @@ The CRNL has two excellent A100 GPUs (80G) available on node23. They can be acce
 @echo off
 set "remote_username=cluster_username"
 set "remote_hostname=CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
 *Linux*
@@ -117,7 +117,7 @@ ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --
 #!/bin/bash
 remote_username="cluster_username"
 remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
 Of course, you still need to set the tunnel as explained above.
