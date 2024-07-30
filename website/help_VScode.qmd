@@ -100,4 +100,25 @@ You are now running VS code on a compute node with dedicated ressource. You can 
 When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!
 :::
 
+### VS Code to use a GPU interactively
+
+The CRNL has two excellent A100 GPUs (80G) available on node23. They can be accessed by submitting jobs through srun / submitit, but you may also use them interactively using VS code. To do so, just change your .bat / .bash files as follow:
+
+*Windows*
+```         
+@echo off
+set "remote_username=cluster_username"
+set "remote_hostname=CRNLcluster"
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+```
+
+*Linux*
+```         
+#!/bin/bash
+remote_username="cluster_username"
+remote_hostname="CRNLcluster"
+ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+```
+
+
 {{< include _comment_box.qmd >}}
