@@ -168,15 +168,15 @@
         "        async>\n",
         "</script>\n"
       ],
-      "id": "749fd4b9"
+      "id": "e82b5229"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "conda-env-dyninfo-env-py",
+      "name": "python3",
       "language": "python",
-      "display_name": "Python [conda env:dyninfo-env]",
-      "path": "C:\\Users\\romai\\AppData\\Roaming\\jupyter\\kernels\\conda-env-dyninfo-env-py"
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\romai\\AppData\\Roaming\\Python\\share\\jupyter\\kernels\\python3"
     }
   },
   "nbformat": 4,

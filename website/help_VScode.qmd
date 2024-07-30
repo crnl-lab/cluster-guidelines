@@ -9,7 +9,7 @@ execute:
 ---
 
 :::{.callout-warning}
-The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. Drop me at message at [romain.ligneul@inserm.fr](romain.ligneul@inserm.fr) if you really need to launch jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.
+The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. However, you can allocate multiple cpus and use your own parallel code (e.g. multiprocessing or joblib in Python). Drop me at message at [romain.ligneul@inserm.fr](romain.ligneul@inserm.fr) if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.
 :::
 
 [VScode](https://code.visualstudio.com/) is a very potent IDE that is used by many people, including at the CRNL.
