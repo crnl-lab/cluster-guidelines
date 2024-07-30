@@ -120,5 +120,6 @@ remote_hostname="CRNLcluster"
 ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G -partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
+Of course, you still need to set the tunnel as explained above.
 
 {{< include _comment_box.qmd >}}
