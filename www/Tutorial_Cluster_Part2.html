@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.1">
+<meta name="generator" content="quarto-1.4.489">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Romain Ligneul">
 
-<title>Part 2: Good practices – CRNL</title>
+<title>CRNL - Part 2: Good practices</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -95,7 +95,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -117,13 +116,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Connecting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
@@ -138,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Submitting</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
@@ -153,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">More</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
@@ -172,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">VS Code</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-others" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-others" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Others</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-others">    
@@ -194,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -272,7 +271,7 @@ Note
 <section id="anticipating-time-memory-consumption" class="level3">
 <h3 class="anchored" data-anchor-id="anticipating-time-memory-consumption">Anticipating time &amp; memory consumption</h3>
 <p>Hereafter, we use memory_usage() which has a slighty unusual way of passing arguments to its target function. All positional arguments (those without an = sign in the <em>def</em>) are passed together, and all non-positional arguments (also called key-value pairs) are passed together. For example, we could try:<br> <code>mem_usage=memory_usage((somefunc,(0.1,4,0.88), {'file' : 'whatever.csv','index' : 0 }))</code> <br> If we had a function defined like this: <br> <code>somefunc(a,b,c, file=None, index=-1)</code></p>
-<div id="cell-1" class="cell">
+<div id="cell-2" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">###### simple memory/time check</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> memory_profiler <span class="im">import</span> memory_usage</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -312,7 +311,7 @@ Note
 <h3 class="anchored" data-anchor-id="evaluating-cpu-count-needs">Evaluating CPU count needs</h3>
 <p>How to evaluate whether our job will benefit from having more CPU available to them? If you don’t know whether your function use parallelization or not, because you relies on high-level toolboxes, then you can evaluate that empirically by looking at the time your jobs take depending on the number of CPUs you allow.</p>
 <p>Let’s try first with our last function. It should take about 10s to run.</p>
-<div id="cell-3" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]">
+<div id="cell-4" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> submitit</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -328,8 +327,8 @@ Note
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.AutoExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem_gb<span class="op">=</span><span class="dv">4</span>, timeout_min<span class="op">=</span><span class="dv">5</span>, slurm_partition<span class="op">=</span><span class="st">"CPU"</span>, cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    job <span class="op">=</span> executor.submit(duplicate_ones, <span class="dv">1</span>, <span class="bu">int</span>(<span class="fl">1e8</span>))</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    job.n_cpus<span class="op">=</span>cpus</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus submitted"</span>)</span>
@@ -355,7 +354,7 @@ Note
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s redo exactly the same thing, with a numpy function that may benefit from multiple CPUs (i.e.&nbsp;np.dot).</p>
-<div id="cell-5" class="cell">
+<div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -383,8 +382,8 @@ Note
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.AutoExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem_gb<span class="op">=</span><span class="dv">4</span>, timeout_min<span class="op">=</span><span class="dv">5</span>, slurm_partition<span class="op">=</span><span class="st">"CPU"</span>, cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check how many job are running (not done) and wait it they exceed our limit</span></span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">sum</span>(<span class="kw">not</span> job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)<span class="op">&gt;</span>maxjobs:</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'wait to submit new job'</span>)</span>
@@ -421,7 +420,7 @@ Note
 <p>In the loop above, you might have noticed something new: we’ve implemented another good practice by self-limiting the number of jobs we will run in parallel on the cluster. Indeed, it might be ok to launch 40 or even 100 parallel jobs if you are in a hurry, but the amount of CPUs in the cluster is not infinite, and neither is the amount of memory.</p>
 <p><strong>Number of CPUs</strong>: you can get this information by running <code>sinfo -o%C</code> in your terminal, or <code>!sinfo -o%C</code> in the notebook. The CPU partitions have about 350 cores available at the time of writing <strong>Amount of memory</strong>: you can see this by running <code>sinfo -o "%P %n %m"</code> in your terminal (or with a ! in the notebook). The CPU partitions have about 2.3TB of memory at the time of writing.</p>
 <p>If it is a sunday and nobody is using the cluster, it is probably fine to increase <code>maxjobs</code> to 100 or more (note that if you require 4 cpu per task, it means that you are actually requiring 400 cpus overall!). But if it is 10.30pm on a tuesday, using this parameter might be the same as walking to the coffee machine and taking all the coffee reserves to your office! So, take the habit of setting your <code>maxjobs</code>-like parameter on a daily basis after checking <code>sinfo -o%C</code>.</p>
-<div id="cell-7" class="cell">
+<div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check node and CPU information</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### Node counts: </span><span class="ch">\n</span><span class="st">A: currently in use \B available"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>A</span>
@@ -437,7 +436,7 @@ Note
 <h3 class="anchored" data-anchor-id="a-more-compact-approach">A more compact approach</h3>
 <p>In the above examples, we have decomposed most operations using <code>for</code> loops in order to illustrate the different concepts. But with more advanced methods we can compact a lot the code used.</p>
 <p>The example below (adapted from <a href="https://github.com/facebookincubator/submitit/blob/main/docs/examples.md">submitit documentation</a>) allows getting rid of the job submission loop and directly map our input arrays to job submissions, using executor.map_array and some asynchronous operations. Note that such compact approach might be more difficult to debug.</p>
-<div id="cell-9" class="cell">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c and wait for b seconds</span></span>
@@ -455,13 +454,13 @@ Note
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.AutoExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># add the maxjobs argument</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(slurm_array_parallelism<span class="op">=</span>maxjobs, mem_gb<span class="op">=</span><span class="dv">2</span>, timeout_min<span class="op">=</span><span class="dv">4</span>, slurm_partition<span class="op">=</span><span class="st">"CPU"</span>, cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function, a, b, c)  <span class="co"># just a list of jobs</span></span>
@@ -482,7 +481,7 @@ Note
 <p>Often, when we have very long jobs, we want to submit these jobs, go home and come back the next day or the next week to check the results of their computations.</p>
 <p>In this case, we <strong>should not</strong> expect our notebook to be still alive when we come back. Instead, we should adopt the more standard approach of writing down our results and load them in a new jupyter session afterwards!</p>
 <p>This is what we illustrate in the final example below.</p>
-<div id="cell-11" class="cell">
+<div id="cell-12" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write in job_output within our directory</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>job_output_folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_output/'</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -508,13 +507,13 @@ Note
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.AutoExecutor(folder<span class="op">=</span><span class="st">"tuto_logs"</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># pass parameter to the executor</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(slurm_array_parallelism<span class="op">=</span>maxjobs, mem_gb<span class="op">=</span><span class="dv">2</span>, timeout_min<span class="op">=</span><span class="dv">4</span>, slurm_partition<span class="op">=</span><span class="st">"CPU"</span>, cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
 <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function_write, a, b, c)  <span class="co"># just a list of jobs</span></span>
@@ -534,6 +533,7 @@ Note
 <p>Whether you need several CPUs, and how to set memory and timeout parameters depend on the functions you use.</p>
 <p>If you are not sure, look in the documentation of your packages or test for a performance improvement as we just did!</p>
 <p>In any case, it is a good idea to run <code>os.system('kill ' + str(os.getpid()))</code></p>
+{{&lt; include _comment_box.qmd &gt;}}
 
 
 </section>
@@ -574,7 +574,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -606,29 +617,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -680,24 +669,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/crnl-lab\.github\.io\/cluster-guidelines\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -732,11 +703,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -751,28 +718,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
+        typesetMath(container);
         return container.innerHTML
       } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
+        typesetMath(note);
         return note.innerHTML;
       }
     } else {
@@ -781,15 +758,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      typesetMath(note);
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
