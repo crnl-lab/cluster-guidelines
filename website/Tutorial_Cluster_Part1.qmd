@@ -141,13 +141,12 @@ jcount=0
 for i, value in enumerate(array_parallel):
     
   # executor is the submission interface (logs are dumped in the folder)
-  executor = submitit.AutoExecutor(folder=os.getcwd()+'/tuto_logs/')
-  
+  executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
   # set memory, timeout in min, and partition for running the job
   # if you expect your job to be longer or to require more memory: you will need to increase corresponding values
   # however, note that increase mem_gb too much is an antisocial selfish behavior :)
-  executor.update_parameters(mem_gb=1, timeout_min=5, slurm_partition="CPU")
-  
+  executor.update_parameters(mem=1000, time=300, partition ="CPU", nodes=1, nodelist='node[18-21]')
+
   # actually submit the job: note that "value" correspond to that of array_parallel in this iteration
   job = executor.submit(yourFunction, value, additional_parameter)
   

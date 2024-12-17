@@ -101,8 +101,8 @@ jcount=0
 joblist=[]
 start_time = time.time()
 for i, cpus in enumerate(nCPUs_totest):
-    executor = submitit.AutoExecutor(folder=os.getcwd()+'/tuto_logs/')
-    executor.update_parameters(mem_gb=4, timeout_min=5, slurm_partition="CPU", cpus_per_task=cpus)
+    executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
+    executor.update_parameters(mem=4000, time=300, partition ="CPU", nodes=1, nodelist='node[18-21]',cpus_per_task=cpus)
     job = executor.submit(duplicate_ones, 1, int(1e8))
     job.n_cpus=cpus
     print("job with " + str(job.n_cpus) + " cpus submitted")
@@ -160,8 +160,8 @@ jcount=0
 joblist=[]
 start_time = time.time()
 for i, cpus in enumerate(nCPUs_totest):
-    executor = submitit.AutoExecutor(folder=os.getcwd()+'/tuto_logs/')
-    executor.update_parameters(mem_gb=4, timeout_min=5, slurm_partition="CPU", cpus_per_task=cpus)
+    executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
+    executor.update_parameters(mem=4000, time=300, partition ="CPU", nodes=1, nodelist='node[18-21]',cpus_per_task=cpus)
     # check how many job are running (not done) and wait it they exceed our limit
     while sum(not job.done() for job in joblist)>maxjobs:
         print('wait to submit new job')
@@ -239,13 +239,13 @@ c=[0.1]*len(b)
 assert len(a)==len(b)==len(c)
 
 # prepare executor
-executor = submitit.AutoExecutor(folder=os.getcwd()+'/tuto_logs/')
+executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
 
 # define maxjobs to a low value to illustrate
 maxjobs=3
 
 # add the maxjobs argument
-executor.update_parameters(slurm_array_parallelism=maxjobs, mem_gb=2, timeout_min=4, slurm_partition="CPU", cpus_per_task=1)
+executor.update_parameters(array_parallelism=maxjobs,mem=2000, time=600, partition ="CPU", nodes=1, nodelist='node[18-21]',cpus_per_task=1)
 
 # execute the job (note the .map_array command that different from the .submit command used above)
 jobs = executor.map_array(simple_function, a, b, c)  # just a list of jobs
@@ -295,13 +295,13 @@ c=[job_output_folder]*len(b)
 assert len(a)==len(b)==len(c)
 
 # prepare executor
-executor = submitit.AutoExecutor(folder="tuto_logs")
+executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
 
 # define maxjobs to a low value to illustrate
 maxjobs=3
 
 # pass parameter to the executor
-executor.update_parameters(slurm_array_parallelism=maxjobs, mem_gb=2, timeout_min=4, slurm_partition="CPU", cpus_per_task=1)
+executor.update_parameters(array_parallelism=maxjobs,mem=2000, time=600, partition ="CPU", nodes=1, nodelist='node[18-21]',cpus_per_task=1)
 
 # execute the job (note the .map_array command that different from the .submit command used above)
 jobs = executor.map_array(simple_function_write, a, b, c)  # just a list of jobs
