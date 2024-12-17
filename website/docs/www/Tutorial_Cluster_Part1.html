@@ -207,10 +207,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#install-miniconda-to-manage-your-virtual-environment" id="toc-install-miniconda-to-manage-your-virtual-environment" class="nav-link active" data-scroll-target="#install-miniconda-to-manage-your-virtual-environment">Install miniconda to manage your virtual environment</a></li>
-  <li><a href="#create-your-first-conda-environment" id="toc-create-your-first-conda-environment" class="nav-link" data-scroll-target="#create-your-first-conda-environment">Create your first conda environment</a></li>
-  <li><a href="#make-your-conda-environment-visible-to-jupyter-lab" id="toc-make-your-conda-environment-visible-to-jupyter-lab" class="nav-link" data-scroll-target="#make-your-conda-environment-visible-to-jupyter-lab">Make your conda environment visible to Jupyter lab</a></li>
-  <li><a href="#populate-your-conda-environment-kernel-with-essential-tools" id="toc-populate-your-conda-environment-kernel-with-essential-tools" class="nav-link" data-scroll-target="#populate-your-conda-environment-kernel-with-essential-tools">Populate your conda environment / kernel with essential tools</a></li>
+  <li><a href="#conda-environment" id="toc-conda-environment" class="nav-link active" data-scroll-target="#conda-environment">Conda environment</a></li>
+  <li><a href="#venv-environment" id="toc-venv-environment" class="nav-link" data-scroll-target="#venv-environment">Venv environment</a></li>
+  <li><a href="#uv-environment" id="toc-uv-environment" class="nav-link" data-scroll-target="#uv-environment">UV environment</a></li>
   <li><a href="#lets-start-computing" id="toc-lets-start-computing" class="nav-link" data-scroll-target="#lets-start-computing">Let’s start computing</a>
   <ul class="collapse">
   <li><a href="#next-part" id="toc-next-part" class="nav-link" data-scroll-target="#next-part">Next part</a></li>
@@ -260,30 +259,43 @@ Note
 <p>If you are working on the CRNL cluster, you can find also the corresponding notebook at this location: <code>/crnldata/projets_communs/tutorials/</code></p>
 </div>
 </div>
-<section id="install-miniconda-to-manage-your-virtual-environment" class="level2">
-<h2 class="anchored" data-anchor-id="install-miniconda-to-manage-your-virtual-environment">Install miniconda to manage your virtual environment</h2>
+<section id="conda-environment" class="level2">
+<h2 class="anchored" data-anchor-id="conda-environment">Conda environment</h2>
+<section id="install-miniconda-to-manage-your-virtual-environment" class="level4">
+<h4 class="anchored" data-anchor-id="install-miniconda-to-manage-your-virtual-environment">Install miniconda to manage your virtual environment</h4>
 <p>Installing miniconda is not incompatible with using venv later on.</p>
 <p>Open a terminal and type the following commands: <br> <code>cd ~</code><br> <code>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</code><br> <code>bash Miniconda3-latest-Linux-x86_64.sh</code><br> <code>source ~/.bashrc</code></p>
 <p>Follow the instructions and say yes to everything (you make press Ctrl+C once followed by Enter to skip the text faster)</p>
 <p>NB: In JupyterLab, you can open a new terminal at ‘File-&gt;New-&gt;Terminal’. You can then bring this terminal just below your notebook by clicking on its tab and dragging it toward the lower part of the window.</p>
 </section>
-<section id="create-your-first-conda-environment" class="level2">
-<h2 class="anchored" data-anchor-id="create-your-first-conda-environment">Create your first conda environment</h2>
+<section id="create-your-first-conda-environment" class="level4">
+<h4 class="anchored" data-anchor-id="create-your-first-conda-environment">Create your first conda environment</h4>
 <p>Still in the terminal, type: <br> <code>conda create -n crnlenv python=3.9</code> <br> <code>conda activate crnlenv</code></p>
 <p>The crnlenv virtual environment is active! Everything that will be installed from now on will only be accessible when crnlenv has been activated</p>
 </section>
-<section id="make-your-conda-environment-visible-to-jupyter-lab" class="level2">
-<h2 class="anchored" data-anchor-id="make-your-conda-environment-visible-to-jupyter-lab">Make your conda environment visible to Jupyter lab</h2>
+<section id="make-your-conda-environment-visible-to-jupyter-lab" class="level4">
+<h4 class="anchored" data-anchor-id="make-your-conda-environment-visible-to-jupyter-lab">Make your conda environment visible to Jupyter lab</h4>
 <p>Still in the terminal type: <br> <code>conda install ipykernel</code> <br> <code>python -m ipykernel install --user --name crnlenv --display-name "Python (crnlenv)"</code></p>
 <p>This commands allow your kernel to be accessed from Jupyter Lab, not only from the command line. If you create more conda environments / kernels, you will also have to run these lines</p>
 </section>
-<section id="populate-your-conda-environment-kernel-with-essential-tools" class="level2">
-<h2 class="anchored" data-anchor-id="populate-your-conda-environment-kernel-with-essential-tools">Populate your conda environment / kernel with essential tools</h2>
+<section id="populate-your-conda-environment-kernel-with-essential-tools" class="level4">
+<h4 class="anchored" data-anchor-id="populate-your-conda-environment-kernel-with-essential-tools">Populate your conda environment / kernel with essential tools</h4>
 <p>Install a package that allow to submit your jobs easily from any Jupyter notebook on Slurm<br> <code>conda install -c conda-forge submitit</code></p>
 <p>Install numpy <br> <code>conda install numpy</code></p>
 <p>Install a memory_profiler<br> <code>pip install memory_profiler -U</code></p>
 <p>Later on you could install various other tools in your virtual environment, but the priority is to check that you can use the cluster and distribute your jobs.</p>
 <p>NB: if you wonder why install alternatively with conda or pip, the answer is: you can almost always do it with pip but if it works with conda, the package might be “better” installed in some case.</p>
+</section>
+</section>
+<section id="venv-environment" class="level2">
+<h2 class="anchored" data-anchor-id="venv-environment">Venv environment</h2>
+<p>If you wish instead to use a venv to manage your virtual environment, you can use the default Python interpreter of the cluster (currently, version 3.11). To do so, type the following commands</p>
+<p><code>python3 -m venv .localenv</code> <code>source ./.localenv/bin/activate</code> <code>pip install numpy submitit</code> <code>pip install memory_profiler -U</code></p>
+<p>If you also use conda, make sure that the (base) environment</p>
+</section>
+<section id="uv-environment" class="level2">
+<h2 class="anchored" data-anchor-id="uv-environment">UV environment</h2>
+<p>UV is a new tool for environment management that combines, in principe, the best of conda (ships Python distributions) and venv (fast, light, and 100% free). You may check UV here: https://github.com/astral-sh/uv If you have questions Samuel Garcia will be delighted to guide you ;).</p>
 </section>
 <section id="lets-start-computing" class="level2">
 <h2 class="anchored" data-anchor-id="lets-start-computing">Let’s start computing</h2>
@@ -317,10 +329,10 @@ Note
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># just to illustrate the parallel processing implemented</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    time.sleep(argument1)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we simply duplicate argument2 as a function of argument1 and return it as our results</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># here we simply report the waiting time</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    results<span class="op">=</span><span class="st">''</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(argument1):</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        results<span class="op">=</span>results<span class="op">+</span><span class="st">'_'</span><span class="op">+</span>argument2</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        results<span class="op">=</span><span class="ss">f'waited </span><span class="sc">{</span>argument1<span class="sc">}</span><span class="ss">s'</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># send the results back to the notebook</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -350,106 +362,111 @@ Caution
 </div>
 </div>
 <div id="cell-6" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### Set some environment variables for our jobs</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">### for some reason, some default values are set on the cluster, which do not match </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">### each other and submitit will complain (this cell might not be needed in the future or on other infrastructures)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="st">'1'</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### define some array for which each item will be associated with an independent job on the cluster</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### when you execute these cells, the jobs are sent to the cluster </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here we define an array of numbers: since this array will be used to feed the first argument of yourFunction</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and that yourFunction waits for as many second as its first argument, the jobs will return in the wrong order</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (with the output of the second call about 20s after the first one!)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>array_parallel<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">2</span>, <span class="dv">5</span>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define an additional parameter to be passed to the function</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>additional_parameter<span class="op">=</span><span class="st">'whatever'</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a list in which our returning jobs will be stored</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over array_parallel</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### Start submitting jobs #####'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, value <span class="kw">in</span> <span class="bu">enumerate</span>(array_parallel):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># executor is the submission interface (logs are dumped in the folder)</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that the executor was modified since the first version of this tutorial (it used to be AutoExecutor).</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This has implications for the key-value pairs that can be passed to update_parameters.</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define execution parameters (see below for a list of common options)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  executor.update_parameters(mem<span class="op">=</span><span class="st">'1000M'</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, job_name<span class="op">=</span><span class="ss">f'example_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># actually submit the job: note that "value" correspond to that of array_parallel in this iteration</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  job <span class="op">=</span> executor.submit(yourFunction, value, additional_parameter)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add info about job submission order</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  job.job_initial_indice<span class="op">=</span>i </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print the ID of your job</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"submit job"</span> <span class="op">+</span> <span class="bu">str</span>(job.job_id))  </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># append the job to the joblist</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  joblist.append(job)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># increase the job count</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">### wait for jobs to return (in the correct submission order)</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### Start waiting for jobs to return #####'</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>finished_results <span class="op">=</span> [job.result() <span class="cf">for</span> job <span class="kw">in</span> jobs]</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">### display jobs</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### All jobs completed #####'</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(finished_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### define some array for which each item will be associated with an independent job on the cluster</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#### when you execute these cells, the jobs are sent to the cluster </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here we define an array of numbers: since this array will be used to feed the first argument of yourFunction</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and that yourFunction waits for as many second as its first argument, the jobs will return in the wrong order</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (with the output of the second call about 20s after the first one!)</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>array_parallel<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">2</span>, <span class="dv">5</span>]</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define an additional parameter to be passed to the function</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>additional_parameter<span class="op">=</span><span class="st">'whatever'</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a list in which our returning jobs will be stored</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over array_parallel</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### Start submitting jobs #####'</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, value <span class="kw">in</span> <span class="bu">enumerate</span>(array_parallel):</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># executor is the submission interface (logs are dumped in the folder)</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set memory, timeout in min, and partition for running the job</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if you expect your job to be longer or to require more memory: you will need to increase corresponding values</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># however, note that increase mem_gb too much is an antisocial selfish behavior :)</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  executor.update_parameters(mem<span class="op">=</span><span class="dv">1000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># actually submit the job: note that "value" correspond to that of array_parallel in this iteration</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  job <span class="op">=</span> executor.submit(yourFunction, value, additional_parameter)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add info about job submission order</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  job.job_initial_indice<span class="op">=</span>i </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print the ID of your job</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"submit job"</span> <span class="op">+</span> <span class="bu">str</span>(job.job_id))  </span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># append the job to the joblist</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  joblist.append(job)</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># increase the job count</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">### now that the loop has ended we check whether any job is already done</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### Start waiting for jobs to return #####'</span>)</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>njobs_finished <span class="op">=</span> <span class="bu">sum</span>(job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># decide whether we clean our job live or not</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>clean_jobs_live<span class="op">=</span><span class="va">False</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list to store finished jobs (optional, and depends on whether we need to cleanup job live)</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>finished_list<span class="op">=</span>[]</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>finished_order<span class="op">=</span>[]</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="co">### now we will keep looking for a new finished job until all jobs are done:</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>njobs_finished<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  doneIdx<span class="op">=-</span><span class="dv">1</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> job.done():</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>      doneIdx<span class="op">=</span>j</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">str</span>(<span class="dv">1</span><span class="op">+</span>njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># report last job finished</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"last job finished: "</span> <span class="op">+</span> job.job_id)</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtain result from job</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    job_result<span class="op">=</span>job.result()</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># do some processing with this job</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(job_result)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># decide what to do with the finished job object</span></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clean_jobs_live:</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>      <span class="co"># delete the job object</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>      <span class="kw">del</span> job</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>      <span class="co"># collect all the garbage immediately to spare memory</span></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>      gc.collect()</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>      <span class="co"># if we decided to keep the jobs in a list for further processing, add it finished job list </span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>      finished_list.append(job)</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>      finished_order.append(job.job_initial_indice)</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    <span class="co"># increment the count of finished jobs</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove this finished job from the initial joblist</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    joblist.pop(doneIdx)</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### All jobs completed #####'</span>)</span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a><span class="co">### If we chose to keep our job results for subsequent processing, it will often be crucial to reorder as a function of their initial</span></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="co">### submission order, rather than their return order (from the cluster). Here we only keep the results of the job</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> clean_jobs_live<span class="op">==</span><span class="va">False</span>:</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  finished_results <span class="op">=</span> [finished_list[finished_order[i]].result() <span class="cf">for</span> i <span class="kw">in</span> finished_order]</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Concatenated results obtained by applying yourFunction() to all items in array_parallel:'</span>)</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(finished_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="main-options-of-executor.update_parameters" class="level5">
+<h5 class="anchored" data-anchor-id="main-options-of-executor.update_parameters">Main options of executor.update_parameters</h5>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Value</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mem</td>
+<td><em>string</em> (ex: ‘1000M’, ‘1G’, etc)</td>
+<td>Sets the memory limit of your job</td>
+</tr>
+<tr class="even">
+<td>time</td>
+<td><em>int</em> (ex: 30)</td>
+<td>Sets the timeout limit of your job (in minutes)</td>
+</tr>
+<tr class="odd">
+<td>partition</td>
+<td><em>string</em> (‘CPU’ or ‘GPU’)</td>
+<td>Determines whether you want to use the GPU (usually not)</td>
+</tr>
+<tr class="even">
+<td>nodelist</td>
+<td><em>string</em> (ex: ‘node8’, ‘node[1-11]’)</td>
+<td>Whether you want to restrict to a set of compute nodes</td>
+</tr>
+<tr class="odd">
+<td>excluded</td>
+<td><em>string</em> (ex: ‘node21’, ‘node[1-2]’)</td>
+<td>Whether you want to exclude specific nodes</td>
+</tr>
+<tr class="even">
+<td>cpus_per_task</td>
+<td><em>int</em> (ex: 4)</td>
+<td>How many CPUs should be booked for each job</td>
+</tr>
+<tr class="odd">
+<td>job_name</td>
+<td><em>string</em> (ex: ‘myjob’)</td>
+<td>Custom job name (default: ‘submitit’)</td>
+</tr>
+<tr class="even">
+<td>additional_parameters</td>
+<td><em>dict</em> (ex: {‘gpus-per-node’: 2, ‘mincpus’: 4}</td>
+<td>Any parameter used by <a href="https://slurm.schedmd.com/sbatch.html">SBATCH</a></td>
+</tr>
+</tbody>
+</table>
+<p>Other options exist but they are poorly documented by submitit. If you pass an invalid key, submitit will print all the possibilities.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -460,9 +477,57 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you do not clean your jobs on the fly, then you might saturate the memory of your notebook with <code>clean_jobs_live=False</code> because all the job results will be present in the job objects of joblist. Only use this approach if the objects returned by your jobs are light and can be loaded in your limited notebook memory. Otherwise, use an approach similar to that implemented by <code>clean_jobs_live=True</code>.</p>
+<p>If you have very big data structures returning from your jobs, this “live” approach might saturate the memory of your notebook. If you encounter such issues, you might want to clean job results as their come back from the compute nodes.</p>
 </div>
 </div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">### This piece of code may replace the line `finished_results = [job.result() for job in jobs]`. It might be useful for very heavy jobs and whenever you want to do live processing upon each job immediately when it returns.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># decide whether to clean job output live</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>clean_jobs_live<span class="op">=</span><span class="va">True</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list to store finished jobs (optional, and depends on whether we need to cleanup job live)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>finished_list<span class="op">=</span>[]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>finished_order<span class="op">=</span>[]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">### now we will keep looking for a new finished job until all jobs are done:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>njobs_finished<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  doneIdx<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> job.done():</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      doneIdx<span class="op">=</span>j</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">str</span>(<span class="dv">1</span><span class="op">+</span>njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># report last job finished</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"last job finished: "</span> <span class="op">+</span> job.job_id)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtain result from job</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    job_result<span class="op">=</span>job.result()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># do some processing with this job</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(job_result)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># decide what to do with the finished job object (e.g. save it somewhere, keep pieces of it, etc)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clean_jobs_live:</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>      <span class="co"># delete the job object</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">del</span> job</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="co"># collect all the garbage immediately to spare memory</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>      gc.collect()</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>      <span class="co"># if we decided to keep the jobs in a list for further processing, add it finished job list </span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      finished_list.append(job)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      finished_order.append(job.job_initial_indice)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># increment the count of finished jobs</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove this finished job from the initial joblist</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    joblist.pop(doneIdx)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'#### All jobs completed #####'</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">### If we chose to keep our job results for subsequent processing, it will often be crucial to reorder as a function of their initial</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">### submission order, rather than their return order (from the cluster). Here we only keep the results of the job</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> clean_jobs_live<span class="op">==</span><span class="va">False</span>:</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  finished_results <span class="op">=</span> [finished_list[finished_order[i]].result() <span class="cf">for</span> i <span class="kw">in</span> finished_order]</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Concatenated results obtained by applying yourFunction() to all items in array_parallel:'</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(finished_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="next-part" class="level3">
 <h3 class="anchored" data-anchor-id="next-part">Next part</h3>
 <p><a href="./Tutorial_Cluster_Part2.html">Click here to go to Part 2</a></p>
