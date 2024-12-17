@@ -1,3 +1,4 @@
 ./website/_extensions/*
 ./website/.quarto/*
-
+./clusterExample/*
+clusterExample/*

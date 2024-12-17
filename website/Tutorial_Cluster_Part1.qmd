@@ -6,59 +6,109 @@ execute:
 author: Romain Ligneul
 ---
 
-Since we have a brand-new cluster, it is a good time to improve your way of using it if you had always felt that your workflow was not optimal. This tutorial will help you to set up your personal environment if you use Python.
+Since we have a brand-new cluster, it is a good time to improve your way
+of using it if you had always felt that your workflow was not optimal.
+This tutorial will help you to set up your personal environment if you
+use Python.
 
 {{< downloadthis www/Tutorial_Cluster_Part1.ipynb dname="Tutorial_Cluster_Part1.ipynb" label="Download this notebook" >}}
 
-:::{.callout-note}
-If you are working on the CRNL cluster, you can find also the corresponding notebook at this location: `/crnldata/projets_communs/tutorials/`
+::: callout-note
+If you are working on the CRNL cluster, you can find also the
+corresponding notebook at this location:
+`/crnldata/projets_communs/tutorials/`
 :::
 
-## Install miniconda to manage your virtual environment
+## Conda environment
+
+#### Install miniconda to manage your virtual environment
 
 Installing miniconda is not incompatible with using venv later on.
 
-Open a terminal and type the following commands: <br> `cd ~`<br> `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`<br> `bash Miniconda3-latest-Linux-x86_64.sh`<br> `source ~/.bashrc`
+Open a terminal and type the following commands: <br> `cd ~`<br>
+`wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`<br>
+`bash Miniconda3-latest-Linux-x86_64.sh`<br> `source ~/.bashrc`
 
-Follow the instructions and say yes to everything (you make press Ctrl+C once followed by Enter to skip the text faster)
+Follow the instructions and say yes to everything (you make press Ctrl+C
+once followed by Enter to skip the text faster)
 
-NB: In JupyterLab, you can open a new terminal at 'File-\>New-\>Terminal'. You can then bring this terminal just below your notebook by clicking on its tab and dragging it toward the lower part of the window.
+NB: In JupyterLab, you can open a new terminal at
+'File-\>New-\>Terminal'. You can then bring this terminal just below
+your notebook by clicking on its tab and dragging it toward the lower
+part of the window.
 
-## Create your first conda environment
+#### Create your first conda environment
 
-Still in the terminal, type: <br> `conda create -n crnlenv python=3.9` <br> `conda activate crnlenv`
+Still in the terminal, type: <br> `conda create -n crnlenv python=3.9`
+<br> `conda activate crnlenv`
 
-The crnlenv virtual environment is active! Everything that will be installed from now on will only be accessible when crnlenv has been activated
+The crnlenv virtual environment is active! Everything that will be
+installed from now on will only be accessible when crnlenv has been
+activated
 
-## Make your conda environment visible to Jupyter lab
+#### Make your conda environment visible to Jupyter lab
 
-Still in the terminal type: <br> `conda install ipykernel` <br> `python -m ipykernel install --user --name crnlenv --display-name "Python (crnlenv)"`
+Still in the terminal type: <br> `conda install ipykernel` <br>
+`python -m ipykernel install --user --name crnlenv --display-name "Python (crnlenv)"`
 
-This commands allow your kernel to be accessed from Jupyter Lab, not only from the command line. If you create more conda environments / kernels, you will also have to run these lines
+This commands allow your kernel to be accessed from Jupyter Lab, not
+only from the command line. If you create more conda environments /
+kernels, you will also have to run these lines
 
-## Populate your conda environment / kernel with essential tools
+#### Populate your conda environment / kernel with essential tools
 
-Install a package that allow to submit your jobs easily from any Jupyter notebook on Slurm<br> `conda install -c conda-forge submitit`
+Install a package that allow to submit your jobs easily from any Jupyter
+notebook on Slurm<br> `conda install -c conda-forge submitit`
 
 Install numpy <br> `conda install numpy`
 
 Install a memory_profiler<br> `pip install memory_profiler -U`
 
-Later on you could install various other tools in your virtual environment, but the priority is to check that you can use the cluster and distribute your jobs.
+Later on you could install various other tools in your virtual
+environment, but the priority is to check that you can use the cluster
+and distribute your jobs.
 
-NB: if you wonder why install alternatively with conda or pip, the answer is: you can almost always do it with pip but if it works with conda, the package might be "better" installed in some case.
+NB: if you wonder why install alternatively with conda or pip, the
+answer is: you can almost always do it with pip but if it works with
+conda, the package might be "better" installed in some case.
+
+## Venv environment
+
+If you wish instead to use a venv to manage your virtual environment,
+you can use the default Python interpreter of the cluster (currently,
+version 3.11). To do so, type the following commands
+
+`python3 -m venv .localenv`
+`source ./.localenv/bin/activate`
+`pip install numpy submitit`
+`pip install memory_profiler -U`
+
+If you also use conda, make sure that the (base) environment 
+
+## UV environment
+
+UV is a new tool for environment management that combines, in principe, the best of conda (ships Python distributions) and venv (fast, light, and 100% free).
+You may check UV here: https://github.com/astral-sh/uv
+If you have questions Samuel Garcia will be delighted to guide you ;).
 
 ## Let's start computing
 
-You should be able to see the crnlenv in Jupyterlab if you go in "Kernel-\>Change Kernel".
+You should be able to see the crnlenv in Jupyterlab if you go in
+"Kernel-\>Change Kernel".
 
-**Select it** and then restart the kernel ("Kernel-\>Restart Kernel") to continue this tutorial.
+**Select it** and then restart the kernel ("Kernel-\>Restart Kernel") to
+continue this tutorial.
 
-On the top right of this window, you should see something like "Python (crnlenv)". It means your notebook is running in the right virtual environment!
+On the top right of this window, you should see something like "Python
+(crnlenv)". It means your notebook is running in the right virtual
+environment!
 
-From now on, you will execute the code cells below, in order. You can do it either by pressing the play button (at the top of the notebook) or by clicking in the target cell and pressing Shift+Enter.
+From now on, you will execute the code cells below, in order. You can do
+it either by pressing the play button (at the top of the notebook) or by
+clicking in the target cell and pressing Shift+Enter.
 
-You may also want to check the tutorials of the module [submitit](https://github.com/facebookincubator/submitit) used here.
+You may also want to check the tutorials of the module
+[submitit](https://github.com/facebookincubator/submitit) used here.
 
 ```{python}
 ###### Import packages/modules
@@ -86,10 +136,10 @@ def yourFunction(argument1, argument2):
     # just to illustrate the parallel processing implemented
     time.sleep(argument1)
     
-    # we simply duplicate argument2 as a function of argument1 and return it as our results
+    # here we simply report the waiting time
     results=''
     for i in range(argument1):
-        results=results+'_'+argument2
+        results=f'waited {argument1}s'
 
     # send the results back to the notebook
     return results
@@ -107,18 +157,12 @@ print('Maximum memory usage (in GB): %s' % (max(mem_usage)/1000))
 print('Time taken (in s): %s' % (end_time-start_time))
 ```
 
-:::{.callout-caution}
-Unfortunately, profiling memory usage of multi-threaded code (e.g. code that use several CPUs in parallel, etc) can be more difficult, and memory_usage will throw a warning if it detects multithreaded operations.
+::: callout-caution
+Unfortunately, profiling memory usage of multi-threaded code (e.g. code
+that use several CPUs in parallel, etc) can be more difficult, and
+memory_usage will throw a warning if it detects multithreaded
+operations.
 :::
-
-```{python}
-#### Set some environment variables for our jobs
-### for some reason, some default values are set on the cluster, which do not match 
-### each other and submitit will complain (this cell might not be needed in the future or on other infrastructures)
-import os
-os.environ['SLURM_CPUS_PER_TASK'] = '1'
-os.environ['SLURM_TRES_PER_TASK'] = os.environ['SLURM_CPUS_PER_TASK']
-```
 
 ```{python}
 #### define some array for which each item will be associated with an independent job on the cluster
@@ -137,15 +181,17 @@ joblist=[]
 
 # loop over array_parallel
 print('#### Start submitting jobs #####')
+
 jcount=0
 for i, value in enumerate(array_parallel):
     
   # executor is the submission interface (logs are dumped in the folder)
+  # note that the executor was modified since the first version of this tutorial (it used to be AutoExecutor).
+  # This has implications for the key-value pairs that can be passed to update_parameters.
   executor = submitit.SlurmExecutor(folder=os.getcwd()+'/tuto_logs/', max_num_timeout=5)
-  # set memory, timeout in min, and partition for running the job
-  # if you expect your job to be longer or to require more memory: you will need to increase corresponding values
-  # however, note that increase mem_gb too much is an antisocial selfish behavior :)
-  executor.update_parameters(mem=1000, time=300, partition ="CPU", nodes=1, nodelist='node[18-21]')
+    
+  # define execution parameters (see below for a list of common options)
+  executor.update_parameters(mem='1000M', time=300, partition ="CPU", nodes=1, job_name=f'example_{i}')
 
   # actually submit the job: note that "value" correspond to that of array_parallel in this iteration
   job = executor.submit(yourFunction, value, additional_parameter)
@@ -162,13 +208,43 @@ for i, value in enumerate(array_parallel):
   # increase the job count
   jcount=jcount+1
 
-
-### now that the loop has ended we check whether any job is already done
+### wait for jobs to return (in the correct submission order)
 print('#### Start waiting for jobs to return #####')
-njobs_finished = sum(job.done() for job in joblist)
+finished_results = [job.result() for job in jobs]
 
-# decide whether we clean our job live or not
-clean_jobs_live=False
+### display jobs
+print('#### All jobs completed #####')
+print(finished_results)
+```
+
+##### Main options of executor.update_parameters
+
+| Key | Value | Effect |
+|---------------|-------------------------|---------------------------------|
+| mem | *string* (ex: '1000M', '1G', etc) | Sets the memory limit of your job |
+| time | *int* (ex: 30) | Sets the timeout limit of your job (in minutes) |
+| partition | *string* ('CPU' or 'GPU') | Determines whether you want to use the GPU (usually not) |
+| nodelist | *string* (ex: 'node8', 'node\[1-11\]') | Whether you want to restrict to a set of compute nodes |
+| excluded | *string* (ex: 'node21', 'node\[1-2\]') | Whether you want to exclude specific nodes |
+| cpus_per_task | *int* (ex: 4) | How many CPUs should be booked for each job |
+| job_name | *string* (ex: 'myjob') | Custom job name (default: 'submitit') |
+| additional_parameters | *dict* (ex: {'gpus-per-node': 2, 'mincpus': 4} | Any parameter used by [SBATCH](https://slurm.schedmd.com/sbatch.html) |
+
+Other options exist but they are poorly documented by submitit. If you
+pass an invalid key, submitit will print all the possibilities.
+
+::: callout-warning
+If you have very big data structures returning from your jobs, this
+"live" approach might saturate the memory of your notebook. If you
+encounter such issues, you might want to clean job results as their come
+back from the compute nodes.
+:::
+
+``` python
+### This piece of code may replace the line `finished_results = [job.result() for job in jobs]`. It might be useful for very heavy jobs and whenever you want to do live processing upon each job immediately when it returns.
+
+# decide whether to clean job output live
+clean_jobs_live=True
 
 # create a list to store finished jobs (optional, and depends on whether we need to cleanup job live)
 finished_list=[]
@@ -190,7 +266,7 @@ while njobs_finished<jcount:
     job_result=job.result()
     # do some processing with this job
     print(job_result)
-    # decide what to do with the finished job object
+    # decide what to do with the finished job object (e.g. save it somewhere, keep pieces of it, etc)
     if clean_jobs_live:
       # delete the job object
       del job
@@ -213,12 +289,6 @@ if clean_jobs_live==False:
   print('Concatenated results obtained by applying yourFunction() to all items in array_parallel:')
   print(finished_results)
 ```
-
-:::{.callout-warning}
-If you do not clean your jobs on the fly, then you might saturate the memory of your notebook with `clean_jobs_live=False` because all the job results will be present in the job objects of joblist. 
-Only use this approach if the objects returned by your jobs are light and can be loaded in your limited notebook memory.
-Otherwise, use an approach similar to that implemented by `clean_jobs_live=True`.
-:::
 
 ### Next part
 
