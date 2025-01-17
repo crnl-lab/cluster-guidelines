@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.489">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Romain Ligneul">
+
+<title>CRNL - Part 2: Good practices</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">CRNL</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-connecting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Connecting</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-connecting">    
+        <li>
+    <a class="dropdown-item" href="./help_VPN.html">
+ <span class="dropdown-text">VPN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_github.html">
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-submitting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Submitting</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-submitting">    
+        <li>
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part1.html">
+ <span class="dropdown-text">Part 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Tutorial_Cluster_Part2.html">
+ <span class="dropdown-text">Part 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
+        <li>
+    <a class="dropdown-item" href="./help_ssh.html">
+ <span class="dropdown-text">Simplifying SSH</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_filezilla.html">
+ <span class="dropdown-text">Transferring files</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./help_interactiveGPU.html"> 
+<span class="menu-text">Interactive GPU</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-others" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Others</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-others">    
+        <li>
+    <a class="dropdown-item" href="./git_presentation.html">
+ <span class="dropdown-text">Presentation Git/hub/lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./help_filepermissions.html">
+ <span class="dropdown-text">File permissions/ownership</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sharing-the-resources" id="toc-sharing-the-resources" class="nav-link active" data-scroll-target="#sharing-the-resources">Sharing the resources</a>
+  <ul class="collapse">
+  <li><a href="#anticipating-time-memory-consumption" id="toc-anticipating-time-memory-consumption" class="nav-link" data-scroll-target="#anticipating-time-memory-consumption">Anticipating time &amp; memory consumption</a></li>
+  <li><a href="#evaluating-cpu-count-needs" id="toc-evaluating-cpu-count-needs" class="nav-link" data-scroll-target="#evaluating-cpu-count-needs">Evaluating CPU count needs</a></li>
+  <li><a href="#scaling-up-responsibly" id="toc-scaling-up-responsibly" class="nav-link" data-scroll-target="#scaling-up-responsibly">Scaling up <strong>responsibly</strong></a></li>
+  <li><a href="#a-more-compact-approach" id="toc-a-more-compact-approach" class="nav-link" data-scroll-target="#a-more-compact-approach">A more compact approach</a></li>
+  <li><a href="#submitting-and-going-home" id="toc-submitting-and-going-home" class="nav-link" data-scroll-target="#submitting-and-going-home">Submitting and going home</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Part 2: Good practices</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Romain Ligneul </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="#dnldts24724" onclick="fetch('data:text/plain;base64,ewogICJjZWxscyI6IFsKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJyYXciLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiLS0tXG4iLAogICAgICAgICJ0aXRsZTogJ1BhcnQgMjogR29vZCBwcmFjdGljZXMnXG4iLAogICAgICAgICJmb3JtYXQ6IGh0bWxcbiIsCiAgICAgICAgImV4ZWN1dGU6XG4iLAogICAgICAgICIgIGZyZWV6ZTogZmFsc2VcbiIsCiAgICAgICAgIiAgZXZhbDogZmFsc2VcbiIsCiAgICAgICAgImF1dGhvcjogUm9tYWluIExpZ25ldWxcbiIsCiAgICAgICAgIi0tLSIKICAgICAgXQogICAgfSwKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICAgICJtZXRhZGF0YSI6IHt9LAogICAgICAic291cmNlIjogWwogICAgICAgICJ7ezwgZG93bmxvYWR0aGlzIHd3dy9UdXRvcmlhbF9DbHVzdGVyX1BhcnQyLmlweW5iIGRuYW1lPVwiVHV0b3JpYWxfQ2x1c3Rlcl9QYXJ0Mi5pcHluYlwiIGxhYmVsPVwiRG93bmxvYWQgdGhpcyBub3RlYm9va1wiID59fVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICI6Ojp7LmNhbGxvdXQtbm90ZX1cbiIsCiAgICAgICAgIklmIHlvdSBhcmUgd29ya2luZyBvbiB0aGUgQ1JOTCBjbHVzdGVyLCB5b3UgY2FuIGZpbmQgYWxzbyB0aGUgY29ycmVzcG9uZGluZyBub3RlYm9vayBhdCB0aGlzIGxvY2F0aW9uOiBgL2NybmxkYXRhL3Byb2pldHNfY29tbXVucy90dXRvcmlhbHMvYFxuIiwKICAgICAgICAiOjo6XG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIklmIHlvdSBtYW5hZ2VkIHRvIGNvbXBsZXRlIHRoZSBmaXJzdCBwYXJ0IG9mIHRoaXMgdHV0b3JpYWwsIHlvdSB3aWxsIGFsc28gYmUgYWJsZSB0byBgcGlwIGluc3RhbGxgIHdoYXRldmVyIGluIHlvdXIgdmlydHVhbCBlbnZpcm9ubWVudCBhbmQgZG8gc29tZSBjb21wdXRpbmcuXG4iLAogICAgICAgICJIb3dldmVyLCB0aGVyZSBpcyBtb3JlIHRvIGtub3cuXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyMgU2hhcmluZyB0aGUgcmVzb3VyY2VzXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIkJlY2F1c2UgaXQgbmVlZHMgdG8gcmVtYWluIGhpZ2hseSBmbGV4aWJsZSBhbmQgYWRhcHRlZCB0byBhIHdpZGUgcmFuZ2Ugb2YgbmVlZHMsIHRoZSBjbHVzdGVyIGlzIG5vdCB2ZXJ5IGNvbnN0cmFpbmVkIHdpdGggcmVzcGVjdCB0byByZXNvdXJjZSBhbGxvY2F0aW9uLlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJJZiB5b3UgZG8gbm90IHBheSBhdHRlbnRpb24sIHlvdSBtaWdodCBtb25vcG9saXplIGFsbCB0aGUgQ1BVcyBvciBhbGwgdGhlIG1lbW9yeSB3aXRoIHlvdXIgam9icywgd2l0aG91dCBsZWF2aW5nIGFueXRoaW5nIGJlaGluZCBmb3IgeW91ciBjb2xsZWFndWVzLlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJUaGF0IHdoeSBldmFsdWF0aW5nIHRoZSBhbW91bnQgb2YgbWVtb3J5IHlvdSBuZWVkIGFuZCB0aGUgbWF4aW11bSB0aW1lIHRoYXQgYSBub24tYnVnZ2VkIGpvYiBtaWdodCB0YWtlIGlzIGltcG9ydGFudCEgQmFzZWQgb24gdGhpcyBpbmZvcm1hdGlvbiwgeW91IGNhbiBhZGp1c3QgYG1lbV9nYmAgYW5kIGB0aW1lb3V0X21pbmAgKHRpbWVvdXQgaW4gbWludXRlcykgd2VsbC5cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiU2ltaWxhcmx5LCB5b3UgbWF5IG5lZWQgdG8gZGVjaWRlIGhvdyBtYW55IENQVXMgd2lsbCBiZSB1c2VmdWwgZm9yIHlvdS4gQ2FuIHlvdSBnbyB3aXRoIG9ubHkgb25lIHdpdGhvdXQgbG9zaW5nIG11Y2g/IFRoZW4gdXNlIG9ubHkgMS4gRG8geW91IGRpdmlkZSB5b3VyIGNvbXB1dGF0aW9uIHRpbWUgYnkgYSBodWdlIGZhY3RvciBpZiB5b3UgdXNlIG1vcmUsIHRoZW4gdXNlIG1vcmUuIEJ1dCBob3cgd2lsbCB5b3Uga25vdz9cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiV2hhdCBmb2xsb3dzIHNob3VsZCBoZWxwIHlvdSB3aXRoIGFsbCB0aGlzLlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIyMgQW50aWNpcGF0aW5nIHRpbWUgJiBtZW1vcnkgY29uc3VtcHRpb25cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiSGVyZWFmdGVyLCB3ZSB1c2UgbWVtb3J5X3VzYWdlKCkgd2hpY2ggaGFzIGEgc2xpZ2h0eSB1bnVzdWFsIHdheSBvZiBwYXNzaW5nIGFyZ3VtZW50cyB0byBpdHMgdGFyZ2V0IGZ1bmN0aW9uLlxuIiwKICAgICAgICAiQWxsIHBvc2l0aW9uYWwgYXJndW1lbnRzICh0aG9zZSB3aXRob3V0IGFuID0gc2lnbiBpbiB0aGUgKmRlZiopIGFyZSBwYXNzZWQgdG9nZXRoZXIsIGFuZCBhbGwgbm9uLXBvc2l0aW9uYWwgYXJndW1lbnRzIChhbHNvIGNhbGxlZCBrZXktdmFsdWUgcGFpcnMpIGFyZSBwYXNzZWQgdG9nZXRoZXIuXG4iLAogICAgICAgICJGb3IgZXhhbXBsZSwgd2UgY291bGQgdHJ5Ojxicj5cbiIsCiAgICAgICAgImBtZW1fdXNhZ2U9bWVtb3J5X3VzYWdlKChzb21lZnVuYywoMC4xLDQsMC44OCksIHsnZmlsZScgOiAnd2hhdGV2ZXIuY3N2JywnaW5kZXgnIDogMCB9KSlgIDxicj5cbiIsCiAgICAgICAgIklmIHdlIGhhZCBhIGZ1bmN0aW9uIGRlZmluZWQgbGlrZSB0aGlzOiA8YnI+XG4iLAogICAgICAgICJgc29tZWZ1bmMoYSxiLGMsIGZpbGU9Tm9uZSwgaW5kZXg9LTEpYCIKICAgICAgXQogICAgfSwKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgICJzb3VyY2UiOiBbCiAgICAgICAgIiMjIyMjIyBzaW1wbGUgbWVtb3J5L3RpbWUgY2hlY2tcbiIsCiAgICAgICAgImZyb20gbWVtb3J5X3Byb2ZpbGVyIGltcG9ydCBtZW1vcnlfdXNhZ2VcbiIsCiAgICAgICAgImltcG9ydCB0aW1lXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgZGVmaW5lIGEgc2luZ2xlIHRocmVhZCBmdW5jdGlvblxuIiwKICAgICAgICAiZGVmIGR1cGxpY2F0ZV9vbmVzKGEsIG49MTAwLCB4PTApOlxuIiwKICAgICAgICAiICAgIGltcG9ydCB0aW1lXG4iLAogICAgICAgICIgICAgdGltZS5zbGVlcCgxKVxuIiwKICAgICAgICAiICAgIGIgPSBbYV0gKiBuXG4iLAogICAgICAgICIgICAgYiA9IFthXSAqIG5cbiIsCiAgICAgICAgIiAgICBiID0gW2FdICogblxuIiwKICAgICAgICAiICAgIHRpbWUuc2xlZXAoMSlcbiIsCiAgICAgICAgIiAgICByZXR1cm4gYlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGR1cGxpY2F0ZSBvbmVzIGEgbWlsbGlvbiB0aW1lXG4iLAogICAgICAgICJwcmludCgnRHVwbGljYXRlIG9uZXMgYSB0aG91c2FuZCB0aW1lcycpXG4iLAogICAgICAgICJzdGFydF90aW1lID0gdGltZS50aW1lKClcbiIsCiAgICAgICAgIm1lbV91c2FnZT1tZW1vcnlfdXNhZ2UoKGR1cGxpY2F0ZV9vbmVzLCgxLCksIHsnbicgOiBpbnQoMWUzKX0pKVxuIiwKICAgICAgICAiZW5kX3RpbWUgPSB0aW1lLnRpbWUoKVxuIiwKICAgICAgICAicHJpbnQoJ01heGltdW0gbWVtb3J5IHVzYWdlIChpbiBNQik6ICVzJyAlIG1heChtZW1fdXNhZ2UpKVxuIiwKICAgICAgICAicHJpbnQoJ01heGltdW0gbWVtb3J5IHVzYWdlIChpbiBHQik6ICVzJyAlIChtYXgobWVtX3VzYWdlKS8xMDAwKSlcbiIsCiAgICAgICAgInByaW50KCdUaW1lIHRha2VuIChpbiBzKTogJXMnICUgKGVuZF90aW1lLXN0YXJ0X3RpbWUpKVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGR1cGxpY2F0ZSBvbmVzIDEwMCBtaWxsaW9uIHRpbWVzXG4iLAogICAgICAgICJwcmludCgnRHVwbGljYXRlIG9uZXMgYSBtaWxsaW9uIHRpbWUnKVxuIiwKICAgICAgICAic3RhcnRfdGltZSA9IHRpbWUudGltZSgpXG4iLAogICAgICAgICJtZW1fdXNhZ2U9bWVtb3J5X3VzYWdlKChkdXBsaWNhdGVfb25lcywoMSwpLCB7J24nIDogaW50KDFlOCl9KSlcbiIsCiAgICAgICAgImVuZF90aW1lID0gdGltZS50aW1lKClcbiIsCiAgICAgICAgInByaW50KCdNYXhpbXVtIG1lbW9yeSB1c2FnZSAoaW4gTUIpOiAlcycgJSBtYXgobWVtX3VzYWdlKSlcbiIsCiAgICAgICAgInByaW50KCdNYXhpbXVtIG1lbW9yeSB1c2FnZSAoaW4gR0IpOiAlcycgJSAobWF4KG1lbV91c2FnZSkvMTAwMCkpXG4iLAogICAgICAgICJwcmludCgnVGltZSB0YWtlbiAoaW4gcyk6ICVzJyAlIChlbmRfdGltZS1zdGFydF90aW1lKSlcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAicHJpbnQoJ0RvIHlvdSBub3RpY2UgdGhlIGRpZmZlcmVuY2UgaW4gdGltZSBhbmQgbWVtb3J5IGR1ZSB0byB0aGUgY2hhbmdlIGluIGR1cGxpY2F0aW9uIHNpemU/JykiCiAgICAgIF0sCiAgICAgICJleGVjdXRpb25fY291bnQiOiBudWxsLAogICAgICAib3V0cHV0cyI6IFtdCiAgICB9LAogICAgewogICAgICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwKICAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgICJzb3VyY2UiOiBbCiAgICAgICAgIiMjIyBFdmFsdWF0aW5nIENQVSBjb3VudCBuZWVkc1xuIiwKICAgICAgICAiXG4iLAogICAgICAgICJIb3cgdG8gZXZhbHVhdGUgd2hldGhlciBvdXIgam9iIHdpbGwgYmVuZWZpdCBmcm9tIGhhdmluZyBtb3JlIENQVSBhdmFpbGFibGUgdG8gdGhlbT9cbiIsCiAgICAgICAgIklmIHlvdSBkb24ndCBrbm93IHdoZXRoZXIgeW91ciBmdW5jdGlvbiB1c2UgcGFyYWxsZWxpemF0aW9uIG9yIG5vdCwgYmVjYXVzZSB5b3UgcmVsaWVzIG9uIGhpZ2gtbGV2ZWwgdG9vbGJveGVzLCB0aGVuIHlvdSBjYW4gZXZhbHVhdGUgdGhhdCBlbXBpcmljYWxseSBieSBsb29raW5nIGF0IHRoZSB0aW1lIHlvdXIgam9icyB0YWtlIGRlcGVuZGluZyBvbiB0aGUgbnVtYmVyIG9mIENQVXMgeW91IGFsbG93LlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJMZXQncyB0cnkgZmlyc3Qgd2l0aCBvdXIgbGFzdCBmdW5jdGlvbi4gSXQgc2hvdWxkIHRha2UgYWJvdXQgMTBzIHRvIHJ1bi4iCiAgICAgIF0KICAgIH0sCiAgICB7CiAgICAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICAgICJtZXRhZGF0YSI6IHsKICAgICAgICAiZWRpdGFibGUiOiB0cnVlLAogICAgICAgICJzbGlkZXNob3ciOiB7CiAgICAgICAgICAic2xpZGVfdHlwZSI6ICIiCiAgICAgICAgfSwKICAgICAgICAidGFncyI6IFtdCiAgICAgIH0sCiAgICAgICJzb3VyY2UiOiBbCiAgICAgICAgImltcG9ydCBvcyBcbiIsCiAgICAgICAgImltcG9ydCBzdWJtaXRpdFxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIHRoZXNlIGNvbW1hbmRzIG1heSBub3QgYmUgbmVjZXNzYXJ5IGJ1dCBoZWxwZWQgb3ZlcmNvbWluZyBhbiBlcnJvciBpbml0aWFsbHlcbiIsCiAgICAgICAgIm9zLmVudmlyb25bJ1NMVVJNX0NQVVNfUEVSX1RBU0snXSA9IHN0cigxKVxuIiwKICAgICAgICAib3MuZW52aXJvblsnU0xVUk1fVFJFU19QRVJfVEFTSyddID0gb3MuZW52aXJvblsnU0xVUk1fQ1BVU19QRVJfVEFTSyddXG4iLAogICAgICAgICIgICAgXG4iLAogICAgICAgICIjIGNwdSBjb3VudHMgdG8gdGVzdFxuIiwKICAgICAgICAibkNQVXNfdG90ZXN0PVsxLCA0XVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGxvb3Agb3ZlciBjcHUgY291bnRzXG4iLAogICAgICAgICJqY291bnQ9MFxuIiwKICAgICAgICAiam9ibGlzdD1bXVxuIiwKICAgICAgICAic3RhcnRfdGltZSA9IHRpbWUudGltZSgpXG4iLAogICAgICAgICJmb3IgaSwgY3B1cyBpbiBlbnVtZXJhdGUobkNQVXNfdG90ZXN0KTpcbiIsCiAgICAgICAgIiAgICBleGVjdXRvciA9IHN1Ym1pdGl0LlNsdXJtRXhlY3V0b3IoZm9sZGVyPW9zLmdldGN3ZCgpKycvdHV0b19sb2dzLycsIG1heF9udW1fdGltZW91dD01KVxuIiwKICAgICAgICAiICAgIGV4ZWN1dG9yLnVwZGF0ZV9wYXJhbWV0ZXJzKG1lbT00MDAwLCB0aW1lPTMwMCwgcGFydGl0aW9uID1cIkNQVVwiLCBub2Rlcz0xLCBub2RlbGlzdD0nbm9kZVsxOC0yMV0nLGNwdXNfcGVyX3Rhc2s9Y3B1cylcbiIsCiAgICAgICAgIiAgICBqb2IgPSBleGVjdXRvci5zdWJtaXQoZHVwbGljYXRlX29uZXMsIDEsIGludCgxZTgpKVxuIiwKICAgICAgICAiICAgIGpvYi5uX2NwdXM9Y3B1c1xuIiwKICAgICAgICAiICAgIHByaW50KFwiam9iIHdpdGggXCIgKyBzdHIoam9iLm5fY3B1cykgKyBcIiBjcHVzIHN1Ym1pdHRlZFwiKVxuIiwKICAgICAgICAiICAgIGpvYmxpc3QuYXBwZW5kKGpvYilcbiIsCiAgICAgICAgIiAgICBqY291bnQ9amNvdW50KzFcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyB3YWl0IGZvciBqb2IgY29tcGxldGlvblxuIiwKICAgICAgICAibmpvYnNfZmluaXNoZWQgPSBzdW0oam9iLmRvbmUoKSBmb3Igam9iIGluIGpvYmxpc3QpXG4iLAogICAgICAgICJ3aGlsZSBuam9ic19maW5pc2hlZDxqY291bnQ6XG4iLAogICAgICAgICIgICAgZG9uZUlkeD0tMVxuIiwKICAgICAgICAiICAgIHRpbWUuc2xlZXAoMSlcbiIsCiAgICAgICAgIiAgICBmb3Igaiwgam9iIGluIGVudW1lcmF0ZShqb2JsaXN0KTpcbiIsCiAgICAgICAgIiAgICAgICAgaWYgam9iLmRvbmUoKTpcbiIsCiAgICAgICAgIiAgICAgICAgICAgIGRvbmVJZHg9alxuIiwKICAgICAgICAiICAgICAgICAgICAgYnJlYWtcbiIsCiAgICAgICAgIiAgICBpZiBkb25lSWR4Pj0wOlxuIiwKICAgICAgICAiICAgICAgICBwcmludChzdHIobmpvYnNfZmluaXNoZWQpKycgb24gJyArIHN0cihqY291bnQpKVxuIiwKICAgICAgICAiICAgICAgICAjIHJlcG9ydCBsYXN0IGpvYiBmaW5pc2hlZFxuIiwKICAgICAgICAiICAgICAgICBwcmludChcImpvYiB3aXRoIFwiICsgc3RyKGpvYi5uX2NwdXMpICsgXCIgY3B1cyByZXR1cm5lZCBpbiBcIiArIHN0cih0aW1lLnRpbWUoKS1zdGFydF90aW1lKSArIFwiIHNlY29uZHNcIilcbiIsCiAgICAgICAgIiAgICAgICAgam9ibGlzdC5wb3AoZG9uZUlkeClcbiIsCiAgICAgICAgIiAgICAgICAgbmpvYnNfZmluaXNoZWQ9bmpvYnNfZmluaXNoZWQrMVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJwcmludCgnIyMjIERvIHlvdSB0aGluayB0aGF0IGluY3JlYXNpbmcgdGhlIG51bWJlciBvZiBDUFVzIG1hZGUgYSBiaWcgZGlmZmVyZW5jZT8gIyMjJylcbiIKICAgICAgXSwKICAgICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICAgICJvdXRwdXRzIjogW10KICAgIH0sCiAgICB7CiAgICAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiTm93IGxldCdzIHJlZG8gZXhhY3RseSB0aGUgc2FtZSB0aGluZywgd2l0aCBhIG51bXB5IGZ1bmN0aW9uIHRoYXQgbWF5IGJlbmVmaXQgZnJvbSBtdWx0aXBsZSBDUFVzIChpLmUuIG5wLmRvdCkuIgogICAgICBdCiAgICB9LAogICAgewogICAgICAiY2VsbF90eXBlIjogImNvZGUiLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiaW1wb3J0IG51bXB5IGFzIG5wXG4iLAogICAgICAgICJpbXBvcnQgdGltZVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJkZWYgbWF0X211bHRpcGx5KHNpemUpOlxuIiwKICAgICAgICAiICAjIEdlbmVyYXRlIGxhcmdlIHJhbmRvbSBtYXRyaWNlc1xuIiwKICAgICAgICAiICBBID0gbnAucmFuZG9tLnJhbmQoc2l6ZSwgc2l6ZSlcbiIsCiAgICAgICAgIiAgQiA9IG5wLnJhbmRvbS5yYW5kKHNpemUsIHNpemUpXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiAgIyBNZWFzdXJlIHRpbWUgZm9yIG1hdHJpeCBtdWx0aXBsaWNhdGlvblxuIiwKICAgICAgICAiICBDID0gbnAuZG90KEEsIEIpXG4iLAogICAgICAgICIgIFxuIiwKICAgICAgICAiICByZXR1cm4gJ3RoaXMgZnVuY3Rpb24gZG9lcyBub3QgcmV0dXJuIGFueXRoaW5nIHNwZWNpYWwnXG4iLAogICAgICAgICIgIFxuIiwKICAgICAgICAib3MuZW52aXJvblsnU0xVUk1fQ1BVU19QRVJfVEFTSyddID0gc3RyKDEpXG4iLAogICAgICAgICJvcy5lbnZpcm9uWydTTFVSTV9UUkVTX1BFUl9UQVNLJ10gPSBvcy5lbnZpcm9uWydTTFVSTV9DUFVTX1BFUl9UQVNLJ11cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBjcHUgY291bnRzIHRvIHRlc3RcbiIsCiAgICAgICAgIm5DUFVzX3RvdGVzdD1bNCwgNCwgNCwgMV1cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBkZWZpbmUgdGhlIG1heCBudW1iZXIgb2Ygam9icyB0aGF0IG1heSBydW4gaW4gcGFyYWxsZWxcbiIsCiAgICAgICAgIm1heGpvYnM9MlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGxvb3Agb3ZlciBjcHUgY291bnRzXG4iLAogICAgICAgICJqY291bnQ9MFxuIiwKICAgICAgICAiam9ibGlzdD1bXVxuIiwKICAgICAgICAic3RhcnRfdGltZSA9IHRpbWUudGltZSgpXG4iLAogICAgICAgICJmb3IgaSwgY3B1cyBpbiBlbnVtZXJhdGUobkNQVXNfdG90ZXN0KTpcbiIsCiAgICAgICAgIiAgICBleGVjdXRvciA9IHN1Ym1pdGl0LlNsdXJtRXhlY3V0b3IoZm9sZGVyPW9zLmdldGN3ZCgpKycvdHV0b19sb2dzLycsIG1heF9udW1fdGltZW91dD01KVxuIiwKICAgICAgICAiICAgIGV4ZWN1dG9yLnVwZGF0ZV9wYXJhbWV0ZXJzKG1lbT00MDAwLCB0aW1lPTMwMCwgcGFydGl0aW9uID1cIkNQVVwiLCBub2Rlcz0xLCBub2RlbGlzdD0nbm9kZVsxOC0yMV0nLGNwdXNfcGVyX3Rhc2s9Y3B1cylcbiIsCiAgICAgICAgIiAgICAjIGNoZWNrIGhvdyBtYW55IGpvYiBhcmUgcnVubmluZyAobm90IGRvbmUpIGFuZCB3YWl0IGl0IHRoZXkgZXhjZWVkIG91ciBsaW1pdFxuIiwKICAgICAgICAiICAgIHdoaWxlIHN1bShub3Qgam9iLmRvbmUoKSBmb3Igam9iIGluIGpvYmxpc3QpPm1heGpvYnM6XG4iLAogICAgICAgICIgICAgICAgIHByaW50KCd3YWl0IHRvIHN1Ym1pdCBuZXcgam9iJylcbiIsCiAgICAgICAgIiAgICAgICAgdGltZS5zbGVlcCgzKVxuIiwKICAgICAgICAiICAgIGpvYiA9IGV4ZWN1dG9yLnN1Ym1pdChtYXRfbXVsdGlwbHksIDgwMDApXG4iLAogICAgICAgICIgICAgdGltZS5zbGVlcCgwLjUpXG4iLAogICAgICAgICIgICAgam9iLm5fY3B1cz1jcHVzXG4iLAogICAgICAgICIgICAgcHJpbnQoXCJqb2Igd2l0aCBcIiArIHN0cihqb2Iubl9jcHVzKSArIFwiIGNwdXMgc3VibWl0dGVkXCIpXG4iLAogICAgICAgICIgICAgam9ibGlzdC5hcHBlbmQoam9iKVxuIiwKICAgICAgICAiICAgIGpjb3VudD1qY291bnQrMVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIHdhaXQgZm9yIGpvYiBjb21wbGV0aW9uXG4iLAogICAgICAgICJuam9ic19maW5pc2hlZCA9IDA7IFxuIiwKICAgICAgICAid2hpbGUgbmpvYnNfZmluaXNoZWQ8amNvdW50OlxuIiwKICAgICAgICAiICAgIGRvbmVJZHg9LTFcbiIsCiAgICAgICAgIiAgICB0aW1lLnNsZWVwKDEpXG4iLAogICAgICAgICIgICAgZm9yIGosIGpvYiBpbiBlbnVtZXJhdGUoam9ibGlzdCk6XG4iLAogICAgICAgICIgICAgICAgIGlmIGpvYi5kb25lKCk6XG4iLAogICAgICAgICIgICAgICAgICAgICBkb25lSWR4PWpcbiIsCiAgICAgICAgIiAgICAgICAgICAgIGJyZWFrXG4iLAogICAgICAgICIgICAgaWYgZG9uZUlkeD49MDpcbiIsCiAgICAgICAgIiAgICAgICAgcHJpbnQoc3RyKG5qb2JzX2ZpbmlzaGVkKSsnIG9uICcgKyBzdHIoamNvdW50KSlcbiIsCiAgICAgICAgIiAgICAgICAgIyByZXBvcnQgbGFzdCBqb2IgZmluaXNoZWQgYW5kIHByaW50IHN0YXRzXG4iLAogICAgICAgICIgICAgICAgIHByaW50KFwiam9iIHdpdGggXCIgKyBzdHIoam9iLm5fY3B1cykgKyBcIiBjcHVzIHJldHVybmVkIGluIFwiICsgc3RyKHRpbWUudGltZSgpLXN0YXJ0X3RpbWUpICsgXCIgc2Vjb25kc1wiKVxuIiwKICAgICAgICAiICAgICAgICBwcmludChcImpvYiBzdGF0dXM6IFwiICsgam9iLnN0YXRlKVxuIiwKICAgICAgICAiICAgICAgICBqb2JsaXN0LnBvcChkb25lSWR4KVxuIiwKICAgICAgICAiICAgICAgICBuam9ic19maW5pc2hlZD1uam9ic19maW5pc2hlZCsxXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgInByaW50KCdcXG4jIyMgRG8geW91IHRoaW5rIHRoYXQgaW5jcmVhc2luZyB0aGUgbnVtYmVyIG9mIENQVXMgbWFkZSBhIGJpZyBkaWZmZXJlbmNlPyAjIyMnKSIKICAgICAgXSwKICAgICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICAgICJvdXRwdXRzIjogW10KICAgIH0sCiAgICB7CiAgICAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiIyMjIFNjYWxpbmcgdXAgKipyZXNwb25zaWJseSoqXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIkluIHRoZSBsb29wIGFib3ZlLCB5b3UgbWlnaHQgaGF2ZSBub3RpY2VkIHNvbWV0aGluZyBuZXc6IHdlJ3ZlIGltcGxlbWVudGVkIGFub3RoZXIgZ29vZCBwcmFjdGljZSBieSBzZWxmLWxpbWl0aW5nIHRoZSBudW1iZXIgb2Ygam9icyB3ZSB3aWxsIHJ1biBpbiBwYXJhbGxlbCBvbiB0aGUgY2x1c3Rlci4gSW5kZWVkLCBpdCBtaWdodCBiZSBvayB0byBsYXVuY2ggNDAgb3IgZXZlbiAxMDAgcGFyYWxsZWwgam9icyBpZiB5b3UgYXJlIGluIGEgaHVycnksIGJ1dCB0aGUgYW1vdW50IG9mIENQVXMgaW4gdGhlIGNsdXN0ZXIgaXMgbm90IGluZmluaXRlLCBhbmQgbmVpdGhlciBpcyB0aGUgYW1vdW50IG9mIG1lbW9yeS5cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiKipOdW1iZXIgb2YgQ1BVcyoqOiB5b3UgY2FuIGdldCB0aGlzIGluZm9ybWF0aW9uIGJ5IHJ1bm5pbmcgYHNpbmZvIC1vJUNgIGluIHlvdXIgdGVybWluYWwsIG9yIGAhc2luZm8gLW8lQ2AgaW4gdGhlIG5vdGVib29rLiBUaGUgQ1BVIHBhcnRpdGlvbnMgaGF2ZSBhYm91dCAzNTAgY29yZXMgYXZhaWxhYmxlIGF0IHRoZSB0aW1lIG9mIHdyaXRpbmdcbiIsCiAgICAgICAgIioqQW1vdW50IG9mIG1lbW9yeSoqOiB5b3UgY2FuIHNlZSB0aGlzIGJ5IHJ1bm5pbmcgYHNpbmZvIC1vIFwiJVAgJW4gJW1cImAgaW4geW91ciB0ZXJtaW5hbCAob3Igd2l0aCBhICEgaW4gdGhlIG5vdGVib29rKS4gVGhlIENQVSBwYXJ0aXRpb25zIGhhdmUgYWJvdXQgMi4zVEIgb2YgbWVtb3J5IGF0IHRoZSB0aW1lIG9mIHdyaXRpbmcuXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIklmIGl0IGlzIGEgc3VuZGF5IGFuZCBub2JvZHkgaXMgdXNpbmcgdGhlIGNsdXN0ZXIsIGl0IGlzIHByb2JhYmx5IGZpbmUgdG8gaW5jcmVhc2UgYG1heGpvYnNgIHRvIDEwMCBvciBtb3JlIChub3RlIHRoYXQgaWYgeW91IHJlcXVpcmUgNCBjcHUgcGVyIHRhc2ssIGl0IG1lYW5zIHRoYXQgeW91IGFyZSBhY3R1YWxseSByZXF1aXJpbmcgNDAwIGNwdXMgb3ZlcmFsbCEpLiBCdXQgaWYgaXQgaXMgMTAuMzBwbSBvbiBhIHR1ZXNkYXksIHVzaW5nIHRoaXMgcGFyYW1ldGVyIG1pZ2h0IGJlIHRoZSBzYW1lIGFzIHdhbGtpbmcgdG8gdGhlIGNvZmZlZSBtYWNoaW5lIGFuZCB0YWtpbmcgYWxsIHRoZSBjb2ZmZWUgcmVzZXJ2ZXMgdG8geW91ciBvZmZpY2UhIFNvLCB0YWtlIHRoZSBoYWJpdCBvZiBzZXR0aW5nIHlvdXIgYG1heGpvYnNgLWxpa2UgcGFyYW1ldGVyIG9uIGEgZGFpbHkgYmFzaXMgYWZ0ZXIgY2hlY2tpbmcgYHNpbmZvIC1vJUNgLiIKICAgICAgXQogICAgfSwKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJjb2RlIiwKICAgICAgIm1ldGFkYXRhIjoge30sCiAgICAgICJzb3VyY2UiOiBbCiAgICAgICAgIiMgY2hlY2sgbm9kZSBhbmQgQ1BVIGluZm9ybWF0aW9uXG4iLAogICAgICAgICJwcmludChcIiMjIyBOb2RlIGNvdW50czogXFxuQTogY3VycmVudGx5IGluIHVzZSBcXEIgYXZhaWxhYmxlXCIpXG4iLAogICAgICAgICIhc2luZm8gLW8lQVxuIiwKICAgICAgICAicHJpbnQoXCIjIyMgQ1BVIGNvdW50czogXFxuQTogY29yZSBjdXJyZW50bHkgaW4gdXNlIFxcbkk6IGF2YWlsYWJsZSBcXG5POiB1bmF2YWlsYWJsZSAobWFpbnRlbmFuY2UsIGRvd24sIGV0YykgXFxuVDogdG90YWxcIilcbiIsCiAgICAgICAgIiFzaW5mbyAtbyVDXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgY2hlY2sgc29tZSBzdGF0cyBvZiBvdXIgbGFzdCBqb2JcbiIsCiAgICAgICAgInByaW50KCcjIyMgQ1BVIHRpbWUgYW5kIE1heFJTUyBvZiBvdXIgbGFzdCBqb2IgKGFib3V0IDEwMDBNYiBzaG91bGQgYmUgYWRkZWQgdG8geW91ciBNYXhSU1MgKE1iKSBpbiBvcmRlciB0byBjb3ZlciBzYWZlbHkgdGhlIG1lbW9yeSBuZWVkcyBvZiB0aGUgcHl0aG9uIHJ1bnRpbWUpIyMjJylcbiIsCiAgICAgICAgIm9zLnN5c3RlbShmJ3NhY2N0IC1qIHtqb2Iuam9iX2lkfSAtLWZvcm1hdD1cIkNQVVRpbWUsTWF4UlNTXCInKSIKICAgICAgXSwKICAgICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsCiAgICAgICJvdXRwdXRzIjogW10KICAgIH0sCiAgICB7CiAgICAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiIyMjIEEgbW9yZSBjb21wYWN0IGFwcHJvYWNoXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIkluIHRoZSBhYm92ZSBleGFtcGxlcywgd2UgaGF2ZSBkZWNvbXBvc2VkIG1vc3Qgb3BlcmF0aW9ucyB1c2luZyBgZm9yYCBsb29wcyBpbiBvcmRlciB0byBpbGx1c3RyYXRlIHRoZSBkaWZmZXJlbnQgY29uY2VwdHMuIEJ1dCB3aXRoIG1vcmUgYWR2YW5jZWQgbWV0aG9kcyB3ZSBjYW4gY29tcGFjdCBhIGxvdCB0aGUgY29kZSB1c2VkLlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJUaGUgZXhhbXBsZSBiZWxvdyAoYWRhcHRlZCBmcm9tIFtzdWJtaXRpdCBkb2N1bWVudGF0aW9uXShodHRwczovL2dpdGh1Yi5jb20vZmFjZWJvb2tpbmN1YmF0b3Ivc3VibWl0aXQvYmxvYi9tYWluL2RvY3MvZXhhbXBsZXMubWQpKSBhbGxvd3MgZ2V0dGluZyByaWQgb2YgdGhlIGpvYiBzdWJtaXNzaW9uIGxvb3AgYW5kIGRpcmVjdGx5IG1hcCBvdXIgaW5wdXQgYXJyYXlzIHRvIGpvYiBzdWJtaXNzaW9ucywgdXNpbmcgZXhlY3V0b3IubWFwX2FycmF5IGFuZCBzb21lIGFzeW5jaHJvbm91cyBvcGVyYXRpb25zLlxuIiwKICAgICAgICAiTm90ZSB0aGF0IHN1Y2ggY29tcGFjdCBhcHByb2FjaCBtaWdodCBiZSBtb3JlIGRpZmZpY3VsdCB0byBkZWJ1Zy4iCiAgICAgIF0KICAgIH0sCiAgICB7CiAgICAgICJjZWxsX3R5cGUiOiAiY29kZSIsCiAgICAgICJtZXRhZGF0YSI6IHt9LAogICAgICAic291cmNlIjogWwogICAgICAgICJpbXBvcnQgYXN5bmNpb1xuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGp1c3QgYWRkIGEvYiwgbXVsdGlwbHkgYnkgYyBhbmQgd2FpdCBmb3IgYiBzZWNvbmRzXG4iLAogICAgICAgICJkZWYgc2ltcGxlX2Z1bmN0aW9uKGEsIGIsIGMpOlxuIiwKICAgICAgICAiICAgIG91dHB1dD0oYSArIGIpKmNcbiIsCiAgICAgICAgIiAgICB0aW1lLnNsZWVwKGIpXG4iLAogICAgICAgICIgICAgcmV0dXJuIG91dHB1dFxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGRlZmluZSBhcnJheXMgbWF0Y2hlZCBpbiBsZW5ndGggZm9yIHRoZSBpdGVyYXRpb24gKGlmIHlvdSBoYXZlIGNvbnN0YW50IHBhcmFtZXRlcnMsIHlvdSBjYW4gYWx3YXlzIGR1cGxpY2F0ZSB0aGVtIGFzIGRvbmUgd2l0aCBcImNcIiBiZWxvdylcbiIsCiAgICAgICAgImEgPSBbMSwgMiwgMiwgMSwgMCwgMV1cbiIsCiAgICAgICAgImIgPSBbMTAsIDIwLCAzMCwgNDAsIDMwLCAxMF1cbiIsCiAgICAgICAgImM9WzAuMV0qbGVuKGIpXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgbWFrZSBzdXJlIG91ciBhcnJheXMgYXJlIG1hdGNoZWQgaW4gbGVuZ3RoXG4iLAogICAgICAgICJhc3NlcnQgbGVuKGEpPT1sZW4oYik9PWxlbihjKVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIHByZXBhcmUgZXhlY3V0b3JcbiIsCiAgICAgICAgImV4ZWN1dG9yID0gc3VibWl0aXQuU2x1cm1FeGVjdXRvcihmb2xkZXI9b3MuZ2V0Y3dkKCkrJy90dXRvX2xvZ3MvJywgbWF4X251bV90aW1lb3V0PTUpXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgZGVmaW5lIG1heGpvYnMgdG8gYSBsb3cgdmFsdWUgdG8gaWxsdXN0cmF0ZVxuIiwKICAgICAgICAibWF4am9icz0zXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgYWRkIHRoZSBtYXhqb2JzIGFyZ3VtZW50XG4iLAogICAgICAgICJleGVjdXRvci51cGRhdGVfcGFyYW1ldGVycyhhcnJheV9wYXJhbGxlbGlzbT1tYXhqb2JzLG1lbT0yMDAwLCB0aW1lPTYwMCwgcGFydGl0aW9uID1cIkNQVVwiLCBub2Rlcz0xLCBub2RlbGlzdD0nbm9kZVsxOC0yMV0nLGNwdXNfcGVyX3Rhc2s9MSlcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBleGVjdXRlIHRoZSBqb2IgKG5vdGUgdGhlIC5tYXBfYXJyYXkgY29tbWFuZCB0aGF0IGRpZmZlcmVudCBmcm9tIHRoZSAuc3VibWl0IGNvbW1hbmQgdXNlZCBhYm92ZSlcbiIsCiAgICAgICAgImpvYnMgPSBleGVjdXRvci5tYXBfYXJyYXkoc2ltcGxlX2Z1bmN0aW9uLCBhLCBiLCBjKSAgIyBqdXN0IGEgbGlzdCBvZiBqb2JzXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgcHJpbnQgcmVzdWx0cyBhcyB0aGV5IGJlY29tZSBhdmFpbGFibGVcbiIsCiAgICAgICAgImZvciBhd3MgaW4gYXN5bmNpby5hc19jb21wbGV0ZWQoW2ouYXdhaXRhYmxlKCkucmVzdWx0KCkgZm9yIGogaW4gam9ic10pOlxuIiwKICAgICAgICAiICAgIHJlc3VsdCA9IGF3YWl0IGF3c1xuIiwKICAgICAgICAiICAgIHByaW50KFwicmVzdWx0IG9mIGNvbXB1dGF0aW9uOiBcIiArIHN0cihyZXN1bHQpKVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIG5vdGUgdGhhdCB3ZSB1c2UgaGVyZSBhbiBhc3luY2hyb25vdXMgbWV0aG9kIGJhc2VkIG9uIGFzeW5jaW9cbiIsCiAgICAgICAgIiMgaXQgZXNzZW50aWFsIGRvIHNvbWV0aGluZyBzaW1pbGFyIHRvIHdoYXQgd2Ugd2VyZSBkb2luZyBhZnRlciBcbiIsCiAgICAgICAgIiMgXCIjIHdhaXQgZm9yIGpvYiBjb21wbGV0aW9uXCIsIGJ1dCBpbiBhIG11Y2ggbW9yZSBjb21wYWN0IHdheVxuIiwKICAgICAgICAiIyBob3dldmVyLCB0aGUgcmVvcmRlcmluZyBvZiBvdXRwdXRzIHdydCB0byBpbnB1dHMgaXMgbm90IGltcGxlbWVudGVkIgogICAgICBdLAogICAgICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgICAgIm91dHB1dHMiOiBbXQogICAgfSwKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICAgICJtZXRhZGF0YSI6IHt9LAogICAgICAic291cmNlIjogWwogICAgICAgICIjIyMgU3VibWl0dGluZyBhbmQgZ29pbmcgaG9tZVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJPZnRlbiwgd2hlbiB3ZSBoYXZlIHZlcnkgbG9uZyBqb2JzLCB3ZSB3YW50IHRvIHN1Ym1pdCB0aGVzZSBqb2JzLCBnbyBob21lIGFuZCBjb21lIGJhY2sgdGhlIG5leHQgZGF5IG9yIHRoZSBuZXh0IHdlZWsgdG8gY2hlY2sgdGhlIHJlc3VsdHMgb2YgdGhlaXIgY29tcHV0YXRpb25zLlxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJJbiB0aGlzIGNhc2UsIHdlICoqc2hvdWxkIG5vdCoqIGV4cGVjdCBvdXIgbm90ZWJvb2sgdG8gYmUgc3RpbGwgYWxpdmUgd2hlbiB3ZSBjb21lIGJhY2suIEluc3RlYWQsIHdlIHNob3VsZCBhZG9wdCB0aGUgbW9yZSBzdGFuZGFyZCBhcHByb2FjaCBvZiB3cml0aW5nIGRvd24gb3VyIHJlc3VsdHMgYW5kIGxvYWQgdGhlbSBpbiBhIG5ldyBqdXB5dGVyIHNlc3Npb24gYWZ0ZXJ3YXJkcyFcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiVGhpcyBpcyB3aGF0IHdlIGlsbHVzdHJhdGUgaW4gdGhlIGZpbmFsIGV4YW1wbGUgYmVsb3cuIgogICAgICBdCiAgICB9LAogICAgewogICAgICAiY2VsbF90eXBlIjogImNvZGUiLAogICAgICAibWV0YWRhdGEiOiB7fSwKICAgICAgInNvdXJjZSI6IFsKICAgICAgICAiIyB3cml0ZSBpbiBqb2Jfb3V0cHV0IHdpdGhpbiBvdXIgZGlyZWN0b3J5XG4iLAogICAgICAgICJqb2Jfb3V0cHV0X2ZvbGRlcj1vcy5nZXRjd2QoKSsnL3R1dG9fb3V0cHV0LydcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBtYWtlIHN1cmUgb3VyIG91dHB1dCBmb2xkZXIgZXhpc3RzXG4iLAogICAgICAgICJpZiBub3Qgb3MucGF0aC5leGlzdHMoam9iX291dHB1dF9mb2xkZXIpOlxuIiwKICAgICAgICAiICBvcy5tYWtlZGlycyhqb2Jfb3V0cHV0X2ZvbGRlcilcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBqdXN0IGFkZCBhL2IsIG11bHRpcGx5IGJ5IGMsIHdhaXQgZm9yIGIgc2Vjb25kcyBhbmQgd3JpdGUgZG93biB0aGUgcmVzdWx0IHRvIGFuIG91dHB1dCBmb2xkZXIgKGMpXG4iLAogICAgICAgICJkZWYgc2ltcGxlX2Z1bmN0aW9uX3dyaXRlKGEsIGIsIGMpOlxuIiwKICAgICAgICAiICAgIG91dHB1dD0oYSArIGIpXG4iLAogICAgICAgICIgICAgdGltZS5zbGVlcChiKVxuIiwKICAgICAgICAiICAgIG91dHB1dF9maWxlcGF0aD1vcy5wYXRoLmpvaW4oYywgc3RyKGEpICsgJ18nICsgc3RyKGIpICsgJy50eHQnKVxuIiwKICAgICAgICAiICAgIHdpdGggb3BlbihvdXRwdXRfZmlsZXBhdGgsICd3JykgYXMgZmlsZTpcbiIsCiAgICAgICAgIiAgICAgIGZpbGUud3JpdGUoZid7YX1cXG4nKVxuIiwKICAgICAgICAiICAgICAgZmlsZS53cml0ZShmJ3tifVxcbicpXG4iLAogICAgICAgICIgICAgXG4iLAogICAgICAgICIjIGRlZmluZSBhcnJheXMgbWF0Y2hlZCBpbiBsZW5ndGggZm9yIHRoZSBpdGVyYXRpb24gKGlmIHlvdSBoYXZlIGNvbnN0YW50IHBhcmFtZXRlcnMsIHlvdSBjYW4gYWx3YXlzIGR1cGxpY2F0ZSB0aGVtIGFzIGRvbmUgd2l0aCBcImNcIiBiZWxvdylcbiIsCiAgICAgICAgImEgPSBbMSwgMiwgMiwgMSwgMCwgMV1cbiIsCiAgICAgICAgImIgPSBbMTAsIDIwLCAzMCwgNDAsIDMwLCAxMF1cbiIsCiAgICAgICAgImM9W2pvYl9vdXRwdXRfZm9sZGVyXSpsZW4oYilcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBtYWtlIHN1cmUgb3VyIGFycmF5cyBhcmUgbWF0Y2hlZCBpbiBsZW5ndGhcbiIsCiAgICAgICAgImFzc2VydCBsZW4oYSk9PWxlbihiKT09bGVuKGMpXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIiMgcHJlcGFyZSBleGVjdXRvclxuIiwKICAgICAgICAiZXhlY3V0b3IgPSBzdWJtaXRpdC5TbHVybUV4ZWN1dG9yKGZvbGRlcj1vcy5nZXRjd2QoKSsnL3R1dG9fbG9ncy8nLCBtYXhfbnVtX3RpbWVvdXQ9NSlcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBkZWZpbmUgbWF4am9icyB0byBhIGxvdyB2YWx1ZSB0byBpbGx1c3RyYXRlXG4iLAogICAgICAgICJtYXhqb2JzPTNcbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyBwYXNzIHBhcmFtZXRlciB0byB0aGUgZXhlY3V0b3JcbiIsCiAgICAgICAgImV4ZWN1dG9yLnVwZGF0ZV9wYXJhbWV0ZXJzKGFycmF5X3BhcmFsbGVsaXNtPW1heGpvYnMsbWVtPTIwMDAsIHRpbWU9NjAwLCBwYXJ0aXRpb24gPVwiQ1BVXCIsIG5vZGVzPTEsIG5vZGVsaXN0PSdub2RlWzE4LTIxXScsY3B1c19wZXJfdGFzaz0xKVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIGV4ZWN1dGUgdGhlIGpvYiAobm90ZSB0aGUgLm1hcF9hcnJheSBjb21tYW5kIHRoYXQgZGlmZmVyZW50IGZyb20gdGhlIC5zdWJtaXQgY29tbWFuZCB1c2VkIGFib3ZlKVxuIiwKICAgICAgICAiam9icyA9IGV4ZWN1dG9yLm1hcF9hcnJheShzaW1wbGVfZnVuY3Rpb25fd3JpdGUsIGEsIGIsIGMpICAjIGp1c3QgYSBsaXN0IG9mIGpvYnNcbiIsCiAgICAgICAgInByaW50KCcjIyMgYWxsIGpvYnMgc3VibWl0dGVkICMjIycpXG4iLAogICAgICAgICJwcmludCgndGhlIGtlcm5lbCB3aWxsIG5vdyBiZSBraWxsZWQgKGFuZCB5b3VyIG5vdGVib29rIHdpbGwgY3Jhc2gpIGJ1dCB5b3UgY2FuIHNlZSB0aGF0IHlvdXIgam9icyBrZWVwIHJ1bm5pbmcgYnkgdHlwaW5nIHNxdWV1ZSBpbiB0aGUgdGVybWluYWwnKVxuIiwKICAgICAgICAicHJpbnQoJ2NydWNpYWxseSwgdGhlIGNvbnRlbnQgb2YgdHV0b19vdXRwdXQvIHdpbGwgc3RpbGwgYmUgdXBkYXRlZCBpbiB0aGUgYmFja2dyb3VuZCEnKVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICIjIHdhaXQgYSBsaXR0bGUgYW5kIGtpbGwgbWFudWFsbHkgdGhlIGtlcm5lbCBwcm9jZXNzXG4iLAogICAgICAgICJ0aW1lLnNsZWVwKDMpXG4iLAogICAgICAgICJvcy5zeXN0ZW0oJ2tpbGwgJyArIHN0cihvcy5nZXRwaWQoKSkpIgogICAgICBdLAogICAgICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwKICAgICAgIm91dHB1dHMiOiBbXQogICAgfSwKICAgIHsKICAgICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsCiAgICAgICJtZXRhZGF0YSI6IHt9LAogICAgICAic291cmNlIjogWwogICAgICAgICJJdCBpcyBhIGdvb2QgcHJhY3RpY2UgdG8gcnVuIGBvcy5zeXN0ZW0oJ2tpbGwgJyArIHN0cihvcy5nZXRwaWQoKSkpYCBpZiB5b3UgZG9uJ3QgbmVlZCB0byB1c2UgdGhlIG5vdGVib29rIGFueW1vcmUuIFNpbXBseSBjbG9zaW5nIGl0IG1heSBub3QgaW50ZXJydXB0IHRoZSBwcm9jZXNzIGFuZCBmcmVlIHRoZSByZXNvdXJjZXMgZm9yIHRoZSBvdGhlciB1c2Vycy5cbiIsCiAgICAgICAgIlxuIiwKICAgICAgICAiIyMgQ29uY2x1c2lvblxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJXaGV0aGVyIHlvdSBuZWVkIHNldmVyYWwgQ1BVcywgYW5kIGhvdyB0byBzZXQgbWVtb3J5IGFuZCB0aW1lb3V0IHBhcmFtZXRlcnMgZGVwZW5kIG9uIHRoZSBmdW5jdGlvbnMgeW91IHVzZS4gXG4iLAogICAgICAgICJcbiIsCiAgICAgICAgIklmIHlvdSBhcmUgbm90IHN1cmUsIGxvb2sgaW4gdGhlIGRvY3VtZW50YXRpb24gb2YgeW91ciBwYWNrYWdlcyBvciB0ZXN0IGZvciBhIHBlcmZvcm1hbmNlIGltcHJvdmVtZW50IGFzIHdlIGp1c3QgZGlkIVxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJJbiBhbnkgY2FzZSwgaXQgaXMgYSBnb29kIGlkZWEgdG8gcnVuIGBvcy5zeXN0ZW0oJ2tpbGwgJyArIHN0cihvcy5nZXRwaWQoKSkpYFxuIiwKICAgICAgICAiXG4iLAogICAgICAgICJ7ezwgaW5jbHVkZSBfY29tbWVudF9ib3gucW1kID59fSIKICAgICAgXQogICAgfQogIF0sCiAgIm1ldGFkYXRhIjogewogICAgImtlcm5lbHNwZWMiOiB7CiAgICAgICJuYW1lIjogImJlaGF2aW9yYWwtYW5hbHlzaXMiLAogICAgICAibGFuZ3VhZ2UiOiAicHl0aG9uIiwKICAgICAgImRpc3BsYXlfbmFtZSI6ICJiZWhhdmlvcmFsLWFuYWx5c2lzIgogICAgfQogIH0sCiAgIm5iZm9ybWF0IjogNCwKICAibmJmb3JtYXRfbWlub3IiOiA0Cn0=').then(res => res.blob()).then(blob => {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'Tutorial_Cluster_Part2.ipynb.ipynb'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+        });"><button class="btn btn-default downloadthis  " id="dnldts24724"><i class="bi bi-download"></i> Download this notebook </button></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are working on the CRNL cluster, you can find also the corresponding notebook at this location: <code>/crnldata/projets_communs/tutorials/</code></p>
+</div>
+</div>
+<p>If you managed to complete the first part of this tutorial, you will also be able to <code>pip install</code> whatever in your virtual environment and do some computing. However, there is more to know.</p>
+<section id="sharing-the-resources" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-the-resources">Sharing the resources</h2>
+<p>Because it needs to remain highly flexible and adapted to a wide range of needs, the cluster is not very constrained with respect to resource allocation.</p>
+<p>If you do not pay attention, you might monopolize all the CPUs or all the memory with your jobs, without leaving anything behind for your colleagues.</p>
+<p>That why evaluating the amount of memory you need and the maximum time that a non-bugged job might take is important! Based on this information, you can adjust <code>mem_gb</code> and <code>timeout_min</code> (timeout in minutes) well.</p>
+<p>Similarly, you may need to decide how many CPUs will be useful for you. Can you go with only one without losing much? Then use only 1. Do you divide your computation time by a huge factor if you use more, then use more. But how will you know?</p>
+<p>What follows should help you with all this.</p>
+<section id="anticipating-time-memory-consumption" class="level3">
+<h3 class="anchored" data-anchor-id="anticipating-time-memory-consumption">Anticipating time &amp; memory consumption</h3>
+<p>Hereafter, we use memory_usage() which has a slighty unusual way of passing arguments to its target function. All positional arguments (those without an = sign in the <em>def</em>) are passed together, and all non-positional arguments (also called key-value pairs) are passed together. For example, we could try:<br> <code>mem_usage=memory_usage((somefunc,(0.1,4,0.88), {'file' : 'whatever.csv','index' : 0 }))</code> <br> If we had a function defined like this: <br> <code>somefunc(a,b,c, file=None, index=-1)</code></p>
+<div id="2cd57589" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">###### simple memory/time check</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> memory_profiler <span class="im">import</span> memory_usage</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define a single thread function</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duplicate_ones(a, n<span class="op">=</span><span class="dv">100</span>, x<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> time</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> b</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicate ones a million time</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Duplicate ones a thousand times'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>mem_usage<span class="op">=</span>memory_usage((duplicate_ones,(<span class="dv">1</span>,), {<span class="st">'n'</span> : <span class="bu">int</span>(<span class="fl">1e3</span>)}))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in MB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> <span class="bu">max</span>(mem_usage))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in GB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">max</span>(mem_usage)<span class="op">/</span><span class="dv">1000</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicate ones 100 million times</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Duplicate ones a million time'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>mem_usage<span class="op">=</span>memory_usage((duplicate_ones,(<span class="dv">1</span>,), {<span class="st">'n'</span> : <span class="bu">int</span>(<span class="fl">1e8</span>)}))</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in MB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> <span class="bu">max</span>(mem_usage))</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in GB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">max</span>(mem_usage)<span class="op">/</span><span class="dv">1000</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Do you notice the difference in time and memory due to the change in duplication size?'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="evaluating-cpu-count-needs" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-cpu-count-needs">Evaluating CPU count needs</h3>
+<p>How to evaluate whether our job will benefit from having more CPU available to them? If you don’t know whether your function use parallelization or not, because you relies on high-level toolboxes, then you can evaluate that empirically by looking at the time your jobs take depending on the number of CPUs you allow.</p>
+<p>Let’s try first with our last function. It should take about 10s to run.</p>
+<div id="0a665dca" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> submitit</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># these commands may not be necessary but helped overcoming an error initially</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># cpu counts to test</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>nCPUs_totest<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over cpu counts</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    job <span class="op">=</span> executor.submit(duplicate_ones, <span class="dv">1</span>, <span class="bu">int</span>(<span class="fl">1e8</span>))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    job.n_cpus<span class="op">=</span>cpus</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus submitted"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    joblist.append(job)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for job completion</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>njobs_finished <span class="op">=</span> <span class="bu">sum</span>(job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    doneIdx<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> job.done():</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            doneIdx<span class="op">=</span>j</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># report last job finished</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus returned in "</span> <span class="op">+</span> <span class="bu">str</span>(time.time()<span class="op">-</span>start_time) <span class="op">+</span> <span class="st">" seconds"</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        joblist.pop(doneIdx)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s redo exactly the same thing, with a numpy function that may benefit from multiple CPUs (i.e.&nbsp;np.dot).</p>
+<div id="4dd83dbc" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_multiply(size):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate large random matrices</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  A <span class="op">=</span> np.random.rand(size, size)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  B <span class="op">=</span> np.random.rand(size, size)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Measure time for matrix multiplication</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  C <span class="op">=</span> np.dot(A, B)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="st">'this function does not return anything special'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">1</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># cpu counts to test</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>nCPUs_totest<span class="op">=</span>[<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># define the max number of jobs that may run in parallel</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over cpu counts</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check how many job are running (not done) and wait it they exceed our limit</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">sum</span>(<span class="kw">not</span> job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)<span class="op">&gt;</span>maxjobs:</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'wait to submit new job'</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">3</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    job <span class="op">=</span> executor.submit(mat_multiply, <span class="dv">8000</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    job.n_cpus<span class="op">=</span>cpus</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus submitted"</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    joblist.append(job)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for job completion</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>njobs_finished <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    doneIdx<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> job.done():</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>            doneIdx<span class="op">=</span>j</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># report last job finished and print stats</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus returned in "</span> <span class="op">+</span> <span class="bu">str</span>(time.time()<span class="op">-</span>start_time) <span class="op">+</span> <span class="st">" seconds"</span>)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job status: "</span> <span class="op">+</span> job.state)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        joblist.pop(doneIdx)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="scaling-up-responsibly" class="level3">
+<h3 class="anchored" data-anchor-id="scaling-up-responsibly">Scaling up <strong>responsibly</strong></h3>
+<p>In the loop above, you might have noticed something new: we’ve implemented another good practice by self-limiting the number of jobs we will run in parallel on the cluster. Indeed, it might be ok to launch 40 or even 100 parallel jobs if you are in a hurry, but the amount of CPUs in the cluster is not infinite, and neither is the amount of memory.</p>
+<p><strong>Number of CPUs</strong>: you can get this information by running <code>sinfo -o%C</code> in your terminal, or <code>!sinfo -o%C</code> in the notebook. The CPU partitions have about 350 cores available at the time of writing <strong>Amount of memory</strong>: you can see this by running <code>sinfo -o "%P %n %m"</code> in your terminal (or with a ! in the notebook). The CPU partitions have about 2.3TB of memory at the time of writing.</p>
+<p>If it is a sunday and nobody is using the cluster, it is probably fine to increase <code>maxjobs</code> to 100 or more (note that if you require 4 cpu per task, it means that you are actually requiring 400 cpus overall!). But if it is 10.30pm on a tuesday, using this parameter might be the same as walking to the coffee machine and taking all the coffee reserves to your office! So, take the habit of setting your <code>maxjobs</code>-like parameter on a daily basis after checking <code>sinfo -o%C</code>.</p>
+<div id="5f28a956" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check node and CPU information</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### Node counts: </span><span class="ch">\n</span><span class="st">A: currently in use \B available"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>A</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### CPU counts: </span><span class="ch">\n</span><span class="st">A: core currently in use </span><span class="ch">\n</span><span class="st">I: available </span><span class="ch">\n</span><span class="st">O: unavailable (maintenance, down, etc) </span><span class="ch">\n</span><span class="st">T: total"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>C</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># check some stats of our last job</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### CPU time and MaxRSS of our last job (about 1000Mb should be added to your MaxRSS (Mb) in order to cover safely the memory needs of the python runtime)###'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>os.system(<span class="ss">f'sacct -j </span><span class="sc">{</span>job<span class="sc">.</span>job_id<span class="sc">}</span><span class="ss"> --format="CPUTime,MaxRSS"'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="a-more-compact-approach" class="level3">
+<h3 class="anchored" data-anchor-id="a-more-compact-approach">A more compact approach</h3>
+<p>In the above examples, we have decomposed most operations using <code>for</code> loops in order to illustrate the different concepts. But with more advanced methods we can compact a lot the code used.</p>
+<p>The example below (adapted from <a href="https://github.com/facebookincubator/submitit/blob/main/docs/examples.md">submitit documentation</a>) allows getting rid of the job submission loop and directly map our input arrays to job submissions, using executor.map_array and some asynchronous operations. Note that such compact approach might be more difficult to debug.</p>
+<div id="e7849a67" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c and wait for b seconds</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_function(a, b, c):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>(a <span class="op">+</span> b)<span class="op">*</span>c</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    time.sleep(b)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define arrays matched in length for the iteration (if you have constant parameters, you can always duplicate them as done with "c" below)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">10</span>]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>[<span class="fl">0.1</span>]<span class="op">*</span><span class="bu">len</span>(b)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our arrays are matched in length</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># add the maxjobs argument</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function, a, b, c)  <span class="co"># just a list of jobs</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># print results as they become available</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> aws <span class="kw">in</span> asyncio.as_completed([j.awaitable().result() <span class="cf">for</span> j <span class="kw">in</span> jobs]):</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="cf">await</span> aws</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"result of computation: "</span> <span class="op">+</span> <span class="bu">str</span>(result))</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we use here an asynchronous method based on asyncio</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># it essential do something similar to what we were doing after </span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># "# wait for job completion", but in a much more compact way</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># however, the reordering of outputs wrt to inputs is not implemented</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="submitting-and-going-home" class="level3">
+<h3 class="anchored" data-anchor-id="submitting-and-going-home">Submitting and going home</h3>
+<p>Often, when we have very long jobs, we want to submit these jobs, go home and come back the next day or the next week to check the results of their computations.</p>
+<p>In this case, we <strong>should not</strong> expect our notebook to be still alive when we come back. Instead, we should adopt the more standard approach of writing down our results and load them in a new jupyter session afterwards!</p>
+<p>This is what we illustrate in the final example below.</p>
+<div id="3b08052b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write in job_output within our directory</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>job_output_folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_output/'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our output folder exists</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(job_output_folder):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  os.makedirs(job_output_folder)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c, wait for b seconds and write down the result to an output folder (c)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_function_write(a, b, c):</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>(a <span class="op">+</span> b)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    time.sleep(b)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    output_filepath<span class="op">=</span>os.path.join(c, <span class="bu">str</span>(a) <span class="op">+</span> <span class="st">'_'</span> <span class="op">+</span> <span class="bu">str</span>(b) <span class="op">+</span> <span class="st">'.txt'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(output_filepath, <span class="st">'w'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="bu">file</span>.write(<span class="ss">f'</span><span class="sc">{</span>a<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      <span class="bu">file</span>.write(<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># define arrays matched in length for the iteration (if you have constant parameters, you can always duplicate them as done with "c" below)</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">10</span>]</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>[job_output_folder]<span class="op">*</span><span class="bu">len</span>(b)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our arrays are matched in length</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># pass parameter to the executor</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function_write, a, b, c)  <span class="co"># just a list of jobs</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### all jobs submitted ###'</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'the kernel will now be killed (and your notebook will crash) but you can see that your jobs keep running by typing squeue in the terminal'</span>)</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'crucially, the content of tuto_output/ will still be updated in the background!'</span>)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># wait a little and kill manually the kernel process</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="dv">3</span>)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'kill '</span> <span class="op">+</span> <span class="bu">str</span>(os.getpid()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is a good practice to run <code>os.system('kill ' + str(os.getpid()))</code> if you don’t need to use the notebook anymore. Simply closing it may not interrupt the process and free the resources for the other users.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Whether you need several CPUs, and how to set memory and timeout parameters depend on the functions you use.</p>
+<p>If you are not sure, look in the documentation of your packages or test for a performance improvement as we just did!</p>
+<p>In any case, it is a good idea to run <code>os.system('kill ' + str(os.getpid()))</code></p>
+</section>
+<section id="leave-a-message" class="level2">
+<h2 class="anchored" data-anchor-id="leave-a-message">Leave a message</h2>
+<p>Feel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g.&nbsp;to get a faster response), you may include their Github handle in your message (e.g. <span class="citation" data-cites="romainligneul">@romainligneul</span> or <span class="citation" data-cites="samuelgarcia">@samuelgarcia</span>).</p>
+<script src="https://giscus.app/client.js" data-repo="crnl-lab/cluster-guidelines" data-repo-id="R_kgDOMUrgpg" data-category="SiteComments" data-category-id="DIC_kwDOMUrgps4CgtKj" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Part 2: Good practices'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: false</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>{{&lt; downloadthis www/Tutorial_Cluster_Part2.ipynb dname="Tutorial_Cluster_Part2.ipynb" label="Download this notebook" &gt;}}</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>If you are working on the CRNL cluster, you can find also the corresponding notebook at this location: <span class="in">`/crnldata/projets_communs/tutorials/`</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>If you managed to complete the first part of this tutorial, you will also be able to <span class="in">`pip install`</span> whatever in your virtual environment and do some computing.</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>However, there is more to know.</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sharing the resources</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>Because it needs to remain highly flexible and adapted to a wide range of needs, the cluster is not very constrained with respect to resource allocation.</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>If you do not pay attention, you might monopolize all the CPUs or all the memory with your jobs, without leaving anything behind for your colleagues.</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>That why evaluating the amount of memory you need and the maximum time that a non-bugged job might take is important! Based on this information, you can adjust <span class="in">`mem_gb`</span> and <span class="in">`timeout_min`</span> (timeout in minutes) well.</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>Similarly, you may need to decide how many CPUs will be useful for you. Can you go with only one without losing much? Then use only 1. Do you divide your computation time by a huge factor if you use more, then use more. But how will you know?</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>What follows should help you with all this.</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Anticipating time &amp; memory consumption</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>Hereafter, we use memory_usage() which has a slighty unusual way of passing arguments to its target function.</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>All positional arguments (those without an = sign in the *def*) are passed together, and all non-positional arguments (also called key-value pairs) are passed together.</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>For example, we could try:&lt;br&gt;</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="in">`mem_usage=memory_usage((somefunc,(0.1,4,0.88), {'file' : 'whatever.csv','index' : 0 }))`</span> &lt;br&gt;</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>If we had a function defined like this: &lt;br&gt;</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="in">`somefunc(a,b,c, file=None, index=-1)`</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">###### simple memory/time check</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> memory_profiler <span class="im">import</span> memory_usage</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co"># define a single thread function</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duplicate_ones(a, n<span class="op">=</span><span class="dv">100</span>, x<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> time</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [a] <span class="op">*</span> n</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> b</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicate ones a million time</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Duplicate ones a thousand times'</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>mem_usage<span class="op">=</span>memory_usage((duplicate_ones,(<span class="dv">1</span>,), {<span class="st">'n'</span> : <span class="bu">int</span>(<span class="fl">1e3</span>)}))</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in MB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> <span class="bu">max</span>(mem_usage))</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in GB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">max</span>(mem_usage)<span class="op">/</span><span class="dv">1000</span>))</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicate ones 100 million times</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Duplicate ones a million time'</span>)</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>mem_usage<span class="op">=</span>memory_usage((duplicate_ones,(<span class="dv">1</span>,), {<span class="st">'n'</span> : <span class="bu">int</span>(<span class="fl">1e8</span>)}))</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in MB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> <span class="bu">max</span>(mem_usage))</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Maximum memory usage (in GB): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">max</span>(mem_usage)<span class="op">/</span><span class="dv">1000</span>))</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Time taken (in s): </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (end_time<span class="op">-</span>start_time))</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Do you notice the difference in time and memory due to the change in duplication size?'</span>)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating CPU count needs</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>How to evaluate whether our job will benefit from having more CPU available to them?</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>If you don't know whether your function use parallelization or not, because you relies on high-level toolboxes, then you can evaluate that empirically by looking at the time your jobs take depending on the number of CPUs you allow.</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>Let's try first with our last function. It should take about 10s to run.</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| editable: true</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| slideshow: {slide_type: ''}</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="co">#| tags: []</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> submitit</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co"># these commands may not be necessary but helped overcoming an error initially</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">1</span>)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="co"># cpu counts to test</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>nCPUs_totest<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over cpu counts</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>    job <span class="op">=</span> executor.submit(duplicate_ones, <span class="dv">1</span>, <span class="bu">int</span>(<span class="fl">1e8</span>))</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>    job.n_cpus<span class="op">=</span>cpus</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus submitted"</span>)</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>    joblist.append(job)</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for job completion</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>njobs_finished <span class="op">=</span> <span class="bu">sum</span>(job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)</span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    doneIdx<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> job.done():</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>            doneIdx<span class="op">=</span>j</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>        <span class="co"># report last job finished</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus returned in "</span> <span class="op">+</span> <span class="bu">str</span>(time.time()<span class="op">-</span>start_time) <span class="op">+</span> <span class="st">" seconds"</span>)</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>        joblist.pop(doneIdx)</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>Now let's redo exactly the same thing, with a numpy function that may benefit from multiple CPUs (i.e. np.dot).</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_multiply(size):</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate large random matrices</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>  A <span class="op">=</span> np.random.rand(size, size)</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>  B <span class="op">=</span> np.random.rand(size, size)</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Measure time for matrix multiplication</span></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>  C <span class="op">=</span> np.dot(A, B)</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="st">'this function does not return anything special'</span></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">1</span>)</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'SLURM_TRES_PER_TASK'</span>] <span class="op">=</span> os.environ[<span class="st">'SLURM_CPUS_PER_TASK'</span>]</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a><span class="co"># cpu counts to test</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>nCPUs_totest<span class="op">=</span>[<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>]</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="co"># define the max number of jobs that may run in parallel</span></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over cpu counts</span></span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>jcount<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>joblist<span class="op">=</span>[]</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cpus <span class="kw">in</span> <span class="bu">enumerate</span>(nCPUs_totest):</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>    executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>    executor.update_parameters(mem<span class="op">=</span><span class="dv">4000</span>, time<span class="op">=</span><span class="dv">300</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span>cpus)</span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check how many job are running (not done) and wait it they exceed our limit</span></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">sum</span>(<span class="kw">not</span> job.done() <span class="cf">for</span> job <span class="kw">in</span> joblist)<span class="op">&gt;</span>maxjobs:</span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'wait to submit new job'</span>)</span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">3</span>)</span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>    job <span class="op">=</span> executor.submit(mat_multiply, <span class="dv">8000</span>)</span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a>    job.n_cpus<span class="op">=</span>cpus</span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus submitted"</span>)</span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>    joblist.append(job)</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>    jcount<span class="op">=</span>jcount<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for job completion</span></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a>njobs_finished <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> </span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> njobs_finished<span class="op">&lt;</span>jcount:</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>    doneIdx<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, job <span class="kw">in</span> <span class="bu">enumerate</span>(joblist):</span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> job.done():</span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>            doneIdx<span class="op">=</span>j</span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> doneIdx<span class="op">&gt;=</span><span class="dv">0</span>:</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(njobs_finished)<span class="op">+</span><span class="st">' on '</span> <span class="op">+</span> <span class="bu">str</span>(jcount))</span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a>        <span class="co"># report last job finished and print stats</span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job with "</span> <span class="op">+</span> <span class="bu">str</span>(job.n_cpus) <span class="op">+</span> <span class="st">" cpus returned in "</span> <span class="op">+</span> <span class="bu">str</span>(time.time()<span class="op">-</span>start_time) <span class="op">+</span> <span class="st">" seconds"</span>)</span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"job status: "</span> <span class="op">+</span> job.state)</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>        joblist.pop(doneIdx)</span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>        njobs_finished<span class="op">=</span>njobs_finished<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">### Do you think that increasing the number of CPUs made a big difference? ###'</span>)</span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scaling up **responsibly**</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>In the loop above, you might have noticed something new: we've implemented another good practice by self-limiting the number of jobs we will run in parallel on the cluster. Indeed, it might be ok to launch 40 or even 100 parallel jobs if you are in a hurry, but the amount of CPUs in the cluster is not infinite, and neither is the amount of memory.</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>**Number of CPUs**: you can get this information by running <span class="in">`sinfo -o%C`</span> in your terminal, or <span class="in">`!sinfo -o%C`</span> in the notebook. The CPU partitions have about 350 cores available at the time of writing</span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>**Amount of memory**: you can see this by running <span class="in">`sinfo -o "%P %n %m"`</span> in your terminal (or with a ! in the notebook). The CPU partitions have about 2.3TB of memory at the time of writing.</span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>If it is a sunday and nobody is using the cluster, it is probably fine to increase <span class="in">`maxjobs`</span> to 100 or more (note that if you require 4 cpu per task, it means that you are actually requiring 400 cpus overall!). But if it is 10.30pm on a tuesday, using this parameter might be the same as walking to the coffee machine and taking all the coffee reserves to your office! So, take the habit of setting your <span class="in">`maxjobs`</span>-like parameter on a daily basis after checking <span class="in">`sinfo -o%C`</span>.</span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a><span class="co"># check node and CPU information</span></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### Node counts: </span><span class="ch">\n</span><span class="st">A: currently in use \B available"</span>)</span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>A</span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"### CPU counts: </span><span class="ch">\n</span><span class="st">A: core currently in use </span><span class="ch">\n</span><span class="st">I: available </span><span class="ch">\n</span><span class="st">O: unavailable (maintenance, down, etc) </span><span class="ch">\n</span><span class="st">T: total"</span>)</span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sinfo <span class="op">-</span>o<span class="op">%</span>C</span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a><span class="co"># check some stats of our last job</span></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### CPU time and MaxRSS of our last job (about 1000Mb should be added to your MaxRSS (Mb) in order to cover safely the memory needs of the python runtime)###'</span>)</span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>os.system(<span class="ss">f'sacct -j </span><span class="sc">{</span>job<span class="sc">.</span>job_id<span class="sc">}</span><span class="ss"> --format="CPUTime,MaxRSS"'</span>)</span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### A more compact approach</span></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a>In the above examples, we have decomposed most operations using <span class="in">`for`</span> loops in order to illustrate the different concepts. But with more advanced methods we can compact a lot the code used.</span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a>The example below (adapted from <span class="co">[</span><span class="ot">submitit documentation</span><span class="co">](https://github.com/facebookincubator/submitit/blob/main/docs/examples.md)</span>) allows getting rid of the job submission loop and directly map our input arrays to job submissions, using executor.map_array and some asynchronous operations.</span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a>Note that such compact approach might be more difficult to debug.</span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c and wait for b seconds</span></span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_function(a, b, c):</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>(a <span class="op">+</span> b)<span class="op">*</span>c</span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a>    time.sleep(b)</span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a><span class="co"># define arrays matched in length for the iteration (if you have constant parameters, you can always duplicate them as done with "c" below)</span></span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">10</span>]</span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>[<span class="fl">0.1</span>]<span class="op">*</span><span class="bu">len</span>(b)</span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our arrays are matched in length</span></span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a><span class="co"># add the maxjobs argument</span></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function, a, b, c)  <span class="co"># just a list of jobs</span></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a><span class="co"># print results as they become available</span></span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> aws <span class="kw">in</span> asyncio.as_completed([j.awaitable().result() <span class="cf">for</span> j <span class="kw">in</span> jobs]):</span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="cf">await</span> aws</span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"result of computation: "</span> <span class="op">+</span> <span class="bu">str</span>(result))</span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we use here an asynchronous method based on asyncio</span></span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a><span class="co"># it essential do something similar to what we were doing after </span></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a><span class="co"># "# wait for job completion", but in a much more compact way</span></span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a><span class="co"># however, the reordering of outputs wrt to inputs is not implemented</span></span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Submitting and going home</span></span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a>Often, when we have very long jobs, we want to submit these jobs, go home and come back the next day or the next week to check the results of their computations.</span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a>In this case, we **should not** expect our notebook to be still alive when we come back. Instead, we should adopt the more standard approach of writing down our results and load them in a new jupyter session afterwards!</span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a>This is what we illustrate in the final example below.</span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a><span class="co"># write in job_output within our directory</span></span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a>job_output_folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_output/'</span></span>
+<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our output folder exists</span></span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(job_output_folder):</span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>  os.makedirs(job_output_folder)</span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a><span class="co"># just add a/b, multiply by c, wait for b seconds and write down the result to an output folder (c)</span></span>
+<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_function_write(a, b, c):</span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>(a <span class="op">+</span> b)</span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>    time.sleep(b)</span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>    output_filepath<span class="op">=</span>os.path.join(c, <span class="bu">str</span>(a) <span class="op">+</span> <span class="st">'_'</span> <span class="op">+</span> <span class="bu">str</span>(b) <span class="op">+</span> <span class="st">'.txt'</span>)</span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(output_filepath, <span class="st">'w'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>      <span class="bu">file</span>.write(<span class="ss">f'</span><span class="sc">{</span>a<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>      <span class="bu">file</span>.write(<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a><span class="co"># define arrays matched in length for the iteration (if you have constant parameters, you can always duplicate them as done with "c" below)</span></span>
+<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">10</span>]</span>
+<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>[job_output_folder]<span class="op">*</span><span class="bu">len</span>(b)</span>
+<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure our arrays are matched in length</span></span>
+<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(a)<span class="op">==</span><span class="bu">len</span>(b)<span class="op">==</span><span class="bu">len</span>(c)</span>
+<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare executor</span></span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a>executor <span class="op">=</span> submitit.SlurmExecutor(folder<span class="op">=</span>os.getcwd()<span class="op">+</span><span class="st">'/tuto_logs/'</span>, max_num_timeout<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="co"># define maxjobs to a low value to illustrate</span></span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a>maxjobs<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a><span class="co"># pass parameter to the executor</span></span>
+<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>executor.update_parameters(array_parallelism<span class="op">=</span>maxjobs,mem<span class="op">=</span><span class="dv">2000</span>, time<span class="op">=</span><span class="dv">600</span>, partition <span class="op">=</span><span class="st">"CPU"</span>, nodes<span class="op">=</span><span class="dv">1</span>, nodelist<span class="op">=</span><span class="st">'node[18-21]'</span>,cpus_per_task<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a><span class="co"># execute the job (note the .map_array command that different from the .submit command used above)</span></span>
+<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a>jobs <span class="op">=</span> executor.map_array(simple_function_write, a, b, c)  <span class="co"># just a list of jobs</span></span>
+<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'### all jobs submitted ###'</span>)</span>
+<span id="cb7-321"><a href="#cb7-321" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'the kernel will now be killed (and your notebook will crash) but you can see that your jobs keep running by typing squeue in the terminal'</span>)</span>
+<span id="cb7-322"><a href="#cb7-322" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'crucially, the content of tuto_output/ will still be updated in the background!'</span>)</span>
+<span id="cb7-323"><a href="#cb7-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-324"><a href="#cb7-324" aria-hidden="true" tabindex="-1"></a><span class="co"># wait a little and kill manually the kernel process</span></span>
+<span id="cb7-325"><a href="#cb7-325" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="dv">3</span>)</span>
+<span id="cb7-326"><a href="#cb7-326" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'kill '</span> <span class="op">+</span> <span class="bu">str</span>(os.getpid()))</span>
+<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a>It is a good practice to run <span class="in">`os.system('kill ' + str(os.getpid()))`</span> if you don't need to use the notebook anymore. Simply closing it may not interrupt the process and free the resources for the other users.</span>
+<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
+<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a>Whether you need several CPUs, and how to set memory and timeout parameters depend on the functions you use. </span>
+<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a>If you are not sure, look in the documentation of your packages or test for a performance improvement as we just did!</span>
+<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a>In any case, it is a good idea to run <span class="in">`os.system('kill ' + str(os.getpid()))`</span></span>
+<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
