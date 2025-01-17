@@ -52,7 +52,8 @@ VScode is now available in our home directory.
 
 ### 4. Create a tunnel to VS code on the cluster from your local computer (only once)
 
-Obviously, in the example below, replace romain.ligneul by own your user name (CRNLcluster should match your own SSH config hostname).
+Obviously, in the example below, replace romain.ligneul by own your user name (CRNLcluster should match your own SSH config hostname). 
+You may also adjust the resources requested by `srun` based on your needs.
 
 
 **Windows users** On your local computer, create a file named vscode_tunnel_dividedGPU.bat in a convenient place and copy paste the following lines:
@@ -61,7 +62,7 @@ Obviously, in the example below, replace romain.ligneul by own your user name (C
 @echo off
 set "remote_username=romain.ligneul"
 set "remote_hostname=CRNLcluster"
-ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=dividedGPU --name=dividedGPU'; bash"
+ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --mem=20G --cpus-per-task=4 --gres=gpu:1g.20gb:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=dividedGPU --name=dividedGPU'; bash"
 ```
 
 Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)
@@ -72,7 +73,7 @@ If you need access to the full GPU capacity, you may create a second tunnel .bat
 @echo off
 set "remote_username=romain.ligneul"
 set "remote_hostname=CRNLcluster"
-ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=fullGPU --name=fullGPU'; bash"
+ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --cpus-per-task=8 --mem=40G --gres=gpu:a100:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=fullGPU --name=fullGPU'; bash"
 ```
 
 **Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following
@@ -81,7 +82,7 @@ ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:a100
 #!/bin/bash
 remote_username="romain.ligneul"
 remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --cpus-per-task=4 --mem=20G --gres=gpu:1g.20gb:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
 If you need access to the full GPU capacity, you may create a second tunnel .bat file named vscode_tunnel_fullGPU.sh:
@@ -90,7 +91,7 @@ If you need access to the full GPU capacity, you may create a second tunnel .bat
 #!/bin/bash
 remote_username="romain.ligneul"
 remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
+ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --cpus-per-task=8 --mem=40G --gres=gpu:a100:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"
 ```
 
 ::: callout-note
