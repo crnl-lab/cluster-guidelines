@@ -29,8 +29,8 @@ website:
           file: help_ssh.qmd        
         - text: "Transferring files"
           file: help_filezilla.qmd
-      - text: "VS Code "
-        file: help_VScode.qmd
+      - text: "Interactive GPU"
+        file: help_interactiveGPU.qmd
       - text: "Others"
         menu:
         - text: "Presentation Git/hub/lab"
