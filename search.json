@@ -49,58 +49,30 @@
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_VScode.html",
-    "href": "help_VScode.html",
-    "title": "VScode on the cluster",
+    "objectID": "help_VPN.html",
+    "href": "help_VPN.html",
+    "title": "VPN access",
     "section": "",
-    "text": "Warning\n\n\n\nThe solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. However, you can allocate multiple cpus and use your own parallel code (e.g. multiprocessing or joblib in Python). Drop me at message at romain.ligneul@inserm.fr if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.\nVScode is a very potent IDE that is used by many people, including at the CRNL.\nHowever, the straightforward usage of VScode on the cluster poses a big collective problem. Indeed, when you open a SSH session with VScode, you arrive in the so-called “login node” (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.\nEven if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the “login node”. This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time…\n💥\nFortunately, a simple solution exists and this tutorial will guide you through it."
+    "text": "If you only want to use the cluster when you are at the lab, you don’t need the VPN.\nThe VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.\nhttps://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn\nYou need your CRNL identifiers to access this internal page. Essentially, besides installing the software, you will have to fill the PDF “fiche” (here) and send it to thibaut.woog@inserm.fr. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.\nIf you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL)."
   },
   {
-    "objectID": "help_VScode.html#leave-a-message",
-    "href": "help_VScode.html#leave-a-message",
-    "title": "VScode on the cluster",
+    "objectID": "help_VPN.html#leave-a-message",
+    "href": "help_VPN.html#leave-a-message",
+    "title": "VPN access",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_ssh_jupyter.html",
-    "href": "help_ssh_jupyter.html",
-    "title": "Using Interactive Jupyter over SSH",
+    "objectID": "help_ssh.html",
+    "href": "help_ssh.html",
+    "title": "Connecting to the CRNL server over SSH in Visual Code",
     "section": "",
-    "text": "Visual Code over SSH is great but it is limited in its ability to run interactive Jupyter notebooks unless X11 forwarding is properly configured. Another way to go is to run a persistent Jupyter lab session on your remote SSH server and forward it through a tunnel."
+    "text": "Note\n\n\n\nThe steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.\nFind your local .ssh folder (local always refer to the computer you are using).\nOn Linux, you can probably find it at ~/.ssh/ or /home/username/.ssh/.\nOn Window, you can probably find at at C:\\Users\\username\\.ssh\\.\nIf you don’t find it, just create it and cd in it. Then type:\nssh-keygen -f crnlcluster\nFollow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: type crnlcluster.pub\nYou public key will appear in the terminal. Keep it open.\nNow, type:\nssh cluster_username@10.69.168.93\nChange cluster_username to match your username on the cluster (typically, firstname.lastname)\nYou will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions).\nNow, you are logged in the cluster!\nThe next step is to make your public SSH key file know from the cluster. To do so, you can either use the cluster command line (a bit tricky), use Filezilla or VS code."
   },
   {
-    "objectID": "help_ssh_jupyter.html#extend-your-.bashrc-file",
-    "href": "help_ssh_jupyter.html#extend-your-.bashrc-file",
-    "title": "Using Interactive Jupyter over SSH",
-    "section": "Extend your .bashrc file",
-    "text": "Extend your .bashrc file\nTo do so, we need to edit our .bashrc file (in /home/username/.bashrc) and add the following lines at the end.\n# &gt;&gt;&gt; Jupyterlab Remote &gt;&gt;&gt;\nfunction jlremote {\n    echo $(hostname) &gt; ~/.jupyternode.txt\n    cd /crnldata/cophy/\n    XDG_RUNTIME_DIR= jupyter lab --no-browser --port=9753 --ip=$(hostname)\n}\n# &lt;&lt;&lt; Jupyterlab end config &lt;&lt;&lt;\nNote that the –port variable can be changed to your preference.\nThanks to this piece of code, each time a terminal will open, the function jlremote will be added to the path."
-  },
-  {
-    "objectID": "help_ssh_jupyter.html#launch-the-jupyter-session",
-    "href": "help_ssh_jupyter.html#launch-the-jupyter-session",
-    "title": "Using Interactive Jupyter over SSH",
-    "section": "Launch the Jupyter session",
-    "text": "Launch the Jupyter session\nMost remote linux servers will offer the opportunity to run tmux, that allows opening a persistent shell session.\nIn your remote terminal, type tmux. The tmux session will open. That is where we wll run our Jupyter notebook.\nThen, type srun --mem=4G --pty bash. This will associate your tmux session with a compute node on the remote server. You can adjust the memory you need for your notebooks.\nThen, type jlremote. This will launch your Jupyter lab session. It might take a bit of time before displaying a message like this one\n    Copy/paste this URL into your browser when you connect for the first time,\n    to login with a token:\n        http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\nCopy the token value (after = sign) and keep it somewhere."
-  },
-  {
-    "objectID": "help_ssh_jupyter.html#set-up-the-ssh-tunnel",
-    "href": "help_ssh_jupyter.html#set-up-the-ssh-tunnel",
-    "title": "Using Interactive Jupyter over SSH",
-    "section": "Set up the SSH tunnel",
-    "text": "Set up the SSH tunnel\n\nWindows\nOn your local Windows compute, create a .bat file\n@echo off\nsetlocal\n:: the port you've chosen in the function jlremote \nset port=9753\n:: your username on the remote server\nset remote_username=firstname.lastname\n:: your machine IP\nset remote_hostname=10.69.168.62 \n\nfor /f \"tokens=* usebackq\" %%i in (`powershell -command \"ssh %remote_username%@%remote_hostname% 'tail -1 ~/.jupyternode.txt'\"`) do set node=%%i\n\n:: Read the node from the temporary file\nset /p node=&lt;node.txt\n\nset url=http://localhost:%port%\n\n:: Construct and run the SSH command\nset cmd=ssh -CNL 8888:%node%:%port% %remote_username%@%remote_hostname%\necho Running '%cmd%'\n\n:: Delete the temporary file\ndel node.txt\n\n%cmd%\n\nendlocal\nRun (or double click on) the .bat file.\nYou should be able to use your notebook by using the address provided earlier.\nhttp://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nYou may also just use http://localhost:8888/ and add the token manually.\nYou may set a simple password to access the notebook without the token in the future.\n\n\nLinux\nOn your local Windows compute, create a .bat file\nfunction jllocal {\n    port=9753\n    remote_username=USERNAME\n    remote_hostname=HOSTNAME\n    node=$(ssh $remote_username@$remote_hostname 'tail -1 ~/.jupyternode.txt')\n    url=\"http://localhost:$port\"\n    echo \"Opening $url\"\n    open \"$url\"\n    cmd=\"ssh -CNL \"8888\":\"$node\":\"$port\" $remote_username@$remote_hostname\"\n    echo \"Running '$cmd'\"\n    eval \"$cmd\"\n}\nRun (or double click on) the .bat file.\nYou should be able to use your notebook by using the address provided earlier.\nhttp://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nYou may also just use http://localhost:8888/ and add the token manually .\nYou may set a simple password to access the notebook without the token in the future."
-  },
-  {
-    "objectID": "help_ssh_jupyter.html#credits",
-    "href": "help_ssh_jupyter.html#credits",
-    "title": "Using Interactive Jupyter over SSH",
-    "section": "Credits",
-    "text": "Credits\nThis tutorial was largely inspired by this one:\nhttps://benjlindsay.com/posts/running-jupyter-lab-remotely/"
-  },
-  {
-    "objectID": "help_ssh_jupyter.html#leave-a-message",
-    "href": "help_ssh_jupyter.html#leave-a-message",
-    "title": "Using Interactive Jupyter over SSH",
+    "objectID": "help_ssh.html#leave-a-message",
+    "href": "help_ssh.html#leave-a-message",
+    "title": "Connecting to the CRNL server over SSH in Visual Code",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
@@ -259,30 +231,58 @@
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_ssh.html",
-    "href": "help_ssh.html",
-    "title": "Connecting to the CRNL server over SSH in Visual Code",
+    "objectID": "help_interactiveGPU.html",
+    "href": "help_interactiveGPU.html",
+    "title": "Interactive GPU session through VScode",
     "section": "",
-    "text": "Note\n\n\n\nThe steps in this tutorial are not strictly mandatory. They are mainly meant to avoid entering your password to log into the cluster. In the long run they will help you to save a lot of time, if you use VS code, Filezilla or any other SSH based connection.\nFind your local .ssh folder (local always refer to the computer you are using).\nOn Linux, you can probably find it at ~/.ssh/ or /home/username/.ssh/.\nOn Window, you can probably find at at C:\\Users\\username\\.ssh\\.\nIf you don’t find it, just create it and cd in it. Then type:\nssh-keygen -f crnlcluster\nFollow the instructions. If you want to use a passphrase, keep it short. Otherwise press Enter to skip entering a passphrase. Then type: type crnlcluster.pub\nYou public key will appear in the terminal. Keep it open.\nNow, type:\nssh cluster_username@10.69.168.93\nChange cluster_username to match your username on the cluster (typically, firstname.lastname)\nYou will be asked to enter your CRNL password (the same you use to enter in the wiki.crnl.fr and to open Jupyter lab sessions).\nNow, you are logged in the cluster!\nThe next step is to make your public SSH key file know from the cluster. To do so, you can either use the cluster command line (a bit tricky), use Filezilla or VS code."
+    "text": "Warning\n\n\n\nThe solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. But it will allow you to use the GPUs interactively. Drop me at message at romain.ligneul@inserm.fr if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.\nVScode is a very potent IDE that is used by many people, including at the CRNL.\nHowever, the straightforward usage of VScode on the cluster poses a big collective problem. Indeed, when you open a SSH session with VScode, you arrive in the so-called “login node” (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.\nEven if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the “login node”. This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time…\n💥\nFortunately, a simple solution exists and this tutorial will guide you through it."
   },
   {
-    "objectID": "help_ssh.html#leave-a-message",
-    "href": "help_ssh.html#leave-a-message",
-    "title": "Connecting to the CRNL server over SSH in Visual Code",
+    "objectID": "help_interactiveGPU.html#leave-a-message",
+    "href": "help_interactiveGPU.html#leave-a-message",
+    "title": "Interactive GPU session through VScode",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_VPN.html",
-    "href": "help_VPN.html",
-    "title": "VPN access",
+    "objectID": "help_ssh_jupyter.html",
+    "href": "help_ssh_jupyter.html",
+    "title": "Using Interactive Jupyter over SSH",
     "section": "",
-    "text": "If you only want to use the cluster when you are at the lab, you don’t need the VPN.\nThe VPN is only required to access the CRNL servers from outside. You can only obtain it if you are a registered CRNL user.\nhttps://wiki.crnl.fr/doku.php?id=wiki:informatique:services:vpn\nYou need your CRNL identifiers to access this internal page. Essentially, besides installing the software, you will have to fill the PDF “fiche” (here) and send it to thibaut.woog@inserm.fr. Then, it will be a matter of days before you can access the CRNL infrastructure remotely. You’ll be noticed by email.\nIf you don’t have an INSERM email, you can ask one if you work at CRNL (even if you are affiliated to CNRS or UCBL)."
+    "text": "Visual Code over SSH is great but it is limited in its ability to run interactive Jupyter notebooks unless X11 forwarding is properly configured. Another way to go is to run a persistent Jupyter lab session on your remote SSH server and forward it through a tunnel."
   },
   {
-    "objectID": "help_VPN.html#leave-a-message",
-    "href": "help_VPN.html#leave-a-message",
-    "title": "VPN access",
+    "objectID": "help_ssh_jupyter.html#extend-your-.bashrc-file",
+    "href": "help_ssh_jupyter.html#extend-your-.bashrc-file",
+    "title": "Using Interactive Jupyter over SSH",
+    "section": "Extend your .bashrc file",
+    "text": "Extend your .bashrc file\nTo do so, we need to edit our .bashrc file (in /home/username/.bashrc) and add the following lines at the end.\n# &gt;&gt;&gt; Jupyterlab Remote &gt;&gt;&gt;\nfunction jlremote {\n    echo $(hostname) &gt; ~/.jupyternode.txt\n    cd /crnldata/cophy/\n    XDG_RUNTIME_DIR= jupyter lab --no-browser --port=9753 --ip=$(hostname)\n}\n# &lt;&lt;&lt; Jupyterlab end config &lt;&lt;&lt;\nNote that the –port variable can be changed to your preference.\nThanks to this piece of code, each time a terminal will open, the function jlremote will be added to the path."
+  },
+  {
+    "objectID": "help_ssh_jupyter.html#launch-the-jupyter-session",
+    "href": "help_ssh_jupyter.html#launch-the-jupyter-session",
+    "title": "Using Interactive Jupyter over SSH",
+    "section": "Launch the Jupyter session",
+    "text": "Launch the Jupyter session\nMost remote linux servers will offer the opportunity to run tmux, that allows opening a persistent shell session.\nIn your remote terminal, type tmux. The tmux session will open. That is where we wll run our Jupyter notebook.\nThen, type srun --mem=4G --pty bash. This will associate your tmux session with a compute node on the remote server. You can adjust the memory you need for your notebooks.\nThen, type jlremote. This will launch your Jupyter lab session. It might take a bit of time before displaying a message like this one\n    Copy/paste this URL into your browser when you connect for the first time,\n    to login with a token:\n        http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\nCopy the token value (after = sign) and keep it somewhere."
+  },
+  {
+    "objectID": "help_ssh_jupyter.html#set-up-the-ssh-tunnel",
+    "href": "help_ssh_jupyter.html#set-up-the-ssh-tunnel",
+    "title": "Using Interactive Jupyter over SSH",
+    "section": "Set up the SSH tunnel",
+    "text": "Set up the SSH tunnel\n\nWindows\nOn your local Windows compute, create a .bat file\n@echo off\nsetlocal\n:: the port you've chosen in the function jlremote \nset port=9753\n:: your username on the remote server\nset remote_username=firstname.lastname\n:: your machine IP\nset remote_hostname=10.69.168.62 \n\nfor /f \"tokens=* usebackq\" %%i in (`powershell -command \"ssh %remote_username%@%remote_hostname% 'tail -1 ~/.jupyternode.txt'\"`) do set node=%%i\n\n:: Read the node from the temporary file\nset /p node=&lt;node.txt\n\nset url=http://localhost:%port%\n\n:: Construct and run the SSH command\nset cmd=ssh -CNL 8888:%node%:%port% %remote_username%@%remote_hostname%\necho Running '%cmd%'\n\n:: Delete the temporary file\ndel node.txt\n\n%cmd%\n\nendlocal\nRun (or double click on) the .bat file.\nYou should be able to use your notebook by using the address provided earlier.\nhttp://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nYou may also just use http://localhost:8888/ and add the token manually.\nYou may set a simple password to access the notebook without the token in the future.\n\n\nLinux\nOn your local Windows compute, create a .bat file\nfunction jllocal {\n    port=9753\n    remote_username=USERNAME\n    remote_hostname=HOSTNAME\n    node=$(ssh $remote_username@$remote_hostname 'tail -1 ~/.jupyternode.txt')\n    url=\"http://localhost:$port\"\n    echo \"Opening $url\"\n    open \"$url\"\n    cmd=\"ssh -CNL \"8888\":\"$node\":\"$port\" $remote_username@$remote_hostname\"\n    echo \"Running '$cmd'\"\n    eval \"$cmd\"\n}\nRun (or double click on) the .bat file.\nYou should be able to use your notebook by using the address provided earlier.\nhttp://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nYou may also just use http://localhost:8888/ and add the token manually .\nYou may set a simple password to access the notebook without the token in the future."
+  },
+  {
+    "objectID": "help_ssh_jupyter.html#credits",
+    "href": "help_ssh_jupyter.html#credits",
+    "title": "Using Interactive Jupyter over SSH",
+    "section": "Credits",
+    "text": "Credits\nThis tutorial was largely inspired by this one:\nhttps://benjlindsay.com/posts/running-jupyter-lab-remotely/"
+  },
+  {
+    "objectID": "help_ssh_jupyter.html#leave-a-message",
+    "href": "help_ssh_jupyter.html#leave-a-message",
+    "title": "Using Interactive Jupyter over SSH",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },

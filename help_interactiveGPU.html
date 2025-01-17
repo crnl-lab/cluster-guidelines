@@ -8,7 +8,7 @@
 
 <meta name="author" content="Romain Ligneul">
 
-<title>CRNL - VScode on the cluster</title>
+<title>CRNL - Interactive GPU session through VScode</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,8 +167,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./help_VScode.html" aria-current="page"> 
-<span class="menu-text">VS Code</span></a>
+    <a class="nav-link active" href="./help_interactiveGPU.html" aria-current="page"> 
+<span class="menu-text">Interactive GPU</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-others" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -212,7 +212,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#download-vs-code-on-the-cluster-only-once" id="toc-download-vs-code-on-the-cluster-only-once" class="nav-link" data-scroll-target="#download-vs-code-on-the-cluster-only-once">3. Download VS code on the cluster (only once)</a></li>
   <li><a href="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once" id="toc-create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once" class="nav-link" data-scroll-target="#create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once">4. Create a tunnel to VS code on the cluster from your local computer (only once)</a></li>
   <li><a href="#connect-to-the-tunnel-from-your-local-vs-code-each-time" id="toc-connect-to-the-tunnel-from-your-local-vs-code-each-time" class="nav-link" data-scroll-target="#connect-to-the-tunnel-from-your-local-vs-code-each-time">5. Connect to the tunnel from your local VS code (each time)</a></li>
-  <li><a href="#vs-code-to-use-a-gpu-interactively" id="toc-vs-code-to-use-a-gpu-interactively" class="nav-link" data-scroll-target="#vs-code-to-use-a-gpu-interactively">VS Code to use a GPU interactively</a></li>
   <li><a href="#leave-a-message" id="toc-leave-a-message" class="nav-link" data-scroll-target="#leave-a-message">Leave a message</a></li>
   </ul>
 </nav>
@@ -222,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">VScode on the cluster</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Interactive GPU session through VScode</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -255,7 +254,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. However, you can allocate multiple cpus and use your own parallel code (e.g.&nbsp;multiprocessing or joblib in Python). Drop me at message at <a href="romain.ligneul@inserm.fr">romain.ligneul@inserm.fr</a> if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.</p>
+<p>The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. But it will allow you to use the GPUs interactively. Drop me at message at <a href="romain.ligneul@inserm.fr">romain.ligneul@inserm.fr</a> if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.</p>
 </div>
 </div>
 <p><a href="https://code.visualstudio.com/">VScode</a> is a very potent IDE that is used by many people, including at the CRNL.</p>
@@ -295,20 +294,43 @@ tar -xzf vscode.tar.gz</code></pre>
 </section>
 <section id="create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-tunnel-to-vs-code-on-the-cluster-from-your-local-computer-only-once">4. Create a tunnel to VS code on the cluster from your local computer (only once)</h3>
-<p><strong>Windows users</strong> On your local computer, create a file named vscode_cluster_tunnel.bat in a convenient place and copy paste the following lines:</p>
+<p>Obviously, in the example below, replace romain.ligneul by own your user name (CRNLcluster should match your own SSH config hostname).</p>
+<p><strong>Windows users</strong> On your local computer, create a file named vscode_tunnel_dividedGPU.bat in a convenient place and copy paste the following lines:</p>
 <pre><code>@echo off
-set "remote_username=cluster_username"
+set "remote_username=romain.ligneul"
 set "remote_hostname=CRNLcluster"
-ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=480 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```</code></pre>
+ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=dividedGPU --name=dividedGPU'; bash"</code></pre>
 <p>Note, if you use the Notepad to create the file, make your to select the option ‘All files’ in “Save as type”. Otherwise, you won’t be able to have a .bat extension (it would be .bat.txt, which does not work!)</p>
+<p>If you need access to the full GPU capacity, you may create a second tunnel .bat file named vscode_tunnel_fullGPU.bat:</p>
+<pre><code>@echo off
+set "remote_username=romain.ligneul"
+set "remote_hostname=CRNLcluster"
+ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=fullGPU --name=fullGPU'; bash"</code></pre>
 <p><strong>Linux users</strong> On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following</p>
 <pre><code>#!/bin/bash
-remote_username="cluster_username"
+remote_username="romain.ligneul"
 remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
-<p>Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file.</p>
+ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
+<p>If you need access to the full GPU capacity, you may create a second tunnel .bat file named vscode_tunnel_fullGPU.sh:</p>
+<pre><code>#!/bin/bash
+remote_username="romain.ligneul"
+remote_hostname="CRNLcluster"
+ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now, each time you will need to open a VS GPU session on the server, you will need to run this .bat or .sh file.</p>
 <p>The first time you will run it, you will be asked to authorize Github and to name tunnel as you prefer (for example: vscode_cluster_tunnel). This tunnel name will be reused every time you will launch a new VS code session.</p>
 <p>Consider using Github as a tunnel provider rather than Microsoft.</p>
+</div>
+</div>
 </section>
 <section id="connect-to-the-tunnel-from-your-local-vs-code-each-time" class="level3">
 <h3 class="anchored" data-anchor-id="connect-to-the-tunnel-from-your-local-vs-code-each-time">5. Connect to the tunnel from your local VS code (each time)</h3>
@@ -333,21 +355,6 @@ Tip
 <p>When you stop using VS code, <strong>quit or kill the process initiated by vscode_cluster_tunnel</strong> (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!</p>
 </div>
 </div>
-</section>
-<section id="vs-code-to-use-a-gpu-interactively" class="level3">
-<h3 class="anchored" data-anchor-id="vs-code-to-use-a-gpu-interactively">VS Code to use a GPU interactively</h3>
-<p>The CRNL has two excellent A100 GPUs (80G) available on node23. They can be accessed by submitting jobs through srun / submitit, but you may also use them interactively using VS code. To do so, just change your .bat / .bash files as follow:</p>
-<p><em>Windows</em></p>
-<pre><code>@echo off
-set "remote_username=cluster_username"
-set "remote_hostname=CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
-<p><em>Linux</em></p>
-<pre><code>#!/bin/bash
-remote_username="cluster_username"
-remote_hostname="CRNLcluster"
-ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</code></pre>
-<p>Of course, you still need to set the tunnel as explained above.</p>
 </section>
 <section id="leave-a-message" class="level2">
 <h2 class="anchored" data-anchor-id="leave-a-message">Leave a message</h2>
@@ -803,7 +810,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> VScode on the cluster</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Interactive GPU session through VScode</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Romain Ligneul</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
@@ -813,7 +820,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>:::{.callout-warning}</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. However, you can allocate multiple cpus and use your own parallel code (e.g. multiprocessing or joblib in Python). Drop me at message at <span class="co">[</span><span class="ot">romain.ligneul@inserm.fr</span><span class="co">](romain.ligneul@inserm.fr)</span> if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>The solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. But it will allow you to use the GPUs interactively. Drop me at message at <span class="co">[</span><span class="ot">romain.ligneul@inserm.fr</span><span class="co">](romain.ligneul@inserm.fr)</span> if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">VScode</span><span class="co">](https://code.visualstudio.com/)</span> is a very potent IDE that is used by many people, including at the CRNL.</span>
@@ -856,77 +863,78 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Create a tunnel to VS code on the cluster from your local computer (only once)</span></span>
 <span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>**Windows users** On your local computer, create a file named vscode_cluster_tunnel.bat in a convenient place and copy paste the following lines:</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>Obviously, in the example below, replace romain.ligneul by own your user name (CRNLcluster should match your own SSH config hostname).</span>
 <span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=cluster_username"</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t %remote_username%@%remote_hostname% "srun --mem=16G --cpus-per-task=8 --time=480 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"```</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>**Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="cluster_username"</span></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=16G --cpus-per-task=8 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>Now, each time you will need to open a VS session on the server, you will need to run this .bat or .sh file.</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>The first time you will run it, you will be asked to authorize Github and to name tunnel as you prefer (for example: vscode_cluster_tunnel). This tunnel name will be reused every time you will launch a new VS code session. </span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>Consider using Github as a tunnel provider rather than Microsoft.</span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Connect to the tunnel from your local VS code (each time)</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github. </span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>When running this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft). You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>**Windows users** On your local computer, create a file named vscode_tunnel_dividedGPU.bat in a convenient place and copy paste the following lines:</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=romain.ligneul"</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=dividedGPU --name=dividedGPU'; bash"</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>Note, if you use the Notepad to create the file, make your to select the option 'All files' in "Save as type". Otherwise, you won't be able to have a .bat extension (it would be .bat.txt, which does not work!)</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>If you need access to the full GPU capacity, you may create a second tunnel .bat file named vscode_tunnel_fullGPU.bat:</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=romain.ligneul"</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t %remote_username%@%remote_hostname% "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty $SHELL -c '~/VSCode-linux-x64/bin/code tunnel --cli-data-dir=fullGPU --name=fullGPU'; bash"</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>**Linux users** On your local computer, create a file named vscode_cluster_tunnel.sh in a convenient place and copy-paste the following</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="romain.ligneul"</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:1g.20gb:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>If you need access to the full GPU capacity, you may create a second tunnel .bat file named vscode_tunnel_fullGPU.sh:</span>
 <span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-1.png)</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>And click "Connect to Tunnel"</span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>Then, select Github and the tunnel name that you have defined just before.</span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>That's it!</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="romain.ligneul"</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --partition=GPU --gres=gpu:a100:1 --time=01:00:00 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>Now, each time you will need to open a VS GPU session on the server, you will need to run this .bat or .sh file.</span>
 <span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### VS Code to use a GPU interactively</span></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>The CRNL has two excellent A100 GPUs (80G) available on node23. They can be accessed by submitting jobs through srun / submitit, but you may also use them interactively using VS code. To do so, just change your .bat / .bash files as follow:</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>*Windows*</span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="in">@echo off</span></span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_username=cluster_username"</span></span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="in">set "remote_hostname=CRNLcluster"</span></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>*Linux*</span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="in">#!/bin/bash</span></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="in">remote_username="cluster_username"</span></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="in">remote_hostname="CRNLcluster"</span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -t "${remote_username}@${remote_hostname}" "srun --mem=40G --partition=GPU --gpus=1 --time=480 --pty \$SHELL -c '~/VSCode-linux-x64/bin/code tunnel'; bash"</span></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>Of course, you still need to set the tunnel as explained above.</span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>The first time you will run it, you will be asked to authorize Github and to name tunnel as you prefer (for example: vscode_cluster_tunnel). This tunnel name will be reused every time you will launch a new VS code session. </span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>Consider using Github as a tunnel provider rather than Microsoft.</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Connect to the tunnel from your local VS code (each time)</span></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>Run the script vscode_cluster_tunnel.sh or vscode_cluster_tunnel.bat (on Windows, you can just double click on the .bat file). From time to time, you might have to re-authorized your tunnel in Github. </span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>When running this script, the terminal window will ask you to authorize the tunnel through Github (or Microsoft). You may also adjust mem, cpus-per-task, and time (in minutes) based on your needs.</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>Then, in VS code, either press Ctrl+Shift+P and type "tunnel connect" to select the function "Remote Tunnels: Connect to Tunnel", or click on the bottom left icon that look like this:</span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/paste-1.png)</span></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>And click "Connect to Tunnel"</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>Then, select Github and the tunnel name that you have defined just before.</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>That's it!</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>You are now running VS code on a compute node with dedicated ressource. You can mess around, it won't interfere with the happiness of other users!</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>When you stop using VS code, **quit or kill the process initiated by vscode_cluster_tunnel** (on Windows, just close the corresponding Terminal window) It will automatically interrupt the SLURM job that runs your VS code session, and free resources for your colleagues!</span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>{{&lt; include _comment_box.qmd &gt;}}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
