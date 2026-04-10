@@ -37,6 +37,8 @@ website:
           file: git_presentation.qmd  
         - text: "File permissions/ownership"
           file: help_filepermissions.qmd  
+        - text: "MELD Graph"
+          file: help_MELD.qmd  
   
     right:
       - text: "About"
