@@ -77,72 +77,37 @@
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_github.html",
-    "href": "help_github.html",
-    "title": "Quick tutorial for Git/Github",
+    "objectID": "help_interactiveGPU.html",
+    "href": "help_interactiveGPU.html",
+    "title": "Interactive GPU session through VScode",
     "section": "",
-    "text": "If you only plan to clone public repositories, you can probably just use git clone https:// or simply download and unzip the repository of interest.\nHowever, you will need to connect your command line to your Github account in the following scenarios:"
+    "text": "Warning\n\n\n\nThe solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. But it will allow you to use the GPUs interactively. Drop me at message at romain.ligneul@inserm.fr if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.\nVScode is a very potent IDE that is used by many people, including at the CRNL.\nHowever, the straightforward usage of VScode on the cluster poses a big collective problem. Indeed, when you open a SSH session with VScode, you arrive in the so-called “login node” (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.\nEven if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the “login node”. This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time…\n💥\nFortunately, a simple solution exists and this tutorial will guide you through it."
   },
   {
-    "objectID": "help_github.html#leave-a-message",
-    "href": "help_github.html#leave-a-message",
-    "title": "Quick tutorial for Git/Github",
+    "objectID": "help_interactiveGPU.html#leave-a-message",
+    "href": "help_interactiveGPU.html#leave-a-message",
+    "title": "Interactive GPU session through VScode",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_filepermissions.html",
-    "href": "help_filepermissions.html",
-    "title": "File permissions",
+    "objectID": "help_filezilla.html",
+    "href": "help_filezilla.html",
+    "title": "Managing files on the cluster (Filezilla)",
     "section": "",
-    "text": "The cluster being a shared system, it implements a restrictive default policy with respect to file permissions. This default policy might change depending on how new files are created, but in general, new files will not be “executable” or “writable” by any other person that their owner.\nIt might even happen that you create a file on your personal computer (if it uses MacOS or Linux, in particular) and that, once transferred to the cluster, this file is not recognized as yours!\nSo, you will need to understand the basics of file permissions in Linux to work efficiently on the cluster, especially if you want to collaborate with other CNRL members (and you want it, right? 😏)."
+    "text": "To transfer and manage folders/files on the cluster, you can use Filezilla.\nSimply install it. Then, in Site Manager, create a new site (give it the name CRNLcluster, for example) and set the following:"
   },
   {
-    "objectID": "help_filepermissions.html#leave-a-message",
-    "href": "help_filepermissions.html#leave-a-message",
-    "title": "File permissions",
-    "section": "Leave a message",
-    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
+    "objectID": "help_filezilla.html#good-sides-of-filezilla",
+    "href": "help_filezilla.html#good-sides-of-filezilla",
+    "title": "Managing files on the cluster (Filezilla)",
+    "section": "Good sides of Filezilla",
+    "text": "Good sides of Filezilla\nWhen using the cluster, you might sometimes struggle with Files and Folders authorizations. Those can be set in the command line with chmod, but Filezilla can do it for you in a more intuitive way. Just right click on any folder and select “File permissions…”\n\nAnother good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check “View -&gt; Directory Listing Filters”."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "CRNL cluster guidelines",
-    "section": "",
-    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
-  },
-  {
-    "objectID": "about.html#using-jupyter-lab",
-    "href": "about.html#using-jupyter-lab",
-    "title": "CRNL cluster guidelines",
-    "section": "Using Jupyter lab",
-    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users (and ITs!), as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nThe Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN): http://10.69.168.24:8000/\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Github (optional but recommended)\nLearn how to connect your Github account to your terminal on the cluster here.\n\n\nLearn to submit jobs (recommended)\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1\nPart 2"
-  },
-  {
-    "objectID": "about.html#using-vs-code",
-    "href": "about.html#using-vs-code",
-    "title": "CRNL cluster guidelines",
-    "section": "Using VS code",
-    "text": "Using VS code\nCheck the dedicated tutorial to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).\nNote that the job submission tutorial is still applicable when using VS code."
-  },
-  {
-    "objectID": "about.html#other-resources",
-    "href": "about.html#other-resources",
-    "title": "CRNL cluster guidelines",
-    "section": "Other resources",
-    "text": "Other resources\nIf you can access wiki.crnl.fr, then you may also check the following:\n\nhttps://wiki.crnl.fr/doku.php?id=en:wiki:informatique:services:computing_cluster_crnl\nhttps://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:services_et_groupes:club_neuro_imageurs:commonusecrnl.pdf"
-  },
-  {
-    "objectID": "about.html#how-to-contribute",
-    "href": "about.html#how-to-contribute",
-    "title": "CRNL cluster guidelines",
-    "section": "How to contribute",
-    "text": "How to contribute\nTo contribute to the development and conception of these guidelines, request access to the CRNL Github organization to Samuel Garcia."
-  },
-  {
-    "objectID": "about.html#leave-a-message",
-    "href": "about.html#leave-a-message",
-    "title": "CRNL cluster guidelines",
+    "objectID": "help_filezilla.html#leave-a-message",
+    "href": "help_filezilla.html#leave-a-message",
+    "title": "Managing files on the cluster (Filezilla)",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
@@ -210,37 +175,128 @@
     "text": "Connect your local repo to GitHub\n\nAs you have setup a secured SSH key, no need for password\n\nGo back to you terminal where you have initialized your local repo:\ngit remote add origin git@github.com:username/new_repo\ngit push -u origin master"
   },
   {
-    "objectID": "help_filezilla.html",
-    "href": "help_filezilla.html",
-    "title": "Managing files on the cluster (Filezilla)",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "CRNL cluster guidelines",
     "section": "",
-    "text": "To transfer and manage folders/files on the cluster, you can use Filezilla.\nSimply install it. Then, in Site Manager, create a new site (give it the name CRNLcluster, for example) and set the following:"
+    "text": "This website provides guidelines to use the cluster of the Centre de Recherche en Neurosciences de Lyon (CRNL).\nIt is managed and it has been configured by Thibaut Woog (thibaut.woog@inserm.fr)."
   },
   {
-    "objectID": "help_filezilla.html#good-sides-of-filezilla",
-    "href": "help_filezilla.html#good-sides-of-filezilla",
-    "title": "Managing files on the cluster (Filezilla)",
-    "section": "Good sides of Filezilla",
-    "text": "Good sides of Filezilla\nWhen using the cluster, you might sometimes struggle with Files and Folders authorizations. Those can be set in the command line with chmod, but Filezilla can do it for you in a more intuitive way. Just right click on any folder and select “File permissions…”\n\nAnother good side is that you can apply filters to upload/download files in batch, including or excluding files according to specific criteria (types, sizes, etc.). Check “View -&gt; Directory Listing Filters”."
+    "objectID": "about.html#using-jupyter-lab",
+    "href": "about.html#using-jupyter-lab",
+    "title": "CRNL cluster guidelines",
+    "section": "Using Jupyter lab",
+    "text": "Using Jupyter lab\nOur new cluster has a built-in Jupyterhub system that will greatly facilitate the life of most users (and ITs!), as it helps managing the load on the “entry point” server (i.e. 10.69.168.93). Jupyterhub offers to everyone a very complete IDE for Python and Matlab programming, as well as a Desktop application (similar to former VNC connections).\nThe Jupyterhub environment is available at the following address (accessible within CRNL premises or with VPN): http://10.69.168.24:8000/\nYet, you will still need to learn how to create virtual environments (especially Python users) and how to submit jobs efficiently and ethically.\n\nObtain VPN access (optional)\nIf you want to access the cluster remotely, check this page.\n\n\nConfigure your Github (optional but recommended)\nLearn how to connect your Github account to your terminal on the cluster here.\n\n\nLearn to submit jobs (recommended)\nThe cluster uses SLURM to manage “jobs” (i.e. functions/scripts running in parallel). Check the two part tutorial for efficient and responsible job submission on the cluster using Slurm and Python (including interactive Notebooks).\nPart 1\nPart 2"
   },
   {
-    "objectID": "help_filezilla.html#leave-a-message",
-    "href": "help_filezilla.html#leave-a-message",
-    "title": "Managing files on the cluster (Filezilla)",
+    "objectID": "about.html#using-vs-code",
+    "href": "about.html#using-vs-code",
+    "title": "CRNL cluster guidelines",
+    "section": "Using VS code",
+    "text": "Using VS code\nCheck the dedicated tutorial to use VS code within contained SLURM jobs, to avoid cluttering/saturating our login node (a common cause of institute-wise service disruption).\nNote that the job submission tutorial is still applicable when using VS code."
+  },
+  {
+    "objectID": "about.html#other-resources",
+    "href": "about.html#other-resources",
+    "title": "CRNL cluster guidelines",
+    "section": "Other resources",
+    "text": "Other resources\nIf you can access wiki.crnl.fr, then you may also check the following:\n\nhttps://wiki.crnl.fr/doku.php?id=en:wiki:informatique:services:computing_cluster_crnl\nhttps://wiki.crnl.fr/lib/exe/fetch.php?media=wiki:services_et_groupes:club_neuro_imageurs:commonusecrnl.pdf"
+  },
+  {
+    "objectID": "about.html#how-to-contribute",
+    "href": "about.html#how-to-contribute",
+    "title": "CRNL cluster guidelines",
+    "section": "How to contribute",
+    "text": "How to contribute\nTo contribute to the development and conception of these guidelines, request access to the CRNL Github organization to Samuel Garcia."
+  },
+  {
+    "objectID": "about.html#leave-a-message",
+    "href": "about.html#leave-a-message",
+    "title": "CRNL cluster guidelines",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
   {
-    "objectID": "help_interactiveGPU.html",
-    "href": "help_interactiveGPU.html",
-    "title": "Interactive GPU session through VScode",
+    "objectID": "help_filepermissions.html",
+    "href": "help_filepermissions.html",
+    "title": "File permissions",
     "section": "",
-    "text": "Warning\n\n\n\nThe solution implemented by this tutorial does not allow launching SLURM jobs from within the VS code session on the CRNL cluster. But it will allow you to use the GPUs interactively. Drop me at message at romain.ligneul@inserm.fr if you really need to launch slurm jobs from VS code (instead of launching them from Jupyter hub). A solution exists but it should be used mindfully.\nVScode is a very potent IDE that is used by many people, including at the CRNL.\nHowever, the straightforward usage of VScode on the cluster poses a big collective problem. Indeed, when you open a SSH session with VScode, you arrive in the so-called “login node” (currently node14 on the new server, and node12 on the old one). This node is not supposed to perform any computation, but instead to organise input-output, ssh connections, etc.\nEven if they do most of their computations using jobs submitted to SLURM, VScode users (I am amongst them) can still make (made!) the entire infrastructure crash by overloading the “login node”. This is because every VScode user will open some notebook, load some data, call slurm from that same login node. So, when 10 or 20 of them are connected at the same time…\n💥\nFortunately, a simple solution exists and this tutorial will guide you through it."
+    "text": "The cluster being a shared system, it implements a restrictive default policy with respect to file permissions. This default policy might change depending on how new files are created, but in general, new files will not be “executable” or “writable” by any other person that their owner.\nIt might even happen that you create a file on your personal computer (if it uses MacOS or Linux, in particular) and that, once transferred to the cluster, this file is not recognized as yours!\nSo, you will need to understand the basics of file permissions in Linux to work efficiently on the cluster, especially if you want to collaborate with other CNRL members (and you want it, right? 😏)."
   },
   {
-    "objectID": "help_interactiveGPU.html#leave-a-message",
-    "href": "help_interactiveGPU.html#leave-a-message",
-    "title": "Interactive GPU session through VScode",
+    "objectID": "help_filepermissions.html#leave-a-message",
+    "href": "help_filepermissions.html#leave-a-message",
+    "title": "File permissions",
+    "section": "Leave a message",
+    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
+  },
+  {
+    "objectID": "help_github.html",
+    "href": "help_github.html",
+    "title": "Quick tutorial for Git/Github",
+    "section": "",
+    "text": "If you only plan to clone public repositories, you can probably just use git clone https:// or simply download and unzip the repository of interest.\nHowever, you will need to connect your command line to your Github account in the following scenarios:"
+  },
+  {
+    "objectID": "help_github.html#leave-a-message",
+    "href": "help_github.html#leave-a-message",
+    "title": "Quick tutorial for Git/Github",
+    "section": "Leave a message",
+    "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
+  },
+  {
+    "objectID": "help_MELD.html",
+    "href": "help_MELD.html",
+    "title": "MELD graph",
+    "section": "",
+    "text": "This tutorial explains how to use the tool MELD graph on the cluster, to infer FCD lesion from T1w images."
+  },
+  {
+    "objectID": "help_MELD.html#before-running-meld",
+    "href": "help_MELD.html#before-running-meld",
+    "title": "MELD graph",
+    "section": "Before running MELD",
+    "text": "Before running MELD\nLog into the CRNL cluster entry point. Then, open a terminal on the GPU node (node23) by typing: ssh node23 This will require your credentials (same as the ones used for wiki.crnl.fr)\nBefore using MELD, you should always set-up Freesurfer: export FREESURFER_HOME=/mnt/data/soft/freesurfer source $FREESURFER_HOME/SetUpFreeSurfer.sh\nIf you want to do this only once, you may run these lines\necho 'export FREESURFER_HOME=/mnt/data/soft/freesurfer' &gt;&gt; ~/.bashrc\necho 'source \"$FREESURFER_HOME/SetUpFreeSurfer.sh\"' &gt;&gt; ~/.bashrc\nsource ~/.bashrc\n\n\n\n\n\n\nWarning\n\n\n\nEach time you connect, you should probably tell meld which data folder you’ll be using by typing: /mnt/data/meld_graph/meldgraph.sh prepare_classifier.py Check the current data folder and if it is not the good one, type n and indicate your own data folder (e.g. /mnt/data/meld_data_JJ in this tuto)"
+  },
+  {
+    "objectID": "help_MELD.html#import-new-data-t1-images",
+    "href": "help_MELD.html#import-new-data-t1-images",
+    "title": "MELD graph",
+    "section": "Import new data (T1 images)",
+    "text": "Import new data (T1 images)\nIf you are using sensitive patient’s data, it is probably a good idea to define your own data folder that you will be the only one allowed to access. First, create this folder in /mnt/data/. For example, /mnt/data/meld_data_JJ will be used for this tutorial. All paths refering to it should be changed unless you are JJ ;).\nTo make sure that only you can read these file, run: chmod -R 700 /mnt/data/meld_data_JJ"
+  },
+  {
+    "objectID": "help_MELD.html#import-new-data-t1-images-1",
+    "href": "help_MELD.html#import-new-data-t1-images-1",
+    "title": "MELD graph",
+    "section": "Import new data (T1 images)",
+    "text": "Import new data (T1 images)\nUse Filezilla or any approach you like to import T1 anatomical files into the folder /mnt/data/meld_data_JJ/input.\nNote that MELD uses the BIDS convention, so you should add the data in the following way:\n/mnt/data/meld_data_JJ/input\n|—subj-01\n| |—anat\n| | |—T1w.nii.gz\nMELD might work with not zipped images as well (i.e. .nii images without .gz extension), but I have not tested it.\nYou should indicate the name of the subject to be analyzed (e.g. subj-01) in the file /mnt/data/meld_data_JJ/list_subjects.txt and also populate the file /mnt/data/meld_data_JJ/demographics_file.csv that is needed to compute harmonisation parameters.\n\n\n\n\n\n\nNote\n\n\n\nFull documentation about data preparation is available here."
+  },
+  {
+    "objectID": "help_MELD.html#compute-harmonization-parameters",
+    "href": "help_MELD.html#compute-harmonization-parameters",
+    "title": "MELD graph",
+    "section": "Compute harmonization parameters",
+    "text": "Compute harmonization parameters\nRun the following: /mnt/data/meld_graph/meldgraph.sh new_pt_pipeline.py -harmo_code H1 -ids /mnt/data/meld_data_JJ/list_subjects.txt -demos /mnt/data/meld_data_JJ/demographics_file.csv --harmo_only\nThe harmo_code parameter should be different for each different scanner / sequence, so it might be a good idea to have different .txt files for lists of subjects acquired with different sequences."
+  },
+  {
+    "objectID": "help_MELD.html#predict-fcd-lesion-on-a-specific-subject",
+    "href": "help_MELD.html#predict-fcd-lesion-on-a-specific-subject",
+    "title": "MELD graph",
+    "section": "Predict FCD-lesion on a specific subject",
+    "text": "Predict FCD-lesion on a specific subject\nChange sub-001 by whatever subject you want to predict (and set the harmonisation code accordingly)\n/mnt/data/meld_graph/meldgraph.sh new_pt_pipeline.py -id sub-001 -harmo_code H1"
+  },
+  {
+    "objectID": "help_MELD.html#predict-fcd-lesion-on-all-subjects-in-the-dataset",
+    "href": "help_MELD.html#predict-fcd-lesion-on-all-subjects-in-the-dataset",
+    "title": "MELD graph",
+    "section": "Predict FCD-lesion on all subjects in the dataset",
+    "text": "Predict FCD-lesion on all subjects in the dataset\nThis command will run the pipeline on all the subjects of a given .txt file.\n/mnt/data/meld_graph/meldgraph.sh new_pt_pipeline.py -ids list_subjects.txt --parallelise"
+  },
+  {
+    "objectID": "help_MELD.html#leave-a-message",
+    "href": "help_MELD.html#leave-a-message",
+    "title": "MELD graph",
     "section": "Leave a message",
     "text": "Leave a message\nFeel free to comment, make a question, report a bug, etc. If you want to notify a specific user (e.g. to get a faster response), you may include their Github handle in your message (e.g. @romainligneul or @samuelgarcia)."
   },
