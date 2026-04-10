@@ -31,15 +31,20 @@ echo 'source "$FREESURFER_HOME/SetUpFreeSurfer.sh"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+:::{.callout-warning}
+Each time you connect, you should probably tell meld which data folder you'll be using by typing:
+`/mnt/data/meld_graph/meldgraph.sh prepare_classifier.py`
+Check the current data folder and if it is not the good one, type `n` and indicate your own data folder (e.g. `/mnt/data/meld_data_JJ` in this tuto)
+:::
+
 ## Import new data (T1 images)
 
-If you are using sensitive patient's data, it is probably a good idea to define your own data folder that you will be the only one allowed to access. First, create this folder in /mnt/data/. For example, `/mnt/data/meld_data_JJ`
+If you are using sensitive patient's data, it is probably a good idea to define your own data folder that you will be the only one allowed to access. First, create this folder in /mnt/data/. For example, `/mnt/data/meld_data_JJ` will be used for this tutorial. All paths refering to it should be changed unless you are JJ ;).
 
 To make sure that only you can read these file, run: 
 `chmod -R 700 /mnt/data/meld_data_JJ`
 
-Then 
-
+## Import new data (T1 images)
 
 Use Filezilla or any approach you like to import T1 anatomical files into the folder `/mnt/data/meld_data_JJ/input`.
 
@@ -58,10 +63,6 @@ You should indicate the name of the subject to be analyzed (e.g. subj-01) in the
 
 :::{.callout-note}
 Full documentation about data preparation is available [here](https://meld-graph.readthedocs.io/en/latest/prepare_data.html).
-:::
-
-:::{.callout-warning}
-Note that if you have already run MELD on the 
 :::
 
 ## Compute harmonization parameters
