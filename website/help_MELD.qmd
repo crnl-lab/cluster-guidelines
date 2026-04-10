@@ -53,7 +53,7 @@ Note that MELD uses the BIDS convention, so you should add the data in the follo
 ```
 /mnt/data/meld_data_JJ/input
 |—subj-01
-| |—anat
+| |—T1
 | | |—T1w.nii.gz
 ```
 

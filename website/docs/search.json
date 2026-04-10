@@ -270,7 +270,7 @@
     "href": "help_MELD.html#import-new-data-t1-images-1",
     "title": "MELD graph",
     "section": "Import new data (T1 images)",
-    "text": "Import new data (T1 images)\nUse Filezilla or any approach you like to import T1 anatomical files into the folder /mnt/data/meld_data_JJ/input.\nNote that MELD uses the BIDS convention, so you should add the data in the following way:\n/mnt/data/meld_data_JJ/input\n|—subj-01\n| |—anat\n| | |—T1w.nii.gz\nMELD might work with not zipped images as well (i.e. .nii images without .gz extension), but I have not tested it.\nYou should indicate the name of the subject to be analyzed (e.g. subj-01) in the file /mnt/data/meld_data_JJ/list_subjects.txt and also populate the file /mnt/data/meld_data_JJ/demographics_file.csv that is needed to compute harmonisation parameters.\n\n\n\n\n\n\nNote\n\n\n\nFull documentation about data preparation is available here."
+    "text": "Import new data (T1 images)\nUse Filezilla or any approach you like to import T1 anatomical files into the folder /mnt/data/meld_data_JJ/input.\nNote that MELD uses the BIDS convention, so you should add the data in the following way:\n/mnt/data/meld_data_JJ/input\n|—subj-01\n| |—T1\n| | |—T1w.nii.gz\nMELD might work with not zipped images as well (i.e. .nii images without .gz extension), but I have not tested it.\nYou should indicate the name of the subject to be analyzed (e.g. subj-01) in the file /mnt/data/meld_data_JJ/list_subjects.txt and also populate the file /mnt/data/meld_data_JJ/demographics_file.csv that is needed to compute harmonisation parameters.\n\n\n\n\n\n\nNote\n\n\n\nFull documentation about data preparation is available here."
   },
   {
     "objectID": "help_MELD.html#compute-harmonization-parameters",
