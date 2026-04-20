@@ -74,14 +74,26 @@ conda, the package might be "better" installed in some case.
 
 ## Venv environment
 
-If you wish instead to use a venv to manage your virtual environment,
-you can use the default Python interpreter of the cluster (currently,
-version 3.11). To do so, type the following commands
+If you wish instead to use python [venv](https://docs.python.org/3/library/venv.html) to manage your virtual environment,
+here is an example that make use of the default Python interpreter already installed on the cluster (currently,
+version 3.11). To create a venv named `crnlvenv` and load it in a Jupyter kernel just like
+done above with miniconda, type the following commands:
 
-`python3 -m venv .localenv`
-`source ./.localenv/bin/activate`
-`pip install numpy submitit`
-`pip install memory_profiler -U`
+```{.bash}
+### Create ~/.virtualenvs if it does not alread exist 
+mkdir -p ~/.virtualenvs
+### Create a venv named crnlvenv
+python3 -m venv .virtualenvs/crnlvenv
+### Activate the new venv
+source ~/.virtualenvs/crnlvenv/bin/activate
+### Install some packages in crnlvenv
+pip install --upgrade pip
+pip install numpy submitit
+pip install memory_profiler -U
+### ipykernel creates a jupyter kernel from current venv
+pip install ipykernel
+python -m ipykernel install --user --name 'crnlvenv'
+```
 
 If you also use conda, make sure that the (base) environment 
 
